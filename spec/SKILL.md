@@ -224,9 +224,15 @@ Spawn all three in parallel. Each receives the six audited reports, the six cros
 
 Each writes its position **from its own mandate only**. The Judiciary may not propose a plan, it tests the reasoning of the others and rules on whether it holds. That constraint is deliberate; a Judiciary that starts proposing is just a third Executive.
 
+**Then write the record to disk before Stage 8 begins.** Save the six audited departmental positions, the cross-review findings, any unresolved audit objections and the three branch positions to `quorum-record-<short-topic>.md` alongside where the report will go.
+
+This is not housekeeping. Automatic context compaction fires on a threshold and cannot be disabled. If it fires between here and the Speaker, the Speaker reconciles from a *summary* of the audited reports rather than from the reports, and it does so silently: no error, plausible output, wrong provenance. At Stage 8 that would quietly corrupt the work of every agent in the run. Writing the record out costs nothing and removes the failure entirely.
+
 ### Stage 8: The Speaker
 
 One agent receives everything. It produces the verdict.
+
+**Pass the Speaker the record file, and tell it to read the file rather than work from what is still in context.** If the file and its context disagree, the file wins. It is the only copy whose provenance is certain.
 
 The Speaker reconciles; it does not count votes. It may side with one branch against the other two if the reasoning holds. It is required to record the strongest position it overruled and what would have to be true for that position to win.
 

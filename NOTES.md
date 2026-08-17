@@ -60,7 +60,7 @@ a filed location by hand instead. The skill and the local filing rules disagreed
 *Fix:* SKILL.md should say `documents/<category>/` and ask which category if it is not
 obvious.
 
-**4. The verdict is too dense to read.** the author's feedback after run 1, and he is the user.
+**4. The verdict is too dense to read.** The author's feedback after run 1, and he is the user.
 The Speaker writes well but writes long, in full paragraphs, with the important sentence
 buried mid-block. A verdict nobody finishes reading is a verdict that did not happen.
 
@@ -103,7 +103,7 @@ items went unanswered across the whole run.
 
 ## Tiers, added 16 August 2026, after run 1
 
-Run 1 cost 38 agents. the author's brief changed as a result: **Quorum has to be usable by people
+Run 1 cost 38 agents. The author's brief changed as a result: **Quorum has to be usable by people
 who are not on a large plan.** That is now a design constraint, not a nice-to-have, and it
 outranks thoroughness at the cheap end.
 
@@ -112,14 +112,14 @@ decides, because the person paying should control what gets spent.
 
 **All three do the same six jobs.** Departments research, an auditor verifies, someone
 cross-checks the departments against each other, three branches rule from separate mandates, a
-Speaker reconciles, a Comptroller audits the verdict. the author's requirement, and he was right to
+Speaker reconciles, a Comptroller audits the verdict. The author's requirement, and he was right to
 insist: a tier that drops a whole job is a different tool wearing the same name. Going down a
 tier costs coverage and tokens, never a kind of check.
 
 ### Checking versus judging, the rule that made the cheap tier possible
 
 An earlier draft gave Quick no cross-review at all, on the grounds that anonymous review needs
-six papers to mean anything. the author pushed back: something has to read the departments against
+six papers to mean anything. The author pushed back: something has to read the departments against
 each other. He was right, and the reason the earlier reasoning failed is that Stage 6 was being
 treated as one kind of work when it is two.
 
@@ -144,7 +144,7 @@ Two ways to build tiers were considered. **Shrink the same process**, every stag
 every tier, just smaller. **Different jobs per tier**, each tier built to do a smaller job
 properly.
 
-the author chose shrink-the-same-process, then reversed to prioritise accessibility, then corrected
+The author chose shrink-the-same-process, then reversed to prioritise accessibility, then corrected
 back toward parity when the cheap tier lost its cross-check. The landing point takes the useful
 half of both: **same seven jobs everywhere, and each stage rebuilt at a size that still works
 rather than shrunk until it doesn't.**
@@ -240,7 +240,7 @@ below.
 
 ### The guard now measures difficulty, not question type
 
-the author's call, and it is the right one: Quorum should work on almost any question, with decisions
+The author's call, and it is the right one: Quorum should work on almost any question, with decisions
 as its speciality rather than its boundary.
 
 The old guard asked *"is this a decision?"*, which is a question about type. What actually
@@ -322,7 +322,7 @@ through.
 ## Portability, added 16 August 2026
 
 The skill is going on GitHub, so it runs on strangers' machines. Run 1's version hardcoded
-the author's world: `documents/<category>/` filing, a `memory/` folder to scan, ClaudeHub's rules.
+The author's world: `documents/<category>/` filing, a `memory/` folder to scan, ClaudeHub's rules.
 All of it now globs for what exists and asks where to save, falling back to the working
 directory. If a `CLAUDE.md` or `AGENTS.md` states a filing convention, follow it and say which
 rule was followed.
@@ -335,3 +335,26 @@ One question answered once serves both the author and a stranger, and no fork is
 Agent count by stage, as actually run: 3 branch briefs, 12 workers, 6 departmental reports,
 6 audits, 6 cross-reviews, 3 branch deliberations, 1 Speaker, 1 Comptroller. Tasking and the
 final assembly were done by the main session at no agent cost.
+
+## The compaction fix, applied 17 August 2026
+
+The one behaviour change run 3's ruling said should ship, and the only one not frozen.
+
+Automatic context compaction fires on a threshold and cannot be disabled. Between Stage 7 and
+Stage 8 that would leave the Speaker reconciling from a *summary* of the audited departmental
+reports rather than from the reports. Silently: no error, plausible output, wrong provenance. At
+that stage it exposes the work of thirty-six of the thirty-eight agents in a Full run.
+
+Never observed in a run. Identified by the Continuity department and confirmed by its auditor,
+which established independently that compaction fires on a threshold and cannot be turned off.
+A latent failure, not a seen one.
+
+*Fix:* Stage 7 now closes by writing the audited positions, cross-review findings, unresolved
+objections and branch positions to a record file on disk. Stage 8 reads that file and is told
+that where the file and its own context disagree, the file wins. Costs nothing and removes the
+failure mode rather than reducing it.
+
+Recorded here because it was reported to the user when run 3 landed, then not done, and the
+repository was published without it. Caught only when the user asked whether the thing was
+actually finished. The lesson is not about compaction: a ruling's ship list needs to be worked
+through as a list, not remembered.
