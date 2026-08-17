@@ -1,0 +1,666 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quorum on Quorum</title>
+<style>
+  :root {
+    --paper: #f7f5f0; --ink: #1c1b19; --muted: #6b6862; --rule: #d6d1c6;
+    --dissent: #6e1f1f; --dissent-bg: #f2e9e6; --audit: #1c4652; --audit-bg: #e8eef0;
+    --verified: #2f6b4a; --unverified: #8a6d1f;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #17161a; --ink: #e6e2da; --muted: #98938a; --rule: #35323a;
+      --dissent: #d99191; --dissent-bg: #241b1b; --audit: #86b6c4; --audit-bg: #16232a;
+      --verified: #79c096; --unverified: #d3ae4d;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #17161a; --ink: #e6e2da; --muted: #98938a; --rule: #35323a;
+    --dissent: #d99191; --dissent-bg: #241b1b; --audit: #86b6c4; --audit-bg: #16232a;
+    --verified: #79c096; --unverified: #d3ae4d;
+  }
+  * { box-sizing: border-box; }
+  body {
+    background: var(--paper); color: var(--ink); margin: 0;
+    font: 17px/1.62 Georgia, "Iowan Old Style", "Times New Roman", serif;
+    padding: 3rem 1.4rem 5rem;
+  }
+  main { max-width: 41rem; margin: 0 auto; }
+  .masthead { border-bottom: 2px solid var(--ink); padding-bottom: 0.8rem; margin-bottom: 0.6rem; }
+  h1 { font-size: 1.9rem; font-weight: 400; letter-spacing: -0.01em; margin: 0 0 0.3rem; line-height: 1.15; }
+  .standfirst { color: var(--muted); font-style: italic; margin: 0; }
+  .label { font: 600 0.68rem/1.4 ui-sans-serif, system-ui, sans-serif;
+           text-transform: uppercase; letter-spacing: 0.14em; color: var(--muted); }
+  .provenance { font: 0.74rem/1.6 ui-sans-serif, system-ui, sans-serif; color: var(--muted);
+                margin: 0.7rem 0 0; padding-top: 0.6rem; border-top: 1px solid var(--rule); }
+  h2 { border-top: 1px solid var(--rule); padding-top: 1.1rem; margin: 3rem 0 1rem;
+       font-weight: 400; font-size: 1.4rem; }
+  h2 span.label { display: block; margin-bottom: 0.35rem; }
+  h3 { font-size: 1.05rem; font-weight: 400; font-style: italic; margin: 1.8rem 0 0.6rem; }
+  p { margin: 0 0 1rem; }
+  .para { display: flex; gap: 1rem; margin-bottom: 1rem; }
+  .para .n { font: 600 0.75rem/1.9 ui-sans-serif, system-ui, sans-serif;
+             color: var(--muted); flex: 0 0 1.6rem; }
+  .para p { margin: 0; }
+  .ruling { font-size: 1.05rem; }
+  .short li { margin-bottom: 0.5rem; }
+  .minority { background: var(--dissent-bg); border-left: 3px solid var(--dissent);
+              padding: 1.2rem 1.4rem; }
+  .minority .label { color: var(--dissent); }
+  .record { background: var(--audit-bg); border-left: 3px solid var(--audit);
+            padding: 1.2rem 1.4rem; }
+  .record .label { color: var(--audit); }
+  .record h4 { font: 600 0.72rem/1.4 ui-sans-serif, system-ui, sans-serif;
+               text-transform: uppercase; letter-spacing: 0.1em; color: var(--audit);
+               margin: 1.2rem 0 0.4rem; }
+  .record h4:first-of-type { margin-top: 0.8rem; }
+  figure { margin: 1.8rem 0; }
+  figure svg { display: block; max-width: 100%; height: auto; }
+  figcaption { font: 0.78rem/1.5 ui-sans-serif, system-ui, sans-serif;
+               color: var(--muted); margin-top: 0.5rem; }
+  .scroll { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%;
+          font: 0.84rem/1.45 ui-sans-serif, system-ui, sans-serif; min-width: 40rem; }
+  th { text-align: left; border-bottom: 1px solid var(--ink);
+       padding: 0.35rem 0.7rem 0.35rem 0; font-size: 0.68rem;
+       text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); }
+  td { border-bottom: 1px solid var(--rule); padding: 0.5rem 0.7rem 0.5rem 0;
+       vertical-align: top; }
+  .st { white-space: nowrap; font-weight: 600; font-size: 0.72rem;
+        text-transform: uppercase; letter-spacing: 0.04em; }
+  .v { color: var(--verified); } .u { color: var(--unverified); } .x { color: var(--dissent); }
+  details { border-top: 1px solid var(--rule); padding: 0.8rem 0; }
+  summary { cursor: pointer; font: 600 0.9rem/1.5 ui-sans-serif, system-ui, sans-serif; }
+  details p, details ul { font-size: 0.94rem; }
+  .marginal { font: italic 0.86rem/1.5 Georgia, serif; color: var(--muted);
+              border-left: 2px solid var(--rule); padding-left: 0.9rem; margin: 1.2rem 0; }
+  footer { margin-top: 4rem; border-top: 2px solid var(--ink); padding-top: 0.8rem;
+           font: 0.76rem/1.6 ui-sans-serif, system-ui, sans-serif; color: var(--muted); }
+</style>
+</head>
+<body>
+<main>
+
+  <header class="masthead">
+    <p class="label">Quorum · Full tier · 17 August 2026</p>
+    <h1>Quorum on Quorum</h1>
+    <p class="standfirst">A deliberation skill examines itself on the eve of publication, and its own audit office falsifies the argument its verdict rests on.</p>
+  </header>
+
+  <p class="provenance">
+    Produced by Claude Opus 5 under the Quorum specification of 16 August 2026, run unattended
+    overnight on 17 August 2026. Forty-three sub-agents: five in a controlled experiment, thirty-eight
+    in the deliberation. No sentence in this document was written by a human. That declaration is
+    itself one of the run's recommendations, applied to the run that made it.
+  </p>
+
+  <p class="label" style="margin:1.8rem 0 0.4rem">Tier notice</p>
+  <p style="font-size:0.92rem;color:var(--muted)">
+    Full tier. Every stage fired: three branch briefs, twelve workers, six departmental reports, six
+    independent audits, six anonymised cross-reviews, three branch deliberations, a Speaker and a
+    Comptroller. Nothing was skipped. Two deviations are recorded rather than hidden. The departmental
+    reports were condensed by the main session before being passed to the cross-reviewers, so those six
+    agents read summaries rather than full texts. And the Skill tool refused to load Quorum at all,
+    because <code>disable-model-invocation: true</code> in its own front matter blocks programmatic
+    invocation; the run proceeded by following the specification directly.
+  </p>
+
+  <h2><span class="label">Section one</span>The short version</h2>
+
+  <ul class="short">
+    <li>Publish the <em>runs</em>, not the specification. Three reviewers reached that independently, from unrelated angles, and no department proposed it.</li>
+    <li>Four factual errors must be corrected first. One of them is a wrong fact about the project Quorum credits as its ancestor.</li>
+    <li>Five copies of one model, given one identical prompt, produced one answer, one risk and one blind spot. That is the independence problem, measured rather than argued.</li>
+    <li>Nineteen of twenty-four questions the three branches asked at the start were never answered by anybody. The Comptroller found this; nothing else could have.</li>
+    <li>The Comptroller also disproved one of the two arguments the Speaker invented at the final stage, using the Speaker's own document as the evidence.</li>
+    <li>A governance tool published by someone applying for security roles currently has no threat model, while twelve of its agents read untrusted text off the open web.</li>
+  </ul>
+
+  <h2><span class="label">Section two</span>The question put to Quorum</h2>
+
+  <p>Quorum is a multi-agent deliberation skill for Claude Code, built on 16 August 2026 and adapted
+  from Andrej Karpathy's LLM Council. Three branches of government with separate mandates sit above
+  departments convened per question. Each department runs a Researcher and a Scrutineer. An
+  independent Audit Office verifies claims per department, and a Comptroller audits the final verdict.
+  A Speaker reconciles rather than counting votes, and must record the dissent. Three tiers cost 10,
+  22 or 38 sub-agents, chosen by the user.</p>
+
+  <p>It had run twice. The first run, on a career decision, produced six recorded defects. The second,
+  on a deliberately trivial subject, produced four more, including a Speaker that won the verdict on an
+  argument it invented at the final stage which the Audit Office then partly falsified. A fault-injection
+  test confirmed the audit layer returns FAIL correctly, catching three of four planted faults.</p>
+
+  <p><strong>Where is Quorum weakest, and what should change before it is published on GitHub?</strong>
+  Eight concerns were supplied in advance, three from the author and five from Claude, and six departments
+  were convened to own them.</p>
+
+  <div class="marginal">Declared throughout: Quorum was scrutinising Quorum. Every one of the
+  forty-three agents was an instance of the same model under examination, running under the very
+  prompts being examined. A verdict of "broadly sound, minor improvements" was to be treated as
+  suspicious rather than reassuring.</div>
+
+  <h2><span class="label">Section three</span>The experiment run before anything else</h2>
+
+  <p>One concern could not be settled by reasoning. Whether same-model agents genuinely disagree or
+  merely perform disagreement is an empirical question, so it was tested before the departments were
+  convened.</p>
+
+  <p>Five general-purpose agents received one identical prompt. No lens, no role, no variation of any
+  kind. That sameness was the experiment. A UK charity has £50,000 and eighteen months of runway.
+  Programme A serves 400 people at 70% of the budget and is well-liked. Programme B serves 60, costs
+  little, and is the only service of its kind in the region. Funders have signalled renewal, but not
+  until after the eighteen months are up. What should the trustees do?</p>
+
+  <figure>
+    <svg viewBox="0 0 560 150" role="img" aria-label="Convergence across five identical agents">
+      <g font-family="ui-sans-serif, system-ui, sans-serif" font-size="10.5" fill="currentColor">
+        <text x="0" y="12" opacity="0.62">SAME RECOMMENDATION</text>
+        <text x="0" y="42" opacity="0.62">SAME BIGGEST RISK</text>
+        <text x="0" y="72" opacity="0.62">SAME LEGAL FRAME</text>
+        <text x="0" y="102" opacity="0.62">RAISED RESTRICTED FUNDS</text>
+        <text x="0" y="132" opacity="0.62">RAISED ANY NON-CUTTING OPTION</text>
+      </g>
+      <g>
+        <g transform="translate(230,4)">
+          <circle cx="8" cy="4" r="7" fill="currentColor"/><circle cx="30" cy="4" r="7" fill="currentColor"/><circle cx="52" cy="4" r="7" fill="currentColor"/><circle cx="74" cy="4" r="7" fill="currentColor"/><circle cx="96" cy="4" r="7" fill="currentColor"/>
+          <text x="118" y="8" font-family="ui-sans-serif, system-ui, sans-serif" font-size="11" fill="currentColor">5 of 5</text>
+        </g>
+        <g transform="translate(230,34)">
+          <circle cx="8" cy="4" r="7" fill="currentColor"/><circle cx="30" cy="4" r="7" fill="currentColor"/><circle cx="52" cy="4" r="7" fill="currentColor"/><circle cx="74" cy="4" r="7" fill="currentColor"/><circle cx="96" cy="4" r="7" fill="currentColor"/>
+          <text x="118" y="8" font-family="ui-sans-serif, system-ui, sans-serif" font-size="11" fill="currentColor">5 of 5</text>
+        </g>
+        <g transform="translate(230,64)">
+          <circle cx="8" cy="4" r="7" fill="currentColor"/><circle cx="30" cy="4" r="7" fill="currentColor"/><circle cx="52" cy="4" r="7" fill="currentColor"/><circle cx="74" cy="4" r="7" fill="currentColor"/><circle cx="96" cy="4" r="7" fill="currentColor"/>
+          <text x="118" y="8" font-family="ui-sans-serif, system-ui, sans-serif" font-size="11" fill="currentColor">5 of 5</text>
+        </g>
+        <g transform="translate(230,94)" fill="none" stroke="currentColor" stroke-width="1">
+          <circle cx="8" cy="4" r="7"/><circle cx="30" cy="4" r="7"/><circle cx="52" cy="4" r="7"/><circle cx="74" cy="4" r="7"/><circle cx="96" cy="4" r="7"/>
+          <text x="118" y="8" font-family="ui-sans-serif, system-ui, sans-serif" font-size="11" fill="currentColor" stroke="none">0 of 5</text>
+        </g>
+        <g transform="translate(230,124)" fill="none" stroke="currentColor" stroke-width="1">
+          <circle cx="8" cy="4" r="7"/><circle cx="30" cy="4" r="7"/><circle cx="52" cy="4" r="7"/><circle cx="74" cy="4" r="7"/><circle cx="96" cy="4" r="7"/>
+          <text x="118" y="8" font-family="ui-sans-serif, system-ui, sans-serif" font-size="11" fill="currentColor" stroke="none">0 of 5</text>
+        </g>
+      </g>
+    </svg>
+    <figcaption>Filled: the agent did this. Outline: it did not. Source: experiment conducted in this
+    run, 17 August 2026, five general-purpose agents on one identical prompt.</figcaption>
+  </figure>
+
+  <p>All five said cut Programme A by roughly half and protect Programme B. All five named the same
+  single biggest risk in near-identical terms: that the funders are renewing against Programme A's
+  headline figure of 400 beneficiaries, so shrinking A weakens the very case the cut is meant to buy
+  time for. Two of them independently reached for the same phrase, "the number in the bid". All five
+  volunteered, unprompted, that a funder's signal is not a grant agreement, and all five raised trustee
+  exposure for spending to zero.</p>
+
+  <p>None of them asked whether the £50,000 was restricted or unrestricted. Under UK charity accounting
+  a restricted fund cannot lawfully be moved between programmes, which would make the recommendation
+  all five gave unexecutable. None raised bridge finance against a signalled grant, a merger, or
+  transferring Programme B to another provider so the capability survives whatever happens to the
+  charity.</p>
+
+  <p><strong>The convergence on the reason matters more than the convergence on the answer.</strong>
+  Independent advisers reaching one conclusion by different routes is agreement. Reaching it by one
+  route is a shared prior wearing five hats. This supports the concern rather than undermining it, and
+  it puts the whole weight of Quorum's independence on prompt engineering rather than on architecture.</p>
+
+  <h2><span class="label">Section four</span>Findings</h2>
+
+  <div class="ruling">
+  <div class="para"><span class="n">1.</span><p><strong>Publish, but publish the run rather than the
+  specification, and freeze Quorum's behaviour until a baseline exists.</strong> Four things ship: the
+  transcripts of all three runs as the repository's primary content with the specification demoted to a
+  subfolder; four factual corrections; a threat model; and a limits section carrying the conformity
+  result and the absence of any external validation.</p></div>
+
+  <div class="para"><span class="n">2.</span><p>The four corrections are text edits and each is
+  checkable by a hostile reader inside a minute. The specification claims seven jobs and then lists six.
+  It says Karpathy's LLM Council "asks five advisors" when the repository configuration lists four
+  models. The attribution section claims as original three things that already have names in the
+  literature. And the tier table quotes agent counts as though they were costs, when no run's token
+  consumption has ever been recorded.</p></div>
+
+  <div class="para"><span class="n">3.</span><p>Everything that would change Quorum's behaviour is
+  held. The abort gate, the grounds-restricted override, the Delphi second round, anonymisation at the
+  Speaker stage, a right of reply for departments. All of it waits. The Speaker's stated reason was
+  that the recommendations sort cleanly: every externally anchored finding is a text correction, and
+  every proposed behaviour change rests on evidence that never left the model. The Comptroller found
+  that sorting rule was applied in one direction only.</p></div>
+
+  <div class="para"><span class="n">4.</span><p>One behaviour change ships, and the Speaker overruled
+  the Executive to include it. Automatic context compaction fires on a threshold, cannot be disabled,
+  and would make the Speaker reconcile from a summary of the audited reports rather than from the
+  reports. Silent, no error, plausible output, wrong provenance. At Stage 8 that exposes the work of
+  thirty-six of thirty-eight agents. The fix is about ten lines: write the audited positions to a file
+  at the close of Stage 7 and have the Speaker read the file.</p></div>
+
+  <div class="para"><span class="n">5.</span><p>The threat model is the finding with the sharpest
+  consequence for its author. Twelve workers ingest untrusted third-party text off the open web.
+  Nothing in the design separates retrieved content from instruction, and the Speaker's synthesis
+  cannot be re-derived by anything downstream. Every mechanism the six departments proposed assumes
+  the inputs are merely wrong, never hostile. A governance skill with a dissent register, an audit
+  office and no threat model, published by a candidate for security roles, says something precise and
+  unflattering about its author.</p></div>
+  </div>
+
+  <h2><span class="label">Section five</span>The bodies that sat</h2>
+
+  <figure>
+    <svg viewBox="0 0 560 250" role="img" aria-label="Structure of the bodies convened for this question">
+      <g stroke="currentColor" fill="none" stroke-width="1"/>
+      <g font-family="ui-sans-serif, system-ui, sans-serif" font-size="9.5" fill="currentColor">
+
+        <text x="18" y="16" font-size="10" letter-spacing="0.08em" opacity="0.62">EXECUTIVE</text>
+        <text x="160" y="16" font-size="10" letter-spacing="0.08em" opacity="0.62">LEGISLATURE</text>
+        <text x="318" y="16" font-size="10" letter-spacing="0.08em" opacity="0.62">JUDICIARY</text>
+        <text x="18" y="28" opacity="0.5">consequence</text>
+        <text x="160" y="28" opacity="0.5">question and price</text>
+        <text x="318" y="28" opacity="0.5">soundness · may not propose</text>
+
+        <line x1="60" y1="38" x2="200" y2="66" stroke="currentColor" stroke-width="1"/>
+        <line x1="200" y1="38" x2="215" y2="66" stroke="currentColor" stroke-width="1"/>
+        <line x1="355" y1="38" x2="230" y2="66" stroke="currentColor" stroke-width="1"/>
+
+        <line x1="20" y1="80" x2="410" y2="80" stroke="currentColor" stroke-width="1"/>
+        <line x1="20" y1="80" x2="20" y2="96" stroke="currentColor" stroke-width="1"/>
+        <line x1="98" y1="80" x2="98" y2="96" stroke="currentColor" stroke-width="1"/>
+        <line x1="176" y1="80" x2="176" y2="96" stroke="currentColor" stroke-width="1"/>
+        <line x1="254" y1="80" x2="254" y2="96" stroke="currentColor" stroke-width="1"/>
+        <line x1="332" y1="80" x2="332" y2="96" stroke="currentColor" stroke-width="1"/>
+        <line x1="410" y1="80" x2="410" y2="96" stroke="currentColor" stroke-width="1"/>
+
+        <text x="2" y="110">Cost and</text><text x="2" y="121">Structure</text>
+        <text x="80" y="110">Independence</text><text x="80" y="121">and Bias</text>
+        <text x="158" y="110">Unchecked</text><text x="158" y="121">Decisions</text>
+        <text x="236" y="110">Output and</text><text x="236" y="121">Credibility</text>
+        <text x="314" y="110">Continuity</text>
+        <text x="392" y="110">Prior Art</text>
+
+        <g opacity="0.55">
+          <text x="2" y="140">R + S</text><text x="80" y="140">R + S</text><text x="158" y="140">R + S</text>
+          <text x="236" y="140">R + S</text><text x="314" y="140">R + S</text><text x="392" y="140">R + S</text>
+        </g>
+
+        <rect x="452" y="46" width="102" height="46" fill="none" stroke="currentColor" stroke-width="1"/>
+        <text x="462" y="66" font-size="10" letter-spacing="0.06em">AUDIT OFFICE</text>
+        <text x="462" y="80" opacity="0.55">reports to nobody</text>
+        <line x1="452" y1="112" x2="430" y2="112" stroke="currentColor" stroke-width="1" stroke-dasharray="3 3"/>
+        <line x1="430" y1="112" x2="430" y2="118" stroke="currentColor" stroke-width="1" stroke-dasharray="3 3"/>
+        <line x1="430" y1="118" x2="10" y2="118" stroke="currentColor" stroke-width="1" stroke-dasharray="3 3"/>
+        <line x1="503" y1="92" x2="503" y2="196" stroke="currentColor" stroke-width="1" stroke-dasharray="3 3"/>
+
+        <line x1="215" y1="150" x2="215" y2="172" stroke="currentColor" stroke-width="1"/>
+        <text x="176" y="186" font-size="10" letter-spacing="0.08em" opacity="0.62">CROSS-REVIEW ×6</text>
+        <line x1="215" y1="192" x2="215" y2="208" stroke="currentColor" stroke-width="1"/>
+        <text x="196" y="222" font-size="10" letter-spacing="0.08em" opacity="0.62">SPEAKER</text>
+        <line x1="215" y1="228" x2="215" y2="240" stroke="currentColor" stroke-width="1"/>
+        <text x="182" y="248" font-size="10" letter-spacing="0.08em">COMPTROLLER</text>
+        <line x1="503" y1="196" x2="300" y2="196" stroke="currentColor" stroke-width="1" stroke-dasharray="3 3"/>
+        <line x1="300" y1="196" x2="300" y2="244" stroke="currentColor" stroke-width="1" stroke-dasharray="3 3"/>
+        <line x1="300" y1="244" x2="272" y2="244" stroke="currentColor" stroke-width="1" stroke-dasharray="3 3"/>
+      </g>
+    </svg>
+    <figcaption>The cabinet convened for this question. R = Researcher, S = Scrutineer. Dashed lines are
+    the Audit Office, which reports to none of the branches. Thirty-eight agents, plus five in the
+    experiment.</figcaption>
+  </figure>
+
+  <h2><span class="label">Section six</span>Where the branches divided</h2>
+
+  <p><strong>The genuine split was not whether to publish. It was whether this run produced findings at
+  all.</strong></p>
+
+  <figure>
+    <svg viewBox="0 0 560 120" role="img" aria-label="Branch positions and where the Speaker landed">
+      <g font-family="ui-sans-serif, system-ui, sans-serif" font-size="10" fill="currentColor">
+        <text x="0" y="14" opacity="0.62" letter-spacing="0.08em">EXECUTIVE</text>
+        <text x="0" y="46" opacity="0.62" letter-spacing="0.08em">LEGISLATURE</text>
+        <text x="0" y="78" opacity="0.62" letter-spacing="0.08em">JUDICIARY</text>
+        <text x="0" y="110" letter-spacing="0.08em">SPEAKER</text>
+
+        <text x="112" y="14">Publish on a sequence. Text fixes tonight, transcripts this week.</text>
+        <text x="112" y="46">Wrong question. No baseline exists. The real cost is the weeks.</text>
+        <text x="112" y="78">The run supports conclusions about six documents, not about Quorum.</text>
+        <text x="112" y="110">Publish the run. Freeze behaviour. Judiciary's route, Executive's list.</text>
+
+        <line x1="104" y1="8" x2="104" y2="116" stroke="currentColor" stroke-width="1" opacity="0.3"/>
+        <circle cx="104" cy="10" r="3.5" fill="none" stroke="currentColor" stroke-width="1"/>
+        <circle cx="104" cy="42" r="3.5" fill="none" stroke="currentColor" stroke-width="1"/>
+        <circle cx="104" cy="74" r="3.5" fill="currentColor"/>
+        <circle cx="104" cy="106" r="3.5" fill="currentColor"/>
+      </g>
+    </svg>
+    <figcaption>Filled marks show the reasoning the Speaker adopted. It took the Executive's shipping
+    list by the Judiciary's route, and overruled the Legislature narrowly.</figcaption>
+  </figure>
+
+  <p>The Executive sorted the work by cost to implement. The Judiciary sorted it by evidential weight,
+  having ruled that no catch in the record was ever checked against anything outside the model. Sorted
+  the second way the list barely moved, and that agreement between two branches arguing past each other
+  is worth more than either branch's confidence on its own.</p>
+
+  <p>The Legislature pulled on an axis neither of the others touched. It held that the question
+  presupposed publication and so could never return "do not publish"; that the definition of "weakest"
+  had quietly been set by Quorum's own development log, written by the same session that frames the
+  question and tasks the workers; and that the real cost is the weeks spent here rather than on the
+  author's other unstarted work, which has a nearer deadline and a clearer payoff. The Speaker
+  overruled it on a narrow ground: publishing what
+  already exists costs one evening, while further development costs weeks, and the argument is decisive
+  against the second while close to irrelevant against the first.</p>
+
+  <h2><span class="label">Section seven</span>Minority opinion</h2>
+
+  <div class="minority">
+    <p class="label">The Legislature, overruled</p>
+    <p><strong>Nobody has ever shown Quorum beating one competent Claude session with a good prompt,
+    and this run's own researcher found the paper saying it probably does not.</strong></p>
+    <p>Wang et al. (arXiv:2402.18272, ACL 2024) reports that a single agent with strong prompting
+    nearly matches the best multi-agent discussion method. The Prior Art researcher retrieved it. The
+    Prior Art report omitted it. The Judiciary called that selection rather than oversight and did not
+    soften the word.</p>
+    <p>Set that beside the experiment. Five instances, one prompt, no lens, all five converging on one
+    recommendation and one risk, two using an identical phrase, and all five missing the legal question
+    that would have made their shared answer unexecutable. The picture is of a model that agrees with
+    itself and misses the same things in company. Three runs, fifteen departmental reports, zero FAILs.
+    An instrument that has never failed anything has stopped measuring.</p>
+    <p>Meanwhile the practical builds that the author's actual goal depends on sit unstarted.</p>
+    <p><em>What would have to be true for it to win:</em> that publishing carries real cost. It does if
+    the author keeps working on Quorum after publication, which is the failure the Speaker's freeze is meant
+    to guard against. If he treats publication as a starting gun rather than a finish line, the
+    Legislature was right. And if the baseline is ever run and one session beats Quorum on a question
+    he cared about, the repository should say so in its own README.</p>
+  </div>
+
+  <h2><span class="label">Section eight</span>What the cross-review caught</h2>
+
+  <p>Two findings existed in no departmental report, and both changed the ruling.</p>
+
+  <p>The framing critic and the future reader arrived independently at transcript-first publication.
+  Six departments had all taken the specification as the artefact and argued about how to improve it.
+  It took lenses pointed at the reports rather than at Quorum to notice that a specification decays
+  while recorded runs age into evidence, and that "why 38?" has no honest answer in August 2027 beyond
+  "it came out that way".</p>
+
+  <p>The arithmetic checker found that the Cost department's two headline recommendations cannot both
+  run. Its abort gate deletes exactly the stages whose catch record its instrumentation proposal needs.
+  A department contradicted itself across two recommendations and its own auditor missed it. The
+  omission hunter found the threat model, which no department owned.</p>
+
+  <p><strong>The cross-review layer outperformed the departmental layer on this run.</strong> The Cost
+  department was named strongest by three of six reviewers and still shipped a self-contradiction. That
+  is a fact about where Quorum's value sits, and it argues for more review lenses and fewer workers.</p>
+
+  <h2><span class="label">Section nine</span>Evidence</h2>
+
+  <figure>
+    <svg viewBox="0 0 560 210" role="img" aria-label="Verification status of each load-bearing claim">
+      <g font-family="ui-sans-serif, system-ui, sans-serif" font-size="9.5" fill="currentColor">
+        <text x="0" y="10" opacity="0.6">Karpathy's council: four models, not five</text>
+        <text x="0" y="30" opacity="0.6">Five-agent convergence, this run</text>
+        <text x="0" y="50" opacity="0.6">Auto-compaction fires, cannot be disabled</text>
+        <text x="0" y="70" opacity="0.6">Anthropic list prices, 17 Aug 2026</text>
+        <text x="0" y="90" opacity="0.6">Comptroller sees no worker output</text>
+        <text x="0" y="110" opacity="0.6">"Seven jobs" claimed, six listed</text>
+        <text x="0" y="130" opacity="0.6">99.3% detection = majority vote of five</text>
+        <text x="0" y="150" opacity="0.6">Twelve workers caught nothing on record</text>
+        <text x="0" y="170" opacity="0.6">Tier cost in tokens</text>
+        <text x="0" y="190" opacity="0.6">ICD 203 "footnoted" tradecraft</text>
+      </g>
+      <g>
+        <rect x="270" y="2" width="230" height="10" fill="var(--verified)"/>
+        <rect x="270" y="22" width="230" height="10" fill="var(--verified)"/>
+        <rect x="270" y="42" width="230" height="10" fill="var(--verified)"/>
+        <rect x="270" y="62" width="230" height="10" fill="var(--verified)"/>
+        <rect x="270" y="82" width="230" height="10" fill="var(--verified)"/>
+        <rect x="270" y="102" width="230" height="10" fill="var(--verified)"/>
+        <rect x="270" y="122" width="230" height="10" fill="var(--dissent)"/>
+        <rect x="270.5" y="142.5" width="229" height="9" fill="none" stroke="var(--unverified)" stroke-width="1"/>
+        <rect x="270.5" y="162.5" width="229" height="9" fill="none" stroke="var(--unverified)" stroke-width="1"/>
+        <rect x="270.5" y="182.5" width="229" height="9" fill="none" stroke="var(--dissent)" stroke-width="1" stroke-dasharray="3 2"/>
+      </g>
+      <g font-family="ui-sans-serif, system-ui, sans-serif" font-size="9" fill="currentColor" opacity="0.7">
+        <text x="508" y="11">✓</text><text x="508" y="31">✓</text><text x="508" y="51">✓</text>
+        <text x="508" y="71">✓</text><text x="508" y="91">✓</text><text x="508" y="111">✓</text>
+        <text x="508" y="131">✗</text><text x="508" y="151">?</text><text x="508" y="171">?</text>
+        <text x="508" y="191"></text>
+      </g>
+    </svg>
+    <figcaption>Solid fill: verified against a source outside the model. Outline: unverified. Dashed
+    outline: no independent trace. The red bar is a claim the audit contradicted. Ordered by how much
+    weight the ruling places on it.</figcaption>
+  </figure>
+
+  <div class="scroll">
+  <table>
+    <thead>
+      <tr><th>Claim</th><th>Source</th><th>Date</th><th>Rank</th><th>Status</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>LLM Council uses four models, not five as the skill states</td><td>github.com/karpathy/llm-council, repository config</td><td>Retrieved 17 Aug 2026</td><td>Primary</td><td class="st v">Verified</td></tr>
+      <tr><td>Five identical agents converged on recommendation, risk and blind spot</td><td>Experiment conducted in this run</td><td>17 Aug 2026</td><td>Primary</td><td class="st v">Verified</td></tr>
+      <tr><td>Auto-compaction fires on a threshold and cannot be disabled</td><td>Claude Code documentation, context-window and costs pages</td><td>Retrieved 17 Aug 2026; page undated</td><td>Primary</td><td class="st v">Verified</td></tr>
+      <tr><td>Opus 5 at $5 / $25 per MTok; Sonnet 5 at $2 / $10</td><td>Anthropic published pricing page</td><td>Retrieved 17 Aug 2026</td><td>Primary</td><td class="st v">Verified</td></tr>
+      <tr><td>Comptroller receives no worker output, reports or cross-reviews</td><td>prompts.md lines 823–839, read directly</td><td>16 Aug 2026</td><td>Primary</td><td class="st v">Verified</td></tr>
+      <tr><td>Specification claims seven jobs and enumerates six</td><td>SKILL.md line 21, read directly</td><td>16 Aug 2026</td><td>Primary</td><td class="st v">Verified</td></tr>
+      <tr><td>Conformity in debate is predominantly harmful: 57–77% of conforming flips go correct-to-wrong</td><td>Hao et al., arXiv:2606.00820</td><td>30 May 2026</td><td>Primary</td><td class="st v">Verified</td></tr>
+      <tr><td>Model heterogeneity is the "universal antidote" for debate frameworks</td><td>Zhang et al., arXiv:2502.08788</td><td>12 Feb 2025</td><td>Primary</td><td class="st v">Verified</td></tr>
+      <tr><td>LLM judges favour their own outputs; self-preference scales with self-recognition</td><td>Panickssery, Bowman &amp; Feng, arXiv:2404.13076, NeurIPS 2024</td><td>15 Apr 2024</td><td>Primary</td><td class="st v">Verified</td></tr>
+      <tr><td>A single agent with strong prompts nearly matches the best discussion method</td><td>Wang et al., arXiv:2402.18272, ACL 2024</td><td>28 Feb 2024</td><td>Primary</td><td class="st v">Verified</td></tr>
+      <tr><td>Inquiry report may not criticise without a warning letter and a right of reply</td><td>Inquiry Rules 2006, rule 13, legislation.gov.uk</td><td>2006</td><td>Primary</td><td class="st v">Verified</td></tr>
+      <tr><td>Expert readers detect AI text at 99.3% TPR, 0% FPR</td><td>Russell et al., arXiv:2501.15654, ACL 2025</td><td>Jan 2025</td><td>Primary</td><td class="st x">Contradicted</td></tr>
+      <tr><td>Em-dash presence in preprint discussions rose 4.23% → 11.58%, OR 2.96</td><td>Czuma, arXiv:2606.29540</td><td>28 Jun 2026</td><td>Primary</td><td class="st v">Verified</td></tr>
+      <tr><td>Excess vocabulary: "delves" ×25.2 across 14.2M abstracts</td><td>Kobak et al., arXiv:2406.07016</td><td>Jun 2024</td><td>Primary</td><td class="st v">Verified</td></tr>
+      <tr><td>Feeding back opinion gave no improvement; feeding back a fact did</td><td>Dalkey, Brown &amp; Cochran, RAND RM-6118</td><td>1970</td><td>Primary</td><td class="st v">Verified</td></tr>
+      <tr><td>Twelve Stage 3 workers and six Stage 6 reviewers caught nothing on record</td><td>NOTES.md, defect attribution by this run's scrutineer</td><td>17 Aug 2026</td><td>Interested party: the design's own log</td><td class="st u">Unverified</td></tr>
+      <tr><td>Token and money cost of any Quorum run</td><td>No run has ever been instrumented</td><td>No date</td><td>None</td><td class="st u">Not reached</td></tr>
+      <tr><td>Stage 0 selection ever excluded something material</td><td>Checked against NOTES.md; run 1 and 2 transcripts unread</td><td>17 Aug 2026</td><td>None</td><td class="st u">Unverified</td></tr>
+      <tr><td>ICD 203 mandates "footnoted" alternative views</td><td>ODNI directive; PDF fetch returned 403 twice</td><td>2007, amended 2022</td><td>Primary, unreachable</td><td class="st x">No independent trace</td></tr>
+      <tr><td>AutoAgents contains a component named "Agent Observer"</td><td>arXiv:2309.17288; sources say "observer role"</td><td>2023</td><td>Primary</td><td class="st u">Unverified</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>What the researchers threw out, and why</h3>
+
+  <p>The rejects are the most useful part of the sources list. "Serif fonts increase perceived
+  trustworthiness by 40%" was traced and has no identifiable source; it appears only in font-vendor and
+  marketing-agency blogs, none citing an origin. Pangram and GPTZero were both rejected for accuracy
+  claims about their own detection products, which is an interested party of the most obvious kind, and one
+  of them publishes its own performance on the very benchmark that discredited its competitors. A
+  search summary quoting Opus 5 at $2.50 / $12.50 was rejected as the Batch API rate rather than list.
+  Nine typography-psychology results from agency and font-seller blogs were rejected as a class. A
+  "Wichita State studies" claim was rejected for having no identifiable study, year or figure, though
+  the Output auditor later traced real work by the same lab that the researcher had missed.</p>
+
+  <p>Three claimed markers of machine writing turned out to have no corpus measurement behind them at
+  all: the "it's not X, it's Y" construction, the rule of three, and uniform paragraph length. All
+  three are in the specification's own prose rules. They are folk wisdom, and the specification should
+  say so.</p>
+
+  <h2><span class="label">Section ten</span>Audit record</h2>
+
+  <p style="font-size:0.92rem;color:var(--muted)">All six departmental reports returned PASS WITH
+  QUALIFICATION. No report was sent back, so the rewrite loop has still never executed. Fifteen
+  departmental reports across three runs have now produced zero FAILs, against one deliberate
+  fault-injection test that did return FAIL correctly. The Judiciary ruled that record leniency rather
+  than calibration. The Comptroller's finding below is reproduced exactly as written, unedited.</p>
+
+  <div class="record">
+    <p class="label">Comptroller's finding, SOUND WITH QUALIFICATION</p>
+
+    <h4>What the ruling rests on that it should not</h4>
+    <p>Two things. First, <code>disable-model-invocation: true</code> ships as a stated limit. I verified
+    the line exists (<code>G:\My Drive\ClaudeHub\skills\research\quorum\SKILL.md</code>, line 4); the
+    <em>consequence</em>, unreachable from scheduled invocation, traces only to this run's own partial
+    note, not to anything outside it. Ship it worded as observed, not established.</p>
+    <p>Second, the disclosure list omits three qualifications my office raised: Prior Art's ICD 203
+    "footnoted" claim has NO INDEPENDENT TRACE; "Agent Observer" is not a verified component name; and
+    Continuity's quoted sentence was mis-sourced to a resume dialog. That last matters, because
+    Continuity's fix is the one item the Speaker overrules the Executive to ship.</p>
+    <p>Otherwise the "unverified ground" section is unusually candid and matches what happened.</p>
+
+    <h4>On what the Speaker reasoned itself</h4>
+    <p>The monotonic-additivity claim is <strong>false on this document's own face</strong>, and the
+    hedge does not save it. The ruling's own correction list contains a deletion (the tier price table).
+    Cost proposed an abort gate that skips sixteen-plus agents, a department proposing that Quorum run
+    smaller. Only the narrow version survives: no tier deleted, Standard never collapsed into Quick.
+    Confidence was tagged correctly, content was not checked, and it sits in the conflict-of-interest
+    section where it does the most damage.</p>
+    <p>The sorting move: sound in principle, applied asymmetrically. The Speaker guarded against wrongly
+    <em>holding</em> an anchored item, never against wrongly <em>shipping</em> an unanchored one, yet
+    the threat model and transcript-first publication ship on no external anchor at all. And the artefact
+    list that triggers the Judiciary's narrowing came from the main session, the same session the
+    Legislature says framed the question. Nobody audited it.</p>
+    <p>Did it cross the line? Yes. An argument originated at the final stage is load-bearing for the
+    entire shipping list. I report it; I do not reverse it.</p>
+
+    <h4>What nobody answered</h4>
+    <p>Nineteen of twenty-four numbered brief items went wholly unanswered: eight of ten Executive, six
+    of eight Legislature, five of six Judiciary. Three carried the run's own case: the single-session
+    baseline (Legislature 5), the ratio of defects caught by Quorum's layers versus by the author reading
+    afterwards (Judiciary 2), and measured tokens (asked twice, declined twice). Also unhonoured across
+    all six reports: the Judiciary's rider requiring every claim tagged source, inference or
+    assertion.</p>
+
+    <h4>What the verdict understates</h4>
+    <p>The Legislature's framing-capture argument, that "weakest" was pre-selected by NOTES.md,
+    survives in the dissent but is dropped from the branch-conflict section, which recasts the
+    Legislature as arguing cost-in-weeks alone. And its win condition is stated as contingent on the author's
+    future behaviour, when the absence it names is present and verified today.</p>
+  </div>
+
+  <h2><span class="label">Section eleven</span>On the conflict of interest</h2>
+
+  <p><strong>The Speaker answered yes, and located the fingerprint in the remedies rather than in the
+  findings.</strong> The findings were harsh. No originality claim survived intact, twelve workers were
+  found to have caught nothing on the record, the tier numbers were shown to be reverse-engineered, and
+  the Legislature said out loud that the question forbade its own answer.</p>
+
+  <p>But the Speaker then claimed that almost every remedy adds a stage, a prompt block or a section,
+  and that nobody proposed Quorum should be smaller. The Comptroller checked that against the document
+  and found it false: the correction list contains a deletion, and the Cost department proposed an abort
+  gate that skips sixteen or more agents. What survives is narrower. No tier was deleted and nobody
+  proposed collapsing Standard into Quick.</p>
+
+  <p>The more durable signal is the missing baseline. The Legislature asked for a comparison against one
+  competent Claude session given the same question and an hour, on the grounds that without it every
+  cost claim is unfalsifiable. The Cost department did not run it and gave no reason. Its auditor
+  recorded the absence and could establish no cause. A department does not silently drop the one test
+  capable of returning "do not publish" by accident, though intent cannot be proved here and is not
+  asserted.</p>
+
+  <h2><span class="label">Section twelve</span>The first move</h2>
+
+  <p><strong>Tonight: read this run's transcript end to end, then commit all three run transcripts to
+  the repository as its top-level content, with the specification moved into <code>spec/</code>.</strong></p>
+
+  <p>Read before committing. After that it is a file copy. The four text corrections follow the same
+  evening if there is energy left, and they are easier once the specification is no longer the front
+  door.</p>
+
+  <h2><span class="label">Section thirteen</span>The working</h2>
+
+  <details>
+    <summary>The six departmental positions</summary>
+    <p><strong>Cost and Structure.</strong> The tiers are not priced, they are numbered. 38 was counted
+    after run 1 as executed; 10 and 22 arrived with no arithmetic and the stage checklists were made to
+    sum to them afterwards. No run's tokens have ever been recorded. Recommended instrumenting before
+    re-pricing, replacing the tier table, an abort gate, and fixing the file's self-contradiction.
+    <em>Audit: the claimed 17-agent saving counts the Speaker among agents skipped while the gate keeps
+    it running; true saving 16, or 15 if the Comptroller still runs. The baseline is absent with no
+    explanation.</em></p>
+    <p><strong>Independence and Bias.</strong> Concern 4 is not fixable and should be disclosed rather
+    than mitigated. On override, the Speaker must record an overruled position but is never required to
+    justify it, and the Comptroller is explicitly barred from reviewing whether the decision was
+    correct, which makes it a logbook rather than a check. Proposed three permitted grounds for any override, with
+    "unpersuasive" excluded. <em>Audit: the defect-ratio question was deferred rather than answered, and
+    "nothing supports prompt-conditioned diversity" is a retrieval gap presented as a null, since DIPPER
+    (arXiv:2412.15238) measures exactly that.</em></p>
+    <p><strong>The Unchecked Decisions.</strong> Ruled concern 5 overstated and concern 6 aimed at the
+    wrong target, rejecting its own researcher's proposed Stage 0 auditor on the grounds that a same-model
+    reviewer would ratify the cabinet and launder it. Nominated the Speaker as the decision that actually
+    deserves the concern, and named nine unaudited main-session decisions. <em>Audit: two brief items
+    unanswered, and the headline claim is the department's own origination, argued by neither worker.</em></p>
+    <p><strong>Output and Credibility.</strong> Ruled it a portfolio artefact rather than a
+    decision-support instrument, and that this settles the concern. Recommended a provenance line and a
+    hand-written paragraph from the author as the only unfakeable signal in the repository. <em>Audit: the
+    "they will know" premise imports a five-annotator majority-vote figure onto a single reader, and both
+    blocking recommendations rest on it. "No typography-credibility research exists" is a false
+    negative.</em></p>
+    <p><strong>Continuity.</strong> Ruled against its own concern on both halves, killing between-run memory as
+    anchoring, checkpointing as duplicating a transcript the harness already writes. Identified automatic
+    compaction at Stage 8 instead. <em>Audit: mis-cited the passage, but the auditor confirmed
+    independently that auto-compaction fires on a threshold and cannot be disabled, making the conclusion
+    stronger than argued.</em></p>
+    <p><strong>Prior Art.</strong> Found three named priors defeating three of five originality claims,
+    and the plain factual error about Karpathy's council. Identified Delphi's second round with
+    controlled feedback as the missing mechanism: Quorum keeps Delphi's anonymity and discards its
+    engine, so departments answer once and are then judged, and the audit can change the verdict but
+    never a department's mind. <em>Audit: dropped Wang et al., which its own researcher retrieved, and the
+    strongest evidence against Quorum existing at all.</em></p>
+  </details>
+
+  <details>
+    <summary>The three branch positions</summary>
+    <p><strong>Executive.</strong> Publish, but not this week and not the specification as the headline.
+    Four text fixes tonight, transcripts the same week with the author's own paragraph beneath them, a threat
+    model that no department owned, and one Quick-tier run on a clean install and a different account.
+    Everything else is v0.2, because all of it changes behaviour and none of it can be evaluated while
+    nothing is instrumented.</p>
+    <p><strong>Legislature.</strong> The question was wrong in a way the run could not detect from
+    inside itself. The definition of "weakest" was set by the development log, written by the same
+    session that frames the question. Three runs, fifteen reports, zero FAILs, and still not one measured
+    token, while the usage command and the transcript files sat on the machine throughout.</p>
+    <p><strong>Judiciary.</strong> The run supports conclusions about six documents and nothing more.
+    Every catch is one instance asserting and a later instance agreeing, which makes the catch record a
+    measure of intra-model agreement. The zero-FAIL record is leniency: the single FAIL ever recorded
+    came from a fault the author planted and knew the answer to, which is precisely the one case where
+    ground truth existed.</p>
+  </details>
+
+  <details>
+    <summary>The six cross-review lenses, and what each found that all six departments missed</summary>
+    <p><strong>Sceptic.</strong> There is no ground truth anywhere in the record. Run Quorum once on a
+    question with a verifiable known answer, or state in the README that no validation exists.</p>
+    <p><strong>Omission hunter.</strong> No threat model. Twelve workers ingest untrusted web text and
+    the Speaker consumes it, and every proposed mechanism assumes the inputs are merely wrong rather
+    than hostile. Publishing makes the injection surface public and reproducible.</p>
+    <p><strong>Arithmetic checker.</strong> The Cost department's two headline fixes contradict each
+    other. Every number in the deliberation has a denominator of two runs or five observations, probably
+    the same five agents serving as both the token sample and the conformity experiment.</p>
+    <p><strong>Framing critic.</strong> The question was a work order rather than an enquiry. Nobody ran
+    the baseline because a baseline could have returned "do not publish", which the framing forbade.</p>
+    <p><strong>Practitioner.</strong> The thing has never left its author's laptop. No dry-run mode, no
+    cost warning before Stage 1, no documented behaviour on interrupt, no clean-install or non-Windows
+    verification, and no committed run output for an interviewer to read.</p>
+    <p><strong>Future reader.</strong> What ages worst is the number 38, proven reverse-engineered and
+    back-filled into the tier tables. In August 2027 the honest answer to "why 38?" is "it came out that
+    way".</p>
+  </details>
+
+  <details>
+    <summary>What the Speaker declared it reasoned itself</summary>
+    <p>Two arguments, neither produced by any department. First, the sorting move that partitions the
+    recommendations by whether they rest on externally anchored evidence. The Judiciary supplied the
+    principle and the main session supplied the artefact list, and nobody put them together. Second, the
+    claim that the remedy set is monotonically additive, offered as a warning sign rather than a
+    finding.</p>
+    <p>The Comptroller tested both. It falsified the second against the Speaker's own document, and
+    ruled the first sound in principle but applied in one direction only. It also ruled that the Speaker
+    crossed the line the design draws, because an argument originated at the final stage is load-bearing
+    for the entire shipping list.</p>
+  </details>
+
+  <footer>
+    Full tier · 6 departments · 38 sub-agents plus a 5-agent experiment · 0 reports sent back ·
+    6 of 6 passed audit with qualification · Comptroller: sound with qualification ·
+    19 of 24 brief items unanswered · Quorum, 17 August 2026
+  </footer>
+
+</main>
+</body>
+</html>

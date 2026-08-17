@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Britain's Best Dish | Quorum</title>
+<style>
+  :root {
+    --paper: #f7f5f0; --ink: #1c1b19; --muted: #6b6862; --rule: #d6d1c6;
+    --dissent: #6e1f1f; --dissent-bg: #f2e9e6; --audit: #1c4652; --audit-bg: #e8eef0;
+    --verified: #2f6b4a; --unverified: #8a6d1f;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #17161a; --ink: #e6e2da; --muted: #98938a; --rule: #35323a;
+      --dissent: #d99191; --dissent-bg: #241b1b; --audit: #86b6c4; --audit-bg: #16232a;
+      --verified: #79c096; --unverified: #d3ae4d;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    background: var(--paper); color: var(--ink); margin: 0;
+    font: 17px/1.62 Georgia, "Iowan Old Style", "Times New Roman", serif;
+    padding: 3rem 1.4rem 5rem;
+  }
+  main { max-width: 41rem; margin: 0 auto; }
+  .masthead { border-bottom: 2px solid var(--ink); padding-bottom: 0.9rem; margin-bottom: 1.4rem; }
+  h1 { font-size: 2rem; font-weight: 400; letter-spacing: -0.015em; margin: 0.4rem 0 0.35rem; line-height: 1.12; }
+  .standfirst { color: var(--muted); font-style: italic; margin: 0; font-size: 1.02rem; }
+  .label { font: 600 0.67rem/1.4 ui-sans-serif, system-ui, sans-serif;
+           text-transform: uppercase; letter-spacing: 0.15em; color: var(--muted); margin: 0; }
+  h2 { border-top: 1px solid var(--rule); padding-top: 1.1rem; margin: 3.2rem 0 1.1rem;
+       font-size: 1.28rem; font-weight: 400; letter-spacing: -0.01em; }
+  h2 .label { display: block; margin-bottom: 0.35rem; }
+  p { margin: 0 0 1rem; }
+  .tiernote { font-size: 0.92rem; color: var(--muted); border-left: 2px solid var(--rule);
+              padding-left: 1rem; margin: 1.5rem 0 0; }
+  .summary { margin: 2rem 0 0; padding-left: 0; list-style: none; }
+  .summary li { border-top: 1px solid var(--rule); padding: 0.6rem 0 0.6rem 0; }
+  .summary li:last-child { border-bottom: 1px solid var(--rule); }
+  .para { display: flex; gap: 1rem; margin-bottom: 1.1rem; }
+  .para .n { font: 600 0.74rem/2 ui-sans-serif, system-ui, sans-serif;
+             color: var(--muted); flex: 0 0 1.7rem; }
+  .para p { margin: 0; }
+  .lede p { font-size: 1.09rem; }
+  .minority { background: var(--dissent-bg); border-left: 3px solid var(--dissent);
+              padding: 1.2rem 1.4rem; }
+  .minority .label { color: var(--dissent); margin-bottom: 0.7rem; }
+  .minority p:last-child { margin-bottom: 0; }
+  .record { background: var(--audit-bg); border-left: 3px solid var(--audit);
+            padding: 1.2rem 1.4rem; }
+  .record .label { color: var(--audit); margin-bottom: 0.7rem; }
+  .record p:last-child { margin-bottom: 0; }
+  figure { margin: 1.8rem 0; }
+  figure svg { display: block; max-width: 100%; height: auto; }
+  figcaption { font: 0.77rem/1.55 ui-sans-serif, system-ui, sans-serif;
+               color: var(--muted); margin-top: 0.6rem; }
+  .scroll { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%;
+          font: 0.83rem/1.45 ui-sans-serif, system-ui, sans-serif; min-width: 38rem; }
+  th { text-align: left; border-bottom: 1px solid var(--ink);
+       padding: 0.35rem 0.8rem 0.35rem 0; font-size: 0.66rem;
+       text-transform: uppercase; letter-spacing: 0.11em; color: var(--muted); font-weight: 600; }
+  td { border-bottom: 1px solid var(--rule); padding: 0.52rem 0.8rem 0.52rem 0;
+       vertical-align: top; }
+  td a { color: inherit; }
+  .rank { color: var(--muted); white-space: nowrap; font-size: 0.78rem; }
+  .st { white-space: nowrap; font-weight: 600; font-size: 0.7rem;
+        text-transform: uppercase; letter-spacing: 0.05em; }
+  .v { color: var(--verified); } .u { color: var(--unverified); } .x { color: var(--dissent); }
+  .rejects { font: 0.85rem/1.6 ui-sans-serif, system-ui, sans-serif;
+             color: var(--muted); border-left: 2px solid var(--rule);
+             padding-left: 1rem; margin-top: 1.4rem; }
+  details { border-top: 1px solid var(--rule); padding: 0.85rem 0; }
+  details p { margin: 0.8rem 0 0; font-size: 0.95rem; }
+  details:last-of-type { border-bottom: 1px solid var(--rule); }
+  summary { cursor: pointer; font: 600 0.9rem/1.5 ui-sans-serif, system-ui, sans-serif; }
+  summary span { font-weight: 400; color: var(--muted); }
+  footer { margin-top: 4rem; border-top: 2px solid var(--ink); padding-top: 0.9rem;
+           font: 0.75rem/1.7 ui-sans-serif, system-ui, sans-serif; color: var(--muted); }
+</style>
+</head>
+<body>
+<main>
+
+  <header class="masthead">
+    <p class="label">Quorum · Quick tier · 16 August 2026</p>
+    <h1>Are fish and chips Britain's best dish?</h1>
+    <p class="standfirst">Yes, on an argument the research does not support, which the Audit
+    Office then partly demolished.</p>
+  </header>
+
+  <p class="tiernote"><strong>Tier notice.</strong> This was the Quick tier: three departments
+  researching their own patches, one auditor across all three, one cross-checker, three branches,
+  a Comptroller. There were no separate scrutineers and no six-reviewer ranking round. Nothing
+  below went through an independent challenge layer, and the Audit Office reached only part of the
+  evidence. A first-pass ruling, not a settled one.</p>
+
+  <ul class="summary">
+    <li>The question says <em>claim</em>, and a claim is about standing, not portions sold. That
+    knocks out every sales figure in the run.</li>
+    <li>The polling goes too. A survey that ranks <em>chips</em> above <em>fish and chips</em> is
+    not measuring dishes.</li>
+    <li>What remains is the Speaker's own idea: fish and chips is the only dish with its own
+    shops, 7,210 of them.</li>
+    <li>The Audit Office checked that and found Toby Carvery running about 150 dedicated roast
+    sites. "There is no roast industry" is false as written.</li>
+    <li>So: probably yes, on a hypothesis nobody tested.</li>
+  </ul>
+
+  <h2><span class="label">Section one</span>Findings</h2>
+
+  <div class="lede">
+    <div class="para"><span class="n">1.</span><p><strong>Fish and chips holds the strongest
+    claim, and it holds it on a test none of the three departments actually ran.</strong></p></div>
+  </div>
+
+  <div class="para"><span class="n">2.</span><p>The question says <em>claim</em>. A claim is about
+  standing, what a country puts forward as itself. It is not about how many portions moved last
+  quarter. Accept that and the whole behavioural corpus drops out, not because it is flawed but
+  because it answers a different question.</p></div>
+
+  <div class="para"><span class="n">3.</span><p>The polling drops out symmetrically. If a list
+  ranking "chips" at 85% above "fish and chips" at 83% cannot see dishes, it cannot see the 84/84
+  tie of 2019 either. You may not read a measurement off a ruler you have declared bent. That
+  kills "ahead" and "level" together, and leaves the roast with no established parity claim.</p></div>
+
+  <div class="para"><span class="n">4.</span><p>What is left is one thing. Every commercial dataset
+  is blind to the Sunday roast because there is no roast industry to count. Fish and chips has a
+  dedicated retail estate, premises whose entire reason for existing is that one dish. Chicken
+  tikka masala is served in restaurants that serve fifty other things. A dish with its own shopfront
+  in every town has a public standing that a dish cooked in kitchens does not.</p></div>
+
+  <div class="para"><span class="n">5.</span><p>That argument was not produced by any department.
+  The Speaker reasoned it at the final stage. Paragraph 12 records what the Audit Office made of
+  it.</p></div>
+
+  <figure>
+    <svg viewBox="0 0 560 186" xmlns="http://www.w3.org/2000/svg" role="img"
+         aria-label="Three branches above three departments, with the Audit Office to one side">
+      <g fill="none" stroke="currentColor" stroke-width="0.75" opacity="0.45">
+        <rect x="6"   y="10" width="124" height="40"/>
+        <rect x="146" y="10" width="124" height="40"/>
+        <rect x="286" y="10" width="124" height="40"/>
+        <rect x="440" y="10" width="116" height="40" stroke-dasharray="3 2"/>
+        <rect x="18"  y="112" width="100" height="32"/>
+        <rect x="152" y="112" width="100" height="32"/>
+        <rect x="286" y="112" width="100" height="32"/>
+        <path d="M68 50 V72 H348 V50 M208 50 V72 M208 72 V90 M68 90 H348 M68 90 V112 M208 90 V112 M348 90 V112"/>
+        <path d="M498 50 V128 H392" stroke-dasharray="3 2"/>
+      </g>
+      <g font-family="ui-sans-serif, system-ui, sans-serif" text-anchor="middle" fill="currentColor">
+        <g font-size="10" font-weight="600" letter-spacing="0.5">
+          <text x="68"  y="28">EXECUTIVE</text>
+          <text x="208" y="28">LEGISLATURE</text>
+          <text x="348" y="28">JUDICIARY</text>
+          <text x="498" y="28">AUDIT OFFICE</text>
+        </g>
+        <g font-size="8.5" opacity="0.62" font-style="italic">
+          <text x="68"  y="42">can it be settled?</text>
+          <text x="208" y="42">right question?</text>
+          <text x="348" y="42">does it hold up?</text>
+          <text x="498" y="42">is it true?</text>
+        </g>
+        <g font-size="8.5">
+          <text x="68"  y="126">The Dish</text><text x="68"  y="137">Itself</text>
+          <text x="202" y="126">What Britain</text><text x="202" y="137">Actually Eats</text>
+          <text x="336" y="126">The</text><text x="336" y="137">Rivals</text>
+        </g>
+      </g>
+      <g font-family="ui-sans-serif, system-ui, sans-serif" font-size="8" fill="currentColor" opacity="0.6">
+        <text x="398" y="131">verifies</text>
+        <text x="6" y="172">One cross-checker read all three reports against each other. No scrutineers at this tier.</text>
+      </g>
+    </svg>
+    <figcaption>Bodies convened for this question. The Audit Office is drawn apart because it
+    reports to none of the three branches.</figcaption>
+  </figure>
+
+  <h2><span class="label">Section two</span>Where the branches divided</h2>
+
+  <div class="para"><span class="n">6.</span><p><strong>The real split was not about fish and
+  chips. It was about whether the question had been read correctly before anyone started
+  measuring.</strong> Executive treated it as a data problem. Judiciary treated it as a soundness
+  problem. Both assumed better measurement would settle it.</p></div>
+
+  <div class="para"><span class="n">7.</span><p>Legislature broke from both by attacking the
+  definition rather than the data. Its sentence is the finding of the run: <em>"The instrument
+  picked the winner, and nobody voted on the instrument."</em> Seafish counts servings, so servings
+  became the test, and that test is structurally incapable of seeing a dish cooked at home.</p></div>
+
+  <div class="para"><span class="n">8.</span><p>One cross-checker flag was rejected on the
+  Legislature's argument, and correctly. "GB adults excludes Northern Ireland" is not a defect when
+  the question says Britain, and Britain is Great Britain.</p></div>
+
+  <h2><span class="label">Section three</span>Minority opinion</h2>
+
+  <div class="minority">
+    <p class="label">The Judiciary, overruled</p>
+    <p>Nothing here supports a verdict either way, and the Speaker has built one out of an absence.
+    Three departments measured difficulty of execution, frequency of purchase, and comparative
+    polling. None of those is "best". One instrument cannot distinguish a dish from an ingredient.
+    One department reached its verdict on figures already superseded inside this Quorum. Nobody
+    costed a portion.</p>
+    <p>"And the Speaker's ruling is worse than any of that, because it converts a gap in the
+    evidence into a positive finding, 'there is no data on the roast' becomes 'the roast has no
+    institutional form', which is an argument, not a measurement, and no department ran it."</p>
+    <p><em>What would have to be true for it to win:</em> show that the roast has a commercial
+    estate comparable in kind to the chip shop, with premises whose existence depends on it. The
+    Speaker did not verify this either way and named it as the part of the ruling it was least sure
+    about.</p>
+  </div>
+
+  <h2><span class="label">Section four</span>What the cross-check found</h2>
+
+  <div class="para"><span class="n">9.</span><p>Three contradictions, none of them visible from any
+  single report. Two departments counted chip shops and got 7,200 and 11,000 for the same object,
+  neither noticing the other. The Rivals department rested its verdict on Q2 2025 polling while Q2
+  2026 sat in a sister department's report, widening the gap it relied on from three points to
+  seven. And Rivals declared the ranking list unfit for the question while a second department
+  built its headline on that exact list.</p></div>
+
+  <div class="para"><span class="n">10.</span><p><strong>The shared blind spot decided the
+  verdict.</strong> Every behavioural number in the run counts food bought outside the home, which
+  makes the Sunday roast invisible by construction rather than by weakness. Two branches read that
+  as a hole to fill. The Speaker read it as evidence about the two dishes' different natures. That
+  disagreement is recorded here rather than smoothed over.</p></div>
+
+  <h2><span class="label">Section five</span>Evidence</h2>
+
+  <figure>
+    <svg viewBox="0 0 560 232" xmlns="http://www.w3.org/2000/svg" role="img"
+         aria-label="Bar chart showing the verification status of each load-bearing claim">
+      <defs>
+        <pattern id="hatch" width="4" height="4" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
+          <line x1="0" y1="0" x2="0" y2="4" stroke="currentColor" stroke-width="1.4" opacity="0.42"/>
+        </pattern>
+      </defs>
+      <g font-family="ui-sans-serif, system-ui, sans-serif" font-size="8.5" fill="currentColor">
+        <text x="0" y="10" opacity="0.6">Weight on the ruling  →</text>
+
+        <text x="0" y="34">Chip-shop estate exists (7,210)</text>
+        <rect x="248" y="25" width="300" height="11" fill="var(--verified)" opacity="0.85"/>
+        <text x="0" y="56">"No roast industry to count"</text>
+        <rect x="248" y="47" width="282" height="11" fill="var(--dissent)" opacity="0.85"/>
+        <text x="0" y="78">~150 dedicated roast sites</text>
+        <rect x="248" y="69" width="212" height="11" fill="var(--verified)" opacity="0.85"/>
+        <text x="0" y="100">YouGov ratings, Q2 2026</text>
+        <rect x="248" y="91" width="188" height="11" fill="var(--verified)" opacity="0.85"/>
+        <text x="0" y="122">Servings 61% below 2017</text>
+        <rect x="248" y="113" width="170" height="11" fill="var(--verified)" opacity="0.85"/>
+        <text x="0" y="144">Shop count ~11,000 (OS POI)</text>
+        <rect x="248" y="135" width="132" height="11" fill="var(--verified)" opacity="0.85"/>
+        <text x="0" y="166">Takeaway poll, n=1,692</text>
+        <rect x="248" y="157" width="104" height="11" fill="url(#hatch)" stroke="var(--unverified)" stroke-width="0.8"/>
+        <text x="0" y="188">In-home consumption</text>
+        <rect x="248" y="179" width="70" height="11" fill="none" stroke="var(--muted)" stroke-width="0.8" stroke-dasharray="2 2"/>
+      </g>
+      <g font-family="ui-sans-serif, system-ui, sans-serif" font-size="8" fill="currentColor">
+        <rect x="0" y="212" width="10" height="8" fill="var(--verified)" opacity="0.85"/>
+        <text x="15" y="220" opacity="0.7">Verified</text>
+        <rect x="70" y="212" width="10" height="8" fill="url(#hatch)" stroke="var(--unverified)" stroke-width="0.8"/>
+        <text x="85" y="220" opacity="0.7">Unverified</text>
+        <rect x="150" y="212" width="10" height="8" fill="var(--dissent)" opacity="0.85"/>
+        <text x="165" y="220" opacity="0.7">Contradicted</text>
+        <rect x="240" y="212" width="10" height="8" fill="none" stroke="var(--muted)" stroke-width="0.8" stroke-dasharray="2 2"/>
+        <text x="255" y="220" opacity="0.7">Never gathered</text>
+      </g>
+    </svg>
+    <figcaption>Bar length is how much weight the ruling puts on each claim, not the size of the
+    figure. The second bar is the ruling's central claim.</figcaption>
+  </figure>
+
+  <div class="scroll">
+  <table>
+    <thead><tr><th>Claim</th><th>Source</th><th>Date</th><th>Rank</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>7,210 fish and chip takeaways, UK, restaurants excluded</td>
+        <td><a href="https://www.seafish.org/about-us/news-blogs/seafish-publishes-landmark-study-of-the-uk-s-favourite-takeaway-meal">Seafish</a>, with FASFA and NFFF</td>
+        <td>29 Jun 2026</td><td class="rank">Interested party</td><td class="st v">Verified</td></tr>
+      <tr><td><strong>"There is no roast industry to count"</strong>, the ruling's central claim</td>
+        <td>None. Originated by the Speaker at the final stage</td>
+        <td></td><td class="rank">Not researched</td><td class="st x">Contradicted</td></tr>
+      <tr><td>~150 Toby Carvery sites are dedicated roast premises</td>
+        <td>Comptroller, via web search</td>
+        <td>Jan 2026</td><td class="rank">Journalism</td><td class="st v">Verified</td></tr>
+      <tr><td>Roast chicken 90%, chips 85%, fish and chips 83%</td>
+        <td>YouGov rolling ratings, British dishes</td>
+        <td>Q2 2026</td><td class="rank">Named dataset</td><td class="st v">Verified</td></tr>
+      <tr><td>Out-of-home servings 61% below 2017; down 9% in 2025</td>
+        <td>Seafish <em>, published against its own interest</em></td>
+        <td>2025 data</td><td class="rank">Interested party</td><td class="st v">Verified</td></tr>
+      <tr><td>Sunday roast and fish and chips level on 84%</td>
+        <td><a href="https://yougov.com/en-gb/articles/23758-classic-british-cuisine-ranked-britons">YouGov</a></td>
+        <td>11 Jun 2019</td><td class="rank">Named dataset</td><td class="st v">Verified</td></tr>
+      <tr><td>Shop count ~11,600 (2021) falling to ~11,000 (2025)</td>
+        <td>Ordnance Survey Points of Interest, analysed by HASP</td>
+        <td>Mid-2025</td><td class="rank">Primary</td><td class="st v">Verified</td></tr>
+      <tr><td>Takeaway choice: Chinese 25%, Indian 17%, fish and chips 16%</td>
+        <td>YouGov, n=1,692 GB adults</td>
+        <td>Feb 2021</td><td class="rank">Named dataset</td><td class="st u">Sample unverified</td></tr>
+      <tr><td>Robin Cook: chicken tikka masala "a true British national dish"</td>
+        <td>Speech text</td><td>19 Apr 2001</td><td class="rank">Primary</td><td class="st v">Verified</td></tr>
+      <tr><td>ICES advised zero catch on North Sea cod for 2026</td>
+        <td>ICES advice, via SeafoodSource</td><td>2026</td><td class="rank">Primary</td><td class="st v">Verified</td></tr>
+      <tr><td>~10,843 Indian restaurants in the UK</td>
+        <td>Rentech Digital <em>, scraper vendor, no stated method</em></td>
+        <td>Oct 2025</td><td class="rank">Below standard</td><td class="st u">Weak provenance</td></tr>
+      <tr><td>In-home consumption of either dish</td>
+        <td>Nobody gathered any. DEFRA Family Food and Kantar never consulted</td>
+        <td></td><td class="rank"></td><td class="st u">Not reached</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p class="rejects"><strong>Rejected during research.</strong> "Up to half of 10,000 chippies at
+  risk this year", widely repeated in the national press, no identifiable original source, and the
+  nearest precedent is a 2023 Sarson's vinegar marketing campaign. Killed by the department that
+  had been about to use it, and confirmed at source by the Audit Office. Without that rejection
+  this ruling would be sitting on a claim of imminent collapse invented by a condiment brand.</p>
+
+  <h2><span class="label">Section six</span>Audit record</h2>
+
+  <div class="record">
+    <p class="label">Comptroller's finding, sound with qualification</p>
+    <p><strong>What the ruling rests on that it should not.</strong> The declared unverified ground
+    names the wrong item. The Speaker flags the <em>size</em> of the chip-shop estate as the soft
+    spot. The load-bearing claim is the negative, "No rival has that" and "there is no roast
+    industry to count". Both are stated as fact. Neither was measured by any department.</p>
+    <p>A scope conflict it did not notice: it upheld "Britain is Great Britain", then rested on an
+    estate figure that is UK-wide across all four nations. Its own first move asks for a count the
+    source does not provide.</p>
+    <p><strong>On the Speaker originating its own argument.</strong> Legitimate to originate,
+    illegitimate at the confidence used. With every instrument dead, a Speaker confined to
+    recombination returns nothing, so a new argument is the only exit. But an argument entering at
+    the final stage has been checked by nobody, and this one was written as a finding rather than as
+    the surviving hypothesis it is.</p>
+    <p>What I could verify: Seafish, 29 June 2026, 7,210 fish and chip takeaways, restaurants
+    excluded. The estate exists. The exclusivity claim does not survive contact: around 150 Toby
+    Carvery sites in January 2026 are dedicated roast premises. "There is no roast industry" is
+    false as stated; "no comparable industry" is unverified.</p>
+    <p><strong>What nobody answered.</strong> Nobody gathered any evidence on the roast's
+    institutional form, which is the sole basis of the ruling. Nobody answered whether any rival
+    beats fish and chips on a working instrument. Nobody compared merit head to head.</p>
+    <p><strong>What the verdict understates.</strong> Its decisive claim contradicts the shape of
+    its own remit map: it ruled on ground it assigned to a department that never went there. And
+    the Judiciary's dissent is exactly right about the gap-to-finding conversion. The Speaker quotes
+    it, then rules past it without answering it.</p>
+  </div>
+
+  <p style="font-size:0.86rem;color:var(--muted);margin-top:1rem">Departmental audits, The Dish
+  Itself: pass with qualification. What Britain Actually Eats: pass. The Rivals: pass with
+  qualification. At this tier one auditor reads all three, so its mandatory record of what it could
+  not reach was substantial.</p>
+
+  <h2><span class="label">Section seven</span>The first move</h2>
+
+  <div class="para"><span class="n">11.</span><p><strong>Get one authoritative count of dedicated
+  fish and chip premises in Great Britain, from a single named source, with a date.</strong> Seafish
+  or the National Federation of Fish Friers. A morning's work. Chosen over costing a portion
+  deliberately: costing tests an inference the ruling already declared irrelevant, whereas the
+  premises count tests the only leg the verdict stands on.</p></div>
+
+  <div class="para"><span class="n">12.</span><p>The Comptroller's rider stands against it. The only
+  figure that exists is UK-wide, not Great Britain, so the first move as written cannot be completed
+  from the named source.</p></div>
+
+  <h2><span class="label">Section eight</span>The working</h2>
+
+  <details><summary>The Dish Itself <span>, pass with qualification</span></summary>
+    <p>Technically demanding to a degree its plainness disguises, but the merit case has a ceiling a
+    braise or a pastry does not have. Blumenthal's triple-cooked chip selects potatoes on dry matter
+    at 21–23%, simmering to collapse then frying at 130°C and again at 180°C. The batter does three
+    jobs at once: carbonation expands it, the foam insulates so the crust reaches Maillard
+    temperature while the fish only simmers, and alcohol evaporates ahead of water so the crust sets
+    before the fish overcooks. Done properly it is superb. Done badly it is greasy batter round
+    steamed fish, and the failure is total.</p>
+    <p><em>Its own attack on itself:</em> few moving parts, no stock, no reduction, no lamination,
+    no braise. Difficulty concentrated in one narrow window is not depth.</p>
+    <p><em>Audit fault:</em> cited 7,200 shops incomparably with another department's 11,000, and
+    admits it cannot say what share of shops cook well, the number its whole merit case needs.</p>
+  </details>
+
+  <details><summary>What Britain Actually Eats <span>, pass, no fault</span></summary>
+    <p>Loved but no longer chosen, and the gap between affection and behaviour is the finding.
+    Out-of-home servings fell 9% in 2025, 13.1 million fewer servings, and are 61% below 2017. The
+    age split is the sharpest number in the run, 28% of over-65s name fish and chips as their
+    takeaway of choice against 6% of 18–24s.</p>
+    <p><em>Its own attack on itself:</em> killed its best line. "The closure narrative is largely
+    bunk, and I nearly used it."</p>
+  </details>
+
+  <details><summary>The Rivals <span>, pass with qualification</span></summary>
+    <p>No rival beats fish and chips outright, but the Sunday roast draws level. On chicken tikka
+    masala: Robin Cook called it "a true British national dish" in April 2001, but the Glasgow origin
+    claim is not established, a Shahi Chicken Masala recipe predates the Shish Mahal in Mrs Balbir
+    Singh's 1961 cookbook, and Glasgow's 2009 protected-status bid failed when other British
+    restaurants claimed it too.</p>
+    <p><em>Its own attack on itself:</em> "these polls rank foods, not dishes. A poll that can rate
+    an ingredient above a meal isn't measuring what this Quorum is asking."</p>
+    <p><em>Audit fault:</em> its verdict rests on instruments it declared unfit.</p>
+  </details>
+
+  <details><summary>The three branch positions</summary>
+    <p><strong>Executive.</strong> Not settleable with this evidence. Cost a portion of both dishes,
+    because nothing here can tell a price shock from a fall in affection; then get in-home
+    consumption data; then a poll that asks about meals rather than foods.</p>
+    <p><strong>Legislature.</strong> Fish and chips holds the claim, and this Quorum has not earned
+    the right to say so. The definition of "best" was chosen by the availability of data rather than
+    by anyone deciding.</p>
+    <p><strong>Judiciary.</strong> Neither answer holds. Three tests scored on instruments that
+    measure different things, with one department declaring its own unfit and using it anyway.</p>
+  </details>
+
+  <footer>
+    Quick tier · 3 departments · 10 sub-agents · 0 reports sent back ·
+    1 pass, 2 pass with qualification · Quorum, 16 August 2026
+  </footer>
+
+</main>
+</body>
+</html>
