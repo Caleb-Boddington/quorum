@@ -1,0 +1,641 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>claude4beginners.co.uk, Quorum</title>
+<style>
+  :root {
+    --paper: #f7f5f0; --ink: #1c1b19; --muted: #6b6862; --rule: #d6d1c6;
+    --dissent: #6e1f1f; --dissent-bg: #f2e9e6; --audit: #1c4652; --audit-bg: #e8eef0;
+    --verified: #2f6b4a; --unverified: #8a6d1f;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #17161a; --ink: #e6e2da; --muted: #98938a; --rule: #35323a;
+      --dissent: #d99191; --dissent-bg: #241b1b; --audit: #86b6c4; --audit-bg: #16232a;
+      --verified: #79c096; --unverified: #d3ae4d;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    background: var(--paper); color: var(--ink); margin: 0;
+    font: 17px/1.62 Georgia, "Iowan Old Style", "Times New Roman", serif;
+    padding: 3rem 1.4rem 5rem;
+  }
+  main { max-width: 41rem; margin: 0 auto; }
+  .masthead { border-bottom: 2px solid var(--ink); padding-bottom: 0.8rem; margin-bottom: 0.6rem; }
+  h1 { font-size: 1.9rem; font-weight: 400; letter-spacing: -0.01em; margin: 0 0 0.3rem; line-height: 1.15; }
+  .standfirst { color: var(--muted); font-style: italic; margin: 0; }
+  .label { font: 600 0.68rem/1.4 ui-sans-serif, system-ui, sans-serif;
+           text-transform: uppercase; letter-spacing: 0.14em; color: var(--muted); }
+  h2 { border-top: 1px solid var(--rule); padding-top: 1.1rem; margin: 3rem 0 1rem;
+       font-weight: 400; font-size: 1.35rem; }
+  h2 span.label { display: block; margin-bottom: 0.25rem; }
+  h3 { font-weight: 400; font-size: 1.05rem; margin: 1.8rem 0 0.6rem; font-style: italic; }
+  p { margin: 0 0 1rem; }
+  .para { display: flex; gap: 1rem; margin-bottom: 1rem; }
+  .para .n { font: 600 0.75rem/1.9 ui-sans-serif, system-ui, sans-serif;
+             color: var(--muted); flex: 0 0 1.6rem; }
+  .para p { margin: 0; }
+  .ruling { font-size: 1.05rem; }
+  .short li { margin-bottom: 0.55rem; }
+  .minority { background: var(--dissent-bg); border-left: 3px solid var(--dissent);
+              padding: 1.2rem 1.4rem; }
+  .minority .label { color: var(--dissent); }
+  .record { background: var(--audit-bg); border-left: 3px solid var(--audit);
+            padding: 1.2rem 1.4rem; }
+  .record .label { color: var(--audit); }
+  .record h4 { font: 600 0.8rem/1.4 ui-sans-serif, system-ui, sans-serif;
+               text-transform: uppercase; letter-spacing: 0.08em; color: var(--audit);
+               margin: 1.2rem 0 0.4rem; }
+  .record h4:first-of-type { margin-top: 0.6rem; }
+  figure { margin: 1.8rem 0; }
+  figure svg { display: block; max-width: 100%; height: auto; }
+  figcaption { font: 0.78rem/1.5 ui-sans-serif, system-ui, sans-serif;
+               color: var(--muted); margin-top: 0.5rem; }
+  .scroll { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%;
+          font: 0.84rem/1.45 ui-sans-serif, system-ui, sans-serif; min-width: 38rem; }
+  th { text-align: left; border-bottom: 1px solid var(--ink);
+       padding: 0.35rem 0.7rem 0.35rem 0; font-size: 0.68rem;
+       text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); }
+  td { border-bottom: 1px solid var(--rule); padding: 0.5rem 0.7rem 0.5rem 0;
+       vertical-align: top; }
+  .st { white-space: nowrap; font-weight: 600; font-size: 0.72rem;
+        text-transform: uppercase; letter-spacing: 0.04em; }
+  .v { color: var(--verified); } .u { color: var(--unverified); } .x { color: var(--dissent); }
+  details { border-top: 1px solid var(--rule); padding: 0.8rem 0; }
+  summary { cursor: pointer; font: 600 0.9rem/1.5 ui-sans-serif, system-ui, sans-serif; }
+  details p, details ul { font-size: 0.93rem; }
+  blockquote { margin: 0 0 1rem; padding-left: 1rem; border-left: 2px solid var(--rule);
+               font-style: italic; color: var(--muted); }
+  code { font: 0.86em/1.4 ui-monospace, SFMono-Regular, Menlo, monospace;
+         background: rgba(128,128,128,0.12); padding: 0.05em 0.3em; border-radius: 2px; }
+  footer { margin-top: 4rem; border-top: 2px solid var(--ink); padding-top: 0.8rem;
+           font: 0.76rem/1.6 ui-sans-serif, system-ui, sans-serif; color: var(--muted); }
+  a { color: inherit; }
+</style>
+</head>
+<body>
+<main>
+  <header class="masthead">
+    <p class="label">Quorum &middot; Full tier &middot; 17 August 2026</p>
+    <h1>claude4beginners.co.uk: accuracy, coverage and whether the design reads as made by a person</h1>
+    <p class="standfirst">Accurate, with three things that are wrong rather than stale. Designed, not generated, though the one defect a stranger feels is unfixed. And the completeness standard it was being measured against was never the author&#39;s.</p>
+  </header>
+
+  <p class="record" style="margin:1.4rem 0"><span class="label">Published with redactions, 17 August 2026</span>
+  Two things are withheld from this copy and both are marked where they were cut: the specific enumeration of an
+  authentication surface whose review is still outstanding, and a personal credential-handling incident belonging to
+  the author rather than to Quorum. No finding, verdict or dissent has been altered, and the Comptroller&rsquo;s NOT
+  SOUND finding is reproduced in full. The redactions are deliberately visible: a run record that quietly drops its
+  awkward parts is worth less than one that says where it was cut. See ADR-0012.</p>
+
+  <p class="label" style="margin:1.5rem 0 0.4rem">Tier notice</p>
+  <p style="font-size:0.92rem;color:var(--muted)">Full tier, 38 sub-agents: six departments, twelve
+  workers, six auditors, six cross-reviewers under distinct lenses, three branches, a Speaker and a
+  Comptroller. Every checking layer ran and no report was sent back. Three things it did <em>not</em>
+  check, and they should be read as unexamined rather than clean: nobody reviewed the sign-up, sign-in
+  and password-reset code that writes to a live database from the browser; nobody watched a real
+  beginner use the site; and no signed-in path was ever tested.</p>
+
+  <h2><span class="label">Section one</span>The short version</h2>
+  <ul class="short">
+    <li><strong>Three statements on the page are wrong, not merely out of date.</strong> A privacy
+      claim that is more reassuring than the truth, an unfinishable route for installing a skill from
+      GitHub, and a glossary that breaks its own promise.</li>
+    <li><strong>The design reads as made by a person</strong>, but the measure is broken: lines run
+      95 to 113 characters where the stylesheet intends 72, and that is what a stranger actually
+      feels.</li>
+    <li><strong>The completeness question was answered against the wrong yardstick.</strong> One
+      department measured the guide against the vendor&#39;s entire shipping surface, which moved on 37
+      dated days in roughly 100.</li>
+    <li><strong>Six departments prescribed 51.8 to 58.3 hours between them.</strong> No department
+      could see that total, because each saw only its own remit.</li>
+    <li><strong>The Comptroller returned NOT SOUND on the verdict</strong> and its finding is
+      reproduced below, unedited, including the part where it corrects an error introduced during the
+      run.</li>
+    <li><strong>Nobody in this run examined the authentication code.</strong> That is a gate on
+      sending the URL to another employer, not on editing the page.</li>
+  </ul>
+
+  <h2><span class="label">Section two</span>The question</h2>
+  <p>Does <span>claude4beginners.co.uk</span>, as live on 17 August 2026, (a) cover Claude accurately
+  and completely, and (b) present visual and interaction design that reads as a deliberately designed
+  object rather than a generated template, when judged by a stranger arriving cold?</p>
+  <p>A free beginner&#39;s guide to Claude: one self-contained HTML page carrying all its own CSS, 348,810
+  bytes served, fifteen numbered parts plus About, What has changed and Feedback, all behind hash
+  anchors on one URL. Written by a UK sport media graduate with no professional tech experience moving
+  into cyber security, and doubling as a portfolio piece employers read. 89 unique visitors on 16
+  August 2026, the only day ever measured. Nobody has been observed using it.</p>
+  <p>Coverage standard set by the author: Parts 00 to 11 beginner-complete, nothing skipped for being
+  obvious, no jargon unexplained. Parts 12 to 14 power-user-complete, with two suspected gaps named by
+  him: how to get skills from GitHub, and what a repository is. Both were confirmed present.</p>
+
+  <h2><span class="label">Section three</span>Findings</h2>
+  <div class="ruling">
+    <div class="para"><span class="n">1.</span><p><strong>Yes on accuracy, with three exceptions
+      that are wrong rather than stale.</strong> Part 02 says that turning off training means past
+      conversations &quot;won&#39;t be&quot; used, &quot;including ones you&#39;ve already had&quot;. Anthropic&#39;s privacy
+      documentation says the opposite: data already in training stays in models already trained. That
+      is the single decision the guide tells the reader to make deliberately, and it is more
+      reassuring than the truth.</p></div>
+    <div class="para"><span class="n">2.</span><p>Part 08 tells the reader that GitHub skills are
+      &quot;plain text files: you download one and upload it&quot;. The actual route is to zip the folder,
+      then use &quot;+&quot;, &quot;+ Create skill&quot;, &quot;Upload a skill&quot;. A non-developer cannot finish from the text
+      as written. Both this and the privacy line were confirmed by an auditor that fetched the live
+      page independently.</p></div>
+    <div class="para"><span class="n">3.</span><p>The Part 11 glossary promises &quot;a translation of
+      every word this manual has thrown at you&quot;, then omits repository, plugin, Cowork, Git, worktree
+      and CLAUDE.md, all words the guide itself uses. That is a promise the page breaks about itself,
+      so it counts as wrong rather than absent. One correction from the audit: MCP does not belong on
+      that list, because the guide never uses the word at all.</p></div>
+    <div class="para"><span class="n">4.</span><p><strong>No on completeness, and the standard it was
+      measured against was never the author&#39;s.</strong> The curriculum department built its own
+      yardstick, declared it unsourced, and produced a 22.5-hour list of missing features by treating
+      the vendor&#39;s shipping surface as the standard. That surface moved on 37 dated days in roughly
+      100. The guide is complete against what it promises the reader. It is not complete against
+      Anthropic&#39;s product surface, and it should stop trying to be.</p></div>
+    <div class="para"><span class="n">5.</span><p><strong>Yes on design, and the reasoning behind
+      that yes was thin.</strong> The visual design department concluded &quot;not generated&quot; from 53
+      spacing literals, 37 size declarations, Fraunces at WONK 1 and an feTurbulence paper grain, none
+      of which a reader ever sees. The conclusion survives anyway, because the template comparators it
+      tested against are genuinely what generated pages look like and this is genuinely not that.</p></div>
+    <div class="para"><span class="n">6.</span><p>What a cold stranger does feel is line length, and
+      the measure is broken. <code>--measure: 72ch</code> computes to 775px against a 768px box, so
+      the cap never binds, and measured lines run 95 to 113 characters. Three independent instrument
+      readings agree. Do not ship the 62ch value the department prescribed: its own auditor set 62ch
+      on the live page and measured lines up to 100 characters, against the 80-character bound the
+      recommendation cites. Fix it by measuring.</p></div>
+    <div class="para"><span class="n">7.</span><p><strong>Roughly seven to fifteen hours of work, in
+      two sittings, not the 51.8 to 58.3 the six departments collectively prescribed.</strong> Sitting
+      one is text only and carries zero layout risk: the privacy correction, the Part 08 route, the
+      six glossary terms, Cowork defined at its first use in Part 01, the prompt-injection callout
+      duplicated into Parts 08 and 09 (duplicated, never moved, because moving it renumbers four
+      parts), contact links in the footer, and a regenerated social image. Sitting two is mechanical:
+      the 320px grid overflow, the JavaScript-off pager, theme init moved into the head, reduced
+      motion on two smooth scrolls, two contrast tokens, the h4 that is smaller than the body text it
+      heads, and the sign-in modal focus escape.</p></div>
+    <div class="para"><span class="n">8.</span><p>Defer indefinitely: the date-stamp consolidation,
+      the type-scale rebuild, the contents plate colours and the entire month list. The Comptroller
+      has qualified the seven-hour figure as arithmetic that does not sum, and its correction stands:
+      the ruling&#39;s own items at departmental hours total 11.85 to 14.85.</p></div>
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 620 300" role="img" aria-label="Diagram of the bodies convened for this run">
+      <g fill="none" stroke="currentColor" stroke-width="1" opacity="0.85">
+        <line x1="120" y1="42" x2="310" y2="76"/>
+        <line x1="310" y1="42" x2="310" y2="76"/>
+        <line x1="500" y1="42" x2="310" y2="76"/>
+        <line x1="310" y1="90" x2="310" y2="104"/>
+        <line x1="52" y1="104" x2="568" y2="104"/>
+        <line x1="52" y1="104" x2="52" y2="124"/>
+        <line x1="155" y1="104" x2="155" y2="124"/>
+        <line x1="258" y1="104" x2="258" y2="124"/>
+        <line x1="361" y1="104" x2="361" y2="124"/>
+        <line x1="464" y1="104" x2="464" y2="124"/>
+        <line x1="568" y1="104" x2="568" y2="124"/>
+        <line x1="52" y1="176" x2="52" y2="196"/>
+        <line x1="155" y1="176" x2="155" y2="196"/>
+        <line x1="258" y1="176" x2="258" y2="196"/>
+        <line x1="361" y1="176" x2="361" y2="196"/>
+        <line x1="464" y1="176" x2="464" y2="196"/>
+        <line x1="568" y1="176" x2="568" y2="196"/>
+      </g>
+      <g stroke="currentColor" stroke-width="1" stroke-dasharray="3 3" fill="none" opacity="0.6">
+        <path d="M 600 148 L 606 148 L 606 60 L 560 60"/>
+        <line x1="600" y1="148" x2="586" y2="148"/>
+      </g>
+      <g font-family="ui-sans-serif, system-ui, sans-serif" font-size="10" fill="currentColor">
+        <text x="120" y="34" text-anchor="middle" font-weight="600">EXECUTIVE</text>
+        <text x="120" y="46" text-anchor="middle" opacity="0.6" font-size="9">consequence</text>
+        <text x="310" y="34" text-anchor="middle" font-weight="600">LEGISLATURE</text>
+        <text x="310" y="46" text-anchor="middle" opacity="0.6" font-size="9">question and price</text>
+        <text x="500" y="34" text-anchor="middle" font-weight="600">JUDICIARY</text>
+        <text x="500" y="46" text-anchor="middle" opacity="0.6" font-size="9">soundness</text>
+        <text x="310" y="88" text-anchor="middle" font-size="9" opacity="0.75">the brief travels down</text>
+        <text x="52" y="140" text-anchor="middle" font-size="9">Product</text>
+        <text x="52" y="151" text-anchor="middle" font-size="9">accuracy</text>
+        <text x="155" y="140" text-anchor="middle" font-size="9">Curriculum</text>
+        <text x="155" y="151" text-anchor="middle" font-size="9">and coverage</text>
+        <text x="258" y="140" text-anchor="middle" font-size="9">Visual</text>
+        <text x="258" y="151" text-anchor="middle" font-size="9">design</text>
+        <text x="361" y="140" text-anchor="middle" font-size="9">Interaction</text>
+        <text x="361" y="151" text-anchor="middle" font-size="9">and craft</text>
+        <text x="464" y="140" text-anchor="middle" font-size="9">Access and</text>
+        <text x="464" y="151" text-anchor="middle" font-size="9">performance</text>
+        <text x="568" y="140" text-anchor="middle" font-size="9">Discovery</text>
+        <text x="568" y="151" text-anchor="middle" font-size="9">and trust</text>
+        <text x="52" y="212" text-anchor="middle" font-size="9" opacity="0.75">R + S</text>
+        <text x="155" y="212" text-anchor="middle" font-size="9" opacity="0.75">R + S</text>
+        <text x="258" y="212" text-anchor="middle" font-size="9" opacity="0.75">R + S</text>
+        <text x="361" y="212" text-anchor="middle" font-size="9" opacity="0.75">R + S</text>
+        <text x="464" y="212" text-anchor="middle" font-size="9" opacity="0.75">R + S</text>
+        <text x="568" y="212" text-anchor="middle" font-size="9" opacity="0.75">R + S</text>
+        <text x="310" y="242" text-anchor="middle" font-size="9" opacity="0.75">R = researcher, gathers &middot; S = scrutineer, attacks what was gathered</text>
+        <text x="310" y="266" text-anchor="middle" font-size="9" opacity="0.75">six cross-reviewers &rarr; three branches &rarr; Speaker &rarr; Comptroller</text>
+      </g>
+      <g font-family="ui-sans-serif, system-ui, sans-serif" font-size="9" fill="currentColor">
+        <text x="596" y="152" text-anchor="end" font-weight="600">AUDIT OFFICE</text>
+        <text x="596" y="163" text-anchor="end" opacity="0.6">reports to nobody</text>
+      </g>
+    </svg>
+    <figcaption>The bodies that sat this run. The Audit Office is joined by a dashed line because it
+    reports to none of the three branches and holds no opinion on the decision.</figcaption>
+  </figure>
+
+  <h2><span class="label">Section four</span>Where the branches divided</h2>
+  <p><strong>The Executive and the Legislature disagreed about whether this is a programme or a
+  repair, and the Legislature was closer to right.</strong></p>
+  <p>The Executive proposed five sequenced slices, each its own zip, each checked live before the
+  next. Correct method, and roughly fifteen hours of ship-now work before diagrams and apparatus even
+  start. The Legislature said the bill is unpayable as written: four certification exams by 6 August
+  2027, a job search, course instalments falling in September, October and November 2026, and what
+  was actually asked for was assurance, not a work programme. It put the defensible spend under four
+  hours.</p>
+  <p>The Judiciary took a third axis entirely. It ruled that passing audit establishes only that
+  quoted lines exist as quoted, and that because every department except partly two of them dropped
+  the verifiable-defect versus aesthetic-preference labelling the brief demanded, large parts of the
+  record are not established fact at all.</p>
+  <p>Reasonable branches disagreed because they were pricing different things. The Executive priced
+  risk of breakage, the Legislature priced the author&#39;s evenings, the Judiciary priced evidential
+  standing. The verdict took the Legislature&#39;s ceiling on scope, the Executive&#39;s slicing method, and
+  the Judiciary&#39;s filter on what counts as established.</p>
+
+  <h2><span class="label">Section five</span>Minority opinion</h2>
+  <div class="minority">
+    <p class="label">The overruled position, at full strength</p>
+    <p><strong>You are cutting slices three and four, and those contain the only defects on this
+    record that are both audited and reader-harming today.</strong></p>
+    <p>A keyboard user who opens the sign-in gate cannot tab out of it. Focus reaches the document
+    body and lands on content sitting entirely behind a fixed overlay, with no visible ring and no
+    signposted way back. That was measured in a real browser on the live build, and the auditor
+    confirmed <code>accounts.js</code> has zero <code>inert</code>, zero <code>aria-hidden</code>,
+    zero Tab keydown handler and one Escape listener. Focus drops to the body on every part change,
+    across all eighteen routes, on both the contents links and the pager. The contents grid overflows
+    at 320px, scrollWidth 347, measured independently by two workers. These cost 1.5 to 2 hours in
+    total, and a site presented to hiring managers as a portfolio piece should not fail a keyboard
+    user in the first interaction they attempt.</p>
+    <p><em>What would have to be true for it to win:</em> that the author has the evenings. The
+    Legislature made exactly that its own condition. If there is slack time to spend here, the
+    five-slice sequence is better than two sittings and should be run instead.</p>
+    <p><em>The Comptroller has since found this dissent was softened.</em> The focus-drop item appears
+    in neither sitting despite the ruling claiming most of the dissent was kept. See the audit record
+    below.</p>
+  </div>
+
+  <h2><span class="label">Section six</span>What the cross-check found</h2>
+  <p><strong>Six departments each claimed the &quot;largest reader effect per hour&quot; for a different item,
+  and no two shared a denominator.</strong> Six local maxima were being sold as one global one. That
+  became visible only when a reviewer read the reports side by side.</p>
+  <p>The same reviewer produced the total nobody had: 51.8 to 58.3 hours, of which ship-now alone is
+  13.35 to 15.85 and about twenty separate edits to one 349KB file with no tests. That is not one
+  deploy. It is a month.</p>
+  <p>The framing reviewer caught the shared incentive: every department found things to add, and not
+  one proposed cutting anything, because gaps are findable and excess is not. The practitioner caught
+  that nobody costed the deploy itself; every report&#39;s clock stops at &quot;the edit is made&quot;, not &quot;the
+  live page was checked and still works&quot;, on a site where deploying means dragging a zip with no
+  version control and no rollback copy.</p>
+  <p>The omission reviewer caught the largest gap. Nobody reviewed the site as software that
+  authenticates strangers. The account layer signs readers up, signs them in, resets passwords and
+  stores progress, all from the browser. Six reports touched that surface and all walked past it.
+  The author is applying for cyber security roles and hands hiring managers this URL, which is what
+  makes it the finding that outranks every line-length item on the record.</p>
+  <p class="record" style="margin-top:1rem"><span class="label">Redacted</span>
+  The specific enumeration of that surface is withheld from this published copy while the finding
+  is <strong>unremediated</strong>: as of publication nobody has reviewed it, so printing the list
+  would amount to a to-do list against a live site. It is restored once the review has happened.
+  This is a speed bump rather than a wall, and saying so is part of the point: the site&rsquo;s
+  script is served publicly. What is withheld is the convenience, and the confirmation that nobody
+  has checked. See ADR-0012.</p>
+  <p>The future-reader lens produced the one nobody else reached: the guide has no way to fail loudly
+  and no way to end. There is no analytics by design, so a broken font host, a dead form or a year of
+  drift are all equally silent. Not one report proposed the cheap honest move of a dated line saying
+  when the guide was last maintained.</p>
+
+  <h2><span class="label">Section seven</span>Evidence</h2>
+  <figure>
+    <svg viewBox="0 0 560 214" role="img" aria-label="Bar chart of the status of each load-bearing claim">
+      <g font-family="ui-sans-serif, system-ui, sans-serif" font-size="9.5" fill="currentColor">
+        <text x="0" y="12">Privacy claim contradicted by vendor docs</text>
+        <text x="0" y="36">GitHub skill route unfinishable as written</text>
+        <text x="0" y="60">Glossary omits terms the guide uses</text>
+        <text x="0" y="84">Line length 95 to 113 characters</text>
+        <text x="0" y="108">Sign-in modal does not trap focus</text>
+        <text x="0" y="132">Contents grid overflows at 320px</text>
+        <text x="0" y="156">Social image says eleven parts, site has fifteen</text>
+        <text x="0" y="180">Account database permissions [redacted]</text>
+        <text x="0" y="204">Feedback form silently discarding messages</text>
+      </g>
+      <g>
+        <rect x="330" y="4" width="215" height="10" fill="var(--verified)"/>
+        <rect x="330" y="28" width="215" height="10" fill="var(--verified)"/>
+        <rect x="330" y="52" width="190" height="10" fill="var(--verified)"/>
+        <rect x="330" y="76" width="215" height="10" fill="var(--verified)"/>
+        <rect x="330" y="100" width="175" height="10" fill="var(--verified)"/>
+        <rect x="330" y="124" width="200" height="10" fill="var(--verified)"/>
+        <rect x="330" y="148" width="215" height="10" fill="var(--verified)"/>
+        <rect x="330.5" y="172.5" width="90" height="9" fill="none" stroke="var(--unverified)" stroke-width="1"/>
+        <rect x="330.5" y="196.5" width="70" height="9" fill="none" stroke="var(--unverified)" stroke-width="1"/>
+      </g>
+    </svg>
+    <figcaption>Status of each load-bearing claim. Solid fill: independently verified by an auditor
+    that fetched the source itself. Hairline outline: unverified, meaning nobody checked it, not that
+    it is false. Bar length shows how many separate bodies confirmed the claim.</figcaption>
+  </figure>
+  <div class="scroll">
+  <table>
+    <thead><tr><th>Claim</th><th>Source</th><th>Date</th><th>Rank</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>Opting out of training does not remove data from models already trained</td>
+        <td>Anthropic Privacy Center, article 12109829</td>
+        <td>Retrieved 17/08/2026, page carries a relative timestamp only</td>
+        <td>Primary, and interested party: Anthropic documenting Anthropic</td>
+        <td class="st v">Verified</td>
+      </tr>
+      <tr>
+        <td>Installing a skill requires zipping a folder, then &quot;+&quot;, &quot;+ Create skill&quot;, &quot;Upload a skill&quot;</td>
+        <td>Anthropic help centre, article 12512180, corroborated against the anthropics/skills repository</td>
+        <td>Retrieved 17/08/2026</td>
+        <td>Primary</td>
+        <td class="st v">Verified</td>
+      </tr>
+      <tr>
+        <td>Guide text reads &quot;plain text files: you download one and upload it to your own Skills list&quot;</td>
+        <td>Live page, line 4501</td>
+        <td>17/08/2026</td>
+        <td>Primary, the artefact itself</td>
+        <td class="st v">Verified</td>
+      </tr>
+      <tr>
+        <td>Measured line length 95 to 113 characters against a stated 72ch</td>
+        <td>Three independent Range-rect measurements in Chromium at 1440&times;900</td>
+        <td>17/08/2026</td>
+        <td>Primary, own instrumentation</td>
+        <td class="st v">Verified</td>
+      </tr>
+      <tr>
+        <td>62ch, the prescribed fix, still yields up to 100 characters</td>
+        <td>Auditor applied the change to the live page and re-walked the same paragraphs</td>
+        <td>17/08/2026</td>
+        <td>Primary, own instrumentation</td>
+        <td class="st v">Verified</td>
+      </tr>
+      <tr>
+        <td>Line length of 80 characters as a stated bound</td>
+        <td>W3C, WCAG 2.2, Success Criterion 1.4.8 Visual Presentation. <strong>Level AAA</strong></td>
+        <td>Specification last modified 12/12/2024</td>
+        <td>Primary, published specification</td>
+        <td class="st v">Verified</td>
+      </tr>
+      <tr>
+        <td>accounts.js contains zero inert, zero aria-hidden, zero Tab handler, one Escape listener</td>
+        <td>Retrieved script, 25,434 bytes, 568 lines</td>
+        <td>17/08/2026</td>
+        <td>Primary, the artefact itself</td>
+        <td class="st v">Verified</td>
+      </tr>
+      <tr>
+        <td>Contents grid overflows at 320px, scrollWidth 347 against a 320 viewport</td>
+        <td>Two workers measuring independently in Chromium</td>
+        <td>17/08/2026</td>
+        <td>Primary, own instrumentation</td>
+        <td class="st v">Verified</td>
+      </tr>
+      <tr>
+        <td>Social preview image reads &quot;Eleven parts&quot; while the page ships fifteen</td>
+        <td>og.png fetched and viewed, 81,259 bytes, against the page&#39;s own meta description</td>
+        <td>17/08/2026</td>
+        <td>Primary, the artefact itself</td>
+        <td class="st v">Verified</td>
+      </tr>
+      <tr>
+        <td>Live form tag carries no Netlify registration attribute</td>
+        <td>Served HTML, sole form tag <code>&lt;form class=&#39;say&#39; id=&#39;sayForm&#39; method=&#39;POST&#39; name=&#39;feedback&#39;&gt;</code>; /__forms.html returns 404</td>
+        <td>17/08/2026</td>
+        <td>Primary, the artefact itself</td>
+        <td class="st v">Verified</td>
+      </tr>
+      <tr>
+        <td>The local build already carries <code>data-netlify=&quot;true&quot;</code> and <code>netlify-honeypot=&quot;company&quot;</code></td>
+        <td>Comptroller&#39;s diff of live against the local build at line 5775</td>
+        <td>17/08/2026</td>
+        <td>Primary, own instrumentation</td>
+        <td class="st v">Verified</td>
+      </tr>
+      <tr>
+        <td>Every palette pair used for text meets WCAG AA in both themes</td>
+        <td>WCAG relative-luminance formula applied to the retrieved tokens, cross-checked against browser computed styles</td>
+        <td>17/08/2026</td>
+        <td>Primary, W3C algorithm</td>
+        <td class="st v">Verified</td>
+      </tr>
+      <tr>
+        <td>No tracking pixel, advertising or analytics script on a signed-out load</td>
+        <td>Resource Timing plus a static scan, two workers, two methods. Four resources only</td>
+        <td>17/08/2026</td>
+        <td>Primary, own instrumentation</td>
+        <td class="st v">Verified for the signed-out load</td>
+      </tr>
+      <tr>
+        <td>Vendor shipped on 37 separate dated days between 04/05/2026 and 11/08/2026</td>
+        <td>Anthropic platform release notes, counted by two separate agents</td>
+        <td>Retrieved 17/08/2026</td>
+        <td>Primary, and interested party</td>
+        <td class="st v">Verified</td>
+      </tr>
+      <tr>
+        <td>Total prescribed work across all six departments: 51.8 to 58.3 hours</td>
+        <td>Cross-review arithmetic over the six reports&#39; own estimates</td>
+        <td>17/08/2026</td>
+        <td>Derived from departmental judgement, not measurement</td>
+        <td class="st u">Unverified, the inputs are estimates</td>
+      </tr>
+      <tr>
+        <td>The account layer&#39;s database permissions are correctly configured <em>(mechanism redacted, ADR-0012)</em></td>
+        <td>The project&#39;s own MEMORY.md, self-authored</td>
+        <td>Written before 17/08/2026</td>
+        <td>Interested party: the author, about his own work</td>
+        <td class="st u">Unverified, nobody checked it this run</td>
+      </tr>
+      <tr>
+        <td>The feedback form is silently discarding messages rather than erroring</td>
+        <td>Inferred from absent attributes; nobody submitted the form, which would have sent real feedback</td>
+        <td>17/08/2026</td>
+        <td>Inference</td>
+        <td class="st u">Unverified, and stated as fact in the ruling</td>
+      </tr>
+      <tr>
+        <td>Line length is what a stranger feels within ten seconds</td>
+        <td>No source. Originated by the Speaker at the final stage</td>
+        <td>&mdash;</td>
+        <td>None</td>
+        <td class="st x">Contradicted in part by the literature the Comptroller found</td>
+      </tr>
+      <tr>
+        <td>The 124-byte live-versus-local gap is &quot;all comments, no markup difference&quot;</td>
+        <td>Orchestrator diff, read from a truncated view of the output</td>
+        <td>17/08/2026</td>
+        <td>Primary instrumentation, incompletely read</td>
+        <td class="st x">Contradicted by the Comptroller</td>
+      </tr>
+      <tr>
+        <td>Absolute Google index status for the domain</td>
+        <td>Google could not be queried directly; two other indexes returned nothing from the domain</td>
+        <td>17/08/2026</td>
+        <td>&mdash;</td>
+        <td class="st u">Not reached</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>What the researchers threw out, and why</h3>
+  <p>The rejects are often the most useful part of a run. A pricing claim from an aggregator site
+  stating that promotional model pricing would rise on 1 September 2026 was rejected because
+  Anthropic&#39;s own release note of 10 August 2026 states the increase will not occur: no stated method,
+  contradicted by primary. A roadmap page at a review site was rejected unread for having no traceable
+  origin. Popup and interstitial conversion statistics were rejected because every traceable figure
+  originated with companies selling popups. Accessibility vendor statistics of the form &quot;X% of sites
+  fail&quot; were rejected because the publisher sells the remedy. A design-tool vendor&#39;s &quot;50 to 75
+  character rule&quot; was rejected on the same grounds.</p>
+  <p>Two rejections are worth more than the rest. The most-repeated line-length rule in web writing,
+  &quot;45 to 75 characters, 66 ideal&quot;, traces to Bringhurst asserting it in 1992 and was never tested; the
+  researcher could not retrieve the book and every online statement of it was one site quoting
+  another, so it was <strong>not cited and the 66-character figure is unverified</strong>. And a
+  worker discarded its own first-pass summary of the live site after finding it had fabricated a
+  per-part date table the page does not contain. That discard is why the run&#39;s claims rest on raw
+  retrieved source rather than on summaries.</p>
+  <p>One interested party published against its own interest and that is unusually strong evidence:
+  the accessibility scanning vendor whose survey was used states plainly that not all conformance
+  failures can be detected automatically, which cuts against the product it sells.</p>
+
+  <h2><span class="label">Section eight</span>Audit record</h2>
+  <div class="record">
+    <p class="label">Comptroller&#39;s finding, NOT SOUND. Reproduced verbatim and unedited.</p>
+
+    <h4>Verdict</h4>
+    <p>NOT SOUND</p>
+
+    <h4>What the ruling rests on that it should not</h4>
+    <p>The new evidence is wrong, and I checked it. I fetched the live page (348,810 bytes) and diffed
+    it against <code>G:\My Drive\ClaudeHub\projects\claude-guide\site\index.html</code> (348,934). 57
+    diff lines, correct. Everything else is not. It is thirteen <code>REDESIGN.md</code> to
+    <code>docs/REDESIGN.md</code> edits (65 bytes), not &quot;nineteen or so&quot;, and the remaining 59 bytes
+    are a markup change at line 5775: local reads <code>&lt;form class=&quot;say&quot; name=&quot;feedback&quot;
+    method=&quot;POST&quot; data-netlify=&quot;true&quot; netlify-honeypot=&quot;company&quot; id=&quot;sayForm&quot;&gt;</code> against live&#39;s
+    unregistered tag. So &quot;57 diff lines, all comments. No functional, markup or script difference&quot; is
+    false, and the one item it misses is the very fix the ruling schedules in sitting one. Registering
+    the form is already written; it needs deploying, not authoring.</p>
+    <p>Three further reliances. &quot;Silently discarding messages&quot; is stated as fact; Department 6
+    declared it unverified. Department 2&#39;s dropped Part 05 memory-redesign obsolescence is a
+    wrong-class item the audit flagged and the ruling neither adjudicates nor discloses, while ruling
+    &quot;two exceptions&quot;. Department 5&#39;s SC 1.1.1 Level A item (0.2h, confirmed) is dropped unmentioned.</p>
+
+    <h4>On what the Speaker reasoned itself</h4>
+    <p>Three declared, one undeclared. First fails as above; the diff settles artefact identity but not
+    the sceptic&#39;s viewport prong, which no receipt covers. Second: &quot;roughly seven hours&quot; does not sum.
+    The ruling&#39;s own items at departmental hours are 11.85 to 14.85. Reasoning written as arithmetic.
+    Third: &quot;what a stranger feels within ten seconds&quot; has no support. Dyson and Haselgrove favour 55
+    characters per line for comprehension; Shaikh and Chaparro found 95 characters per line read faster
+    with no comprehension loss. Undeclared: the rescue of Department 3&#39;s &quot;not generated&quot; conclusion,
+    which the Judiciary held unestablished for want of label and falsifier.</p>
+
+    <h4>What nobody answered</h4>
+    <p>No department named any finding contradicting the 16 August council verdict, which the Judiciary
+    required of all six. No recheck cost for staleness (Executive). No department stated viewport or JS
+    state in a receipt. Department 1 stated no completeness standard. Department 4 named no comparison
+    set. Competitor-parity was never tested. Department 4&#39;s unchanged-hash defect was addressed
+    nowhere.</p>
+
+    <h4>What the verdict understates</h4>
+    <p>The dissent says focus dropping to BODY on all eighteen routes is audited and reader-harming,
+    then &quot;kept most of that in sitting two&quot;. It is in neither sitting. Department 5 called it its
+    largest effect per hour.</p>
+  </div>
+
+  <h3>Departmental audit verdicts</h3>
+  <p>All six reports returned <strong>PASS WITH QUALIFICATION</strong>. None failed, so none was sent
+  back and no rewrite was triggered. Each fault below travels attached to its report and has not been
+  revised away.</p>
+  <div class="scroll">
+  <table>
+    <thead><tr><th>Department</th><th>Verdict</th><th>The fault its auditor named</th></tr></thead>
+    <tbody>
+      <tr><td>Product accuracy</td><td class="st u">Pass with qualification</td>
+        <td>Attributed a correct retention figure to an Anthropic article that does not contain it, converting an unnamed uncertainty into a specific direct-read claim. Stated no completeness standard. Did not separate errors that stop a beginner mid-step from cosmetic staleness.</td></tr>
+      <tr><td>Curriculum and coverage</td><td class="st u">Pass with qualification</td>
+        <td>Dropped two scrutineer findings without mention, one of which (Part 05 obsoleted by a memory redesign) its own logic ranks above every absence it listed. Listed MCP as a glossary omission for a word the guide never uses. Fourteen findings carry no label.</td></tr>
+      <tr><td>Visual design</td><td class="st u">Pass with qualification</td>
+        <td>The prescribed 62ch was applied to the live page by the auditor and measured at up to 100 characters, above the 80-character bound the recommendation rests on. No finding carries the required label, and the central quality claim has no falsifier.</td></tr>
+      <tr><td>Interaction and craft</td><td class="st u">Pass with qualification</td>
+        <td>Every quoted line number verified. But no finding carries the required label, falsifiers are one global note, the reader-apparatus finding was dropped from both buckets although it was the exact subject of the ordering question, and the unchanged-hash defect is addressed nowhere.</td></tr>
+      <tr><td>Access and performance</td><td class="st u">Pass with qualification</td>
+        <td>Over-cited its top finding: SC 2.4.11 requires the focused element to be entirely hidden, and a centre hit-test proves only partial obscuring. SC 2.4.3 carries the defect regardless. A Level A criterion was dropped silently while Level AA items were ranked.</td></tr>
+      <tr><td>Discovery and trust</td><td class="st u">Pass with qualification</td>
+        <td>&quot;Nothing below is provable until that is reconciled&quot; overstates: the auditor reproduced every measurement against the live host without touching the local file. &quot;TRUE as written&quot; on the privacy claim is one notch too high, and the report&#39;s own confidence block says so.</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h2><span class="label">Section nine</span>The first move</h2>
+  <p><strong>Today, before touching anything: download the currently-live page from the site, save it
+  where you will find it in six months, and put the date in the filename.</strong> Fifteen minutes.</p>
+  <p>It is not the closing deadline. The social image has the only external clock on this record,
+  because the caches at Facebook, LinkedIn, X and Slack take days to weeks to re-scrape, and some need
+  a manual re-scrape. That is a footnote here, not the lead.</p>
+  <p>The reason this goes first is that there is no rollback copy of the site anywhere. The deploy is
+  a person dragging a zip, there is no version control pushing to the host, and the local build is one
+  build ahead of live. The next deploy overwrites production with something nobody has compared
+  against a saved copy.</p>
+  <p>Then, in the same evening, deploy the build you already have. The Comptroller established that
+  the feedback form registration is written locally and undeployed, so the contact route is fixed on
+  disk and broken in production. That is the cheapest repair on this record and it is already done.</p>
+
+  <h2><span class="label">Section ten</span>The working</h2>
+  <details>
+    <summary>The six departmental positions, in full</summary>
+    <p>Held in the run record at
+    <code>projects/quorum/runs/quorum-record-claude4beginners-audit.md</code>, with each department&#39;s
+    position, its confidence statement, what would change its mind, and its auditor&#39;s full finding.</p>
+    <p><strong>Product accuracy:</strong> the facts are accurate; one privacy error must ship first;
+    the undated stamp is the long-run liability. <strong>Curriculum:</strong> fix the two unfinishable
+    routes and the glossary, then instrument, then chase the surface; 22.5 hours of absences listed.
+    <strong>Visual design:</strong> not generated, and cut the programme to 2.1 hours.
+    <strong>Interaction:</strong> four small fixes, 1.5 hours, then stop polishing and draw the
+    diagrams. <strong>Access and performance:</strong> the palette is exonerated and the payload is
+    fine; the modal focus escape is the one thing unusable today. <strong>Discovery and trust:</strong>
+    the privacy claim holds, search is not the channel, and the social card is the search result.</p>
+  </details>
+  <details>
+    <summary>The three branch positions, in full</summary>
+    <p>Held at
+    <code>projects/quorum/runs/quorum-record-claude4beginners-audit-part2.md</code>.</p>
+    <p><strong>Executive:</strong> nothing ships until a rollback copy exists; then five slices, each
+    its own zip, each checked live before the next. <strong>Legislature:</strong> the question was
+    right, the instrument was not, and the price is unpayable as written; the defensible spend is the
+    wrong-class items only. <strong>Judiciary:</strong> passing audit establishes only that quoted
+    lines exist as quoted; the dropped labels mean large parts of the record are not established fact.</p>
+  </details>
+  <details>
+    <summary>The six cross-reviews, and the lens each was given</summary>
+    <p>The sceptic bet against the line-length finding on arithmetic grounds and lost to three direct
+    measurements. The omission hunter found that nobody reviewed the authentication surface. The
+    arithmetic checker produced the total, settled the byte dispute, and resolved an apparent
+    contradiction at 320px as a scoping difference rather than a conflict. The framing critic found
+    that every department proposed additions and none proposed a cut. The practitioner found that
+    nobody costed the deploy. The future reader found that the guide has no way to fail loudly and no
+    way to end.</p>
+  </details>
+
+  <footer>
+    Full tier &middot; 6 departments &middot; 38 sub-agents &middot; 0 reports sent back &middot;
+    6 of 6 departmental audits returned Pass with qualification &middot; Comptroller returned NOT SOUND
+    &middot; Quorum, 17 August 2026
+  </footer>
+</main>
+</body>
+</html>

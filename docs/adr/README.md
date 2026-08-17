@@ -17,3 +17,4 @@ The **decided by** field is the point of keeping these. Several of the decisions
 | [0009](0009-publish-runs-not-specification.md) | Publish the runs, not the specification | Quorum itself |
 | [0010](0010-withhold-the-personal-run.md) | Withhold the personal run | Caleb, **overruling ADR-0009** |
 | [0011](0011-classify-at-intake.md) | Classify the question before spending | Claude, prompted by 0010 |
+| [0012](0012-redact-rather-than-withhold-the-website-run.md) | Redact the website run rather than withhold it | Caleb, applying 0010's test the other way |

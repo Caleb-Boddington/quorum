@@ -296,6 +296,7 @@ Then write the HTML report as `quorum-<short-topic>-<YYYY-MM-DD>.html`. Specific
 
 ## Rules that hold across every run
 
+- **Quorum reports. It never changes the thing it is reviewing.** A run reads, researches, and writes two things: its report and its run record. It does not edit files in the subject project, does not fix defects it found, does not run builds, does not commit, and does not deploy. Every finding reaches the user as a recommendation they can accept, reject or ignore. This holds no matter how obvious or cheap the fix looks, and no matter how strongly a department argues for it: the report IS the deliverable, and a run that goes and fixes things has destroyed the only thing it was convened to make, which is an outside opinion the user is free to disagree with. If a finding is urgent, say so in the report in capital letters. Do not act on it. Added 17 August 2026, after a run on claude4beginners.co.uk was treated as a work order and the site was edited: the user had asked for an opinion and feedback to apply himself, and had not asked for a single change.
 - **Parallel within a stage, never sequential.** Agents in the same stage must not see each other's output. Sequential spawning lets the first response contaminate the rest, and the independence is the whole point.
 - **Nobody audits their own work.** An agent asked whether it did a good job says yes. Every check in Quorum is performed by an agent that did not produce the thing being checked, with fresh context.
 - **Every tier gets less context than the tier above.** Workers see their task. Departments see their two workers. Auditors see one department. Branches see everything. Deliberately, a researcher who can see the whole decision starts answering the whole decision instead of their piece of it.
@@ -318,6 +319,7 @@ Then write the HTML report as `quorum-<short-topic>-<YYYY-MM-DD>.html`. Specific
 | Auditors pass everything | They audited every claim instead of the load-bearing ones, and ran out of attention. Point them at what the position rests on. |
 | Cross-review is bland | Anonymisation failed, or reviewers saw their own report labelled. Check the mapping. |
 | Run produced nothing you did not already know | The question was not genuinely uncertain. Quorum was the wrong tool. |
+| Run edited, built or deployed the thing under review | It had no authority to. Quorum reports and stops; see the first rule above. Hand the findings over and let the user decide what to act on. |
 
 ## Attribution
 

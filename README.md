@@ -4,7 +4,7 @@ A deliberation skill for Claude Code. Puts a hard question to a small government
 
 ![licence](https://img.shields.io/badge/licence-MIT-blue)
 ![agents](https://img.shields.io/badge/agents-8%E2%80%9338%20per%20run-orange)
-![runs](https://img.shields.io/badge/documented%20runs-3-green)
+![runs](https://img.shields.io/badge/documented%20runs-4-green)
 ![status](https://img.shields.io/badge/status-experimental-yellow)
 
 Most multi-agent setups ask several models the same question and synthesise the answers. Quorum adds an Audit Office that checks whether any of it is true, including a final audit of the verdict itself.
@@ -104,9 +104,10 @@ See [SECURITY.md](SECURITY.md).
 The runs are the primary content. A specification decays; recorded runs age into evidence.
 
 - [Quorum on Quorum](runs/2026-08-17-quorum-on-quorum.html), Full tier, 43 agents. Found four factual errors in its own spec, established that three of its claimed original ideas already exist in the literature under other names, and its Audit Office falsified an argument the Speaker invented at the final stage.
+- [claude4beginners.co.uk](runs/2026-08-17-claude4beginners-audit.html), Full tier, 38 agents. An audit of a real, live site the author wrote. Its Comptroller returned **NOT SOUND** on the verdict and corrected an error introduced during the run itself, including catching the ruling quietly dropping a dissent it claimed to have kept. Three statements on the audited site turned out to be wrong rather than stale. Published with two marked redactions, see [ADR-0012](docs/adr/0012-redact-rather-than-withhold-the-website-run.md). Raw stage records: [part 1](runs/quorum-record-claude4beginners-audit.md), [part 2](runs/quorum-record-claude4beginners-audit-part2.md).
 - [Britain's best dish](runs/2026-08-16-fish-and-chips.html), Quick tier, 10 agents. A trivial subject run to exercise the machinery. One department killed its own best argument after tracing a widely-repeated industry statistic to a condiment brand's ad campaign.
 
-A third run is withheld. It was on a personal decision and contains private financial information. Its findings about the tool are in `NOTES.md`; only the subject is omitted.
+A fourth run is withheld entirely. It was on a personal decision and contains private financial information. Its findings about the tool are in `NOTES.md`; only the subject is omitted. The two decisions sit side by side deliberately: [ADR-0010](docs/adr/0010-withhold-the-personal-run.md) withholds, [ADR-0012](docs/adr/0012-redact-rather-than-withhold-the-website-run.md) redacts, and the difference between them is whether the sensitive material is the subject or two passages within it.
 
 ## Background
 
