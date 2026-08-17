@@ -297,13 +297,17 @@ What appears to be genuinely Quorum's: the three branches with separated mandate
 
 Read before trusting anything this produces.
 
-**One model, many hats.** Every agent is the same model. Independence is a property of the prompts, not the architecture, and the measurement above suggests the prompts do less than they appear to. Karpathy used different models; that difference is not cosmetic.
+**One model, many hats.** Every agent is the same model. Independence is a property of the prompts, not the architecture, and the measurement above suggests the prompts do less than they appear to. Karpathy used different models; that difference is not cosmetic. Replicated across models on 17 August 2026: five instances of a different model, given one identical prompt, converged on the same answer, the same risk in near-identical words, and the same blind spot. The blind spot lives in the training distribution, so multi-model panels would not remove it either.
 
-**No baseline exists.** Nobody has shown Quorum beating one competent session with a good prompt. Wang et al. (arXiv:2402.18272, ACL 2024) found a single agent with strong prompting nearly matches the best multi-agent discussion method. Until a baseline is run, every claim about Quorum's value is unfalsifiable.
+**A baseline now exists, and it is humbling.** Measured 17 August 2026: one single agent with a strong prompt matched most of a Quick-tier run on the same question at roughly a tenth of the cost, catching the restricted-funds trap and six non-cutting options unaided. The Quick run still won, but every one of its additional catches came from the checking layers (auditor, cross-checker, branches), none from having more researchers. Wang et al. (arXiv:2402.18272) stands partially confirmed: the research layer adds little; the adversarial layers are where the money earns anything.
 
-**The tier numbers are counts, not prices.** Ten, twenty-two and thirty-eight are agent counts. No run's token consumption has ever been measured. Do not read the table as a cost comparison.
+**Two runs are now instrumented, and the cost is not where you would guess.** A Full run measured 38.3 million tokens on 17 August 2026, of which 38.1 million was cache: context being re-read, not reasoning. Actual input plus output was 201,000 tokens, half a percent of the total. **Cost tracks how much context each agent carries, not how many agents run.** The cheapest optimisation available is giving each agent less to read, not spawning fewer of them.
 
-**Zero audit failures in fifteen reports.** The only FAIL ever recorded came from a deliberately planted fault whose answer was known in advance. Treat audit verdicts as a ranking, not a gate.
+**Department selection is the unguarded decision, confirmed by experiment.** A run was deliberately convened with three departments unfit for its question. Every department produced a competent, well-sourced, self-critical report inside its own remit. Not one noticed the cabinet was wrong. The auditor did not catch it, and the cross-checker did not catch it: both were reading for contradictions between reports, and three irrelevant reports do not contradict each other. It surfaced only at the branches, after all research spend, and the Comptroller's ruling was that the check on cabinet formation "lives nowhere structural". Stage 0 is where a run is won or lost, and nothing downstream can rescue it.
+
+**Instruction injection is refused in practice but not by design.** Tested twice on 17 August 2026: a retrieved page carrying hidden instructions to classify itself as primary and skip verification, and a local context file ordering a department to support a predetermined conclusion. Both were refused and both were reported, the second unprompted and before anything else. No worker prompt contains any injection defence, so this is model behaviour rather than an implemented control, and it should not be relied on as one.
+
+**The FAIL path is now proven, against planted faults only.** The full loop (FAIL, send-back with objection, rewrite, re-audit at source) executed end to end on 17 August 2026, and the rewrite honestly changed its conclusion rather than defending the old one. No organic report has ever failed; treat that as calibrated leniency until one does.
 
 ## Threat model
 
