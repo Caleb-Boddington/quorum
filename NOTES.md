@@ -449,3 +449,135 @@ ignorance are now measurements.
 
 No organic report has ever failed audit. Fifteen reports, one planted fault, zero natural failures.
 Still treat audit verdicts as a ranking rather than a gate.
+
+## The Rapporteur tier, built and tested 17 August 2026
+
+Built because the measured baseline showed the research tier was close to redundant. One
+investigator plus the full checking apparatus, run head to head against Quick on the same
+charity question. Eight agents against ten.
+
+### It won, and not narrowly
+
+The Rapporteur produced the one thing three Quick departments never did: **the arithmetic.**
+£50,000 over eighteen months is about £33,000 a year, A is about £23,000, cutting B extends the
+runway to about 26 months and cutting A to about 60. From that it derived the finding the whole
+question turns on: **if the gap between month 18 and renewal is three months, a 15% trim covers
+it and no programme decision is needed at all.** Quick's own Judiciary had complained in a
+separate run that "nobody quantified the gap". The Rapporteur quantified it in its first pass.
+
+It also enumerated twelve options against Quick's scattered handful, including three nobody
+proposed anywhere else: commissioning Programme B to a local authority or ICB, handing B to a
+better-placed host, and orderly closure while £50,000 still buys a solvent one.
+
+### The checking layers earned their keep, and checked each other
+
+The Auditor found an arithmetic error in the Rapporteur's own numbers: the 26-month figure
+counts core costs as savings, when the report itself puts core costs inside that 30%. Cutting B
+buys about two months, not eight.
+
+The Shadow found that not one of twelve options raises money, that nobody costed the exit (so
+both runway figures are overstated, because cutting spends cash before it saves any), that
+transferring B almost certainly triggers TUPE, and that nobody asked whether either programme
+actually works. Its sharpest line: sole regional provision can mean everyone else exited because
+it did not work.
+
+**Then the Judiciary caught the Shadow.** Its SORP demolition inferred the charity's tier from a
+*spending* figure when the threshold runs on *gross income*, and silently assumed unincorporated
+status. It also quoted the 26-month figure while arguing the report was over-confident, without
+checking the number it had borrowed. A checker checking a checker, unprompted.
+
+**Then the Comptroller caught the Speaker.** It declared it had reasoned nothing itself. False:
+the six-month decision threshold appears nowhere in the record, the trustee minute is new, and
+the inversion of "notice and redundancy spend cash before they save any" from the Shadow's
+argument that cutting is a poor lever into a reason to cut sooner is the Speaker's own inference.
+It also demoted a confirmed error to an open question and reattributed it to the wrong agent.
+
+### The change that had to be made before it ships
+
+The Auditor covered the Rapporteur and not the Shadow. So the Shadow introduced genuinely new
+material, fundraising, exit costs, TUPE, outcome evidence, and a threshold argument that
+overturned the report's headline legal claim, **and none of it was verified by anybody.** The
+Speaker's single largest edit, stripping the SORP deadline out of the ruling entirely, came from
+that unaudited half.
+
+The Comptroller's ruling: breadth is adequate, the Shadow genuinely substitutes for the missing
+departments rather than re-reading one fact set, but "the run produced one audited half and one
+unaudited half" and the tier ships only with the Auditor extended to cover both papers. Applied.
+
+**One audited half and one unaudited half is worse than no shadow at all**, because the unaudited
+half arrives wearing the authority of a checking layer.
+
+### What this settles about the design
+
+The research tier was never where the value sat. Three departments produced better-sourced
+material than one investigator; one investigator with room to think produced better *reasoning*
+than three departments with narrow remits. Every finding that mattered in either run came from
+an agent whose only job was checking somebody else's work.
+
+Quick is no longer the recommended cheap tier.
+
+## Security hardening, 17 August 2026
+
+Prompted by the question: what would a security reviewer find that nobody here has? Five gaps,
+two of them exploitable in the code path as published.
+
+**1. Stored cross-site scripting in the report. Exploitable.** Agents write retrieved web text
+into HTML. Nothing escaped it. A page containing a script tag or an onerror attribute would
+execute when the report was opened, in a file the user shares with other people.
+
+*Fix:* eport.md now requires HTML-escaping of every external string, ampersand first (the
+order matters, or the replacements corrupt each other), quoted text confined to block elements
+as escaped text, and a scheme check on any retrieved URL before it reaches an href, because a
+javascript: URL is the same vulnerability wearing a different hat.
+
+**2. Path traversal on the record filename. Exploitable, and self-inflicted.** The Stage 7 record
+file takes its name from the topic, which is user input going into a path. Introduced the same
+morning while fixing the compaction bug, found in a security review hours later. Adding a file
+write adds an attack surface, every time, and it happened under time pressure rather than through
+carelessness, which is how it usually happens.
+
+*Fix:* sanitise to letters, digits and hyphens, collapse and trim, length-cap, then build the
+name. Same rule at Stage 10.
+
+**3. Injection defence existed only in SKILL.md, which no agent reads.** The stress suite
+established that a worker refuses a poisoned page and a department discloses a poisoned context
+file. Both refusals were model behaviour: **no prompt an agent actually receives contained any
+injection instruction at all.** The defence was in the specification, and the specification is not
+in the prompt.
+
+*Fix:* the block now sits inside the source standard, which is pasted into every prompt that
+gathers evidence. Retrieved text is data and never instruction; a page carrying directions aimed
+at an AI reader is itself a finding and its other claims are hostile until proven otherwise; the
+same applies to local context files; and no credential found in any file may be reproduced in
+output, because output is written to disk and may be published.
+
+**4. No data classification at intake.** The personal-data problem was discovered manually, after
+the fact, costing an hour of redaction and the withholding of an entire run.
+
+*Fix:* Stage 0 step E2, one question before any spend: does this question or its gathered context
+contain anything that should not leave this machine, and what happens to the output if it does.
+The step also states plainly that everything passed to a sub-agent is written to the session
+transcript in plain text, whatever is later stripped from the report.
+
+**5. Two controls a reviewer expects are simply absent, and are now documented as absent.** No
+tamper-evident audit log: transcripts are the only record and they are mutable local files. No
+abort: a run cannot be halted once started, so a fault at agent five still fires the remaining
+thirty-three.
+
+### The controls, named
+
+The bigger realisation was that Quorum already implemented several standard assurance controls
+without naming them: separation of duties (three non-overlapping mandates, a Judiciary barred
+from proposing), three lines of defence (departments, Audit Office, Comptroller), independent
+assurance, adversarial review, evidence provenance, documented residual risk, and change control
+through this file.
+
+Both SKILL.md and the README now carry the mapping, with status marked honestly: the assurance
+controls are real and tested, the technical controls are conventions an orchestrator observes
+rather than mechanisms that enforce anything, and two are missing. A new SECURITY.md carries the
+threat model, what was tested against it and on what date, and a "what is not defended" section.
+
+**The honest framing, which matters more than the fixes:** there is no code, so there is no
+enforcement. Every technical control here is an instruction. Nothing stops an orchestrator that
+ignores it. Saying that plainly is worth more than pretending otherwise, because a reviewer will
+work it out in a minute and the credibility of everything else depends on not having claimed it.

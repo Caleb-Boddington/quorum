@@ -26,11 +26,35 @@ A brief travels down. Evidence travels back up. Everything load-bearing gets che
 
 | | Departments | Workers | Auditors | Cross-check | **Agents** | Realistic for |
 |---|---|---|---|---|---|---|
+| **Rapporteur** | none, 1 investigator | 1 shadow | 1 + Comptroller | folded into the shadow | **8** | Any plan, including free |
 | **Quick** | 3, self-researching | none | 1 + Comptroller | 1 checker | **10** | Any plan, including free |
 | **Standard** | 3 | 6 | 3 + Comptroller | 2 reviewers | **22** | Pro and above |
 | **Full** | 6 | 12 | 6 + Comptroller | 6 reviewers | **38** | Max, or a decision worth it |
 
 Constant everywhere: 3 branch deliberations, 1 Speaker, 1 Comptroller. Standard and Full also run the 3 branch briefs; Quick skips that pass and frames the departments in-session.
+
+### The Rapporteur tier, and why it exists
+
+**Built on evidence that the research tier was close to redundant.** A measured baseline on 17 August 2026 put one agent with a strong prompt against a full Quick run on the same question. The single agent caught the trap that all five convergence agents missed, listed three options no department later proposed, and cost roughly a tenth as much. Quick still won, but every one of its additional catches came from the **checking** layers, and none from having three departments instead of one investigator.
+
+So this tier keeps every check and replaces the research tier with one deep pass.
+
+| Agent | Job |
+|---|---|
+| **Rapporteur** | One deep investigation. Enumerates every option including the ones nobody asks for, checks the facts at source, names the assumptions buried in the question, attacks its own answer, then commits to one position. |
+| **Shadow Rapporteur** | Appointed to oppose. Reads the report and hunts what is absent, argues the strongest case against from the same evidence, and attacks the sources rather than the conclusion. |
+| **Auditor** | Verifies the load-bearing claims in **both** papers independently, at source. Can send either back once. |
+| **Three branches** | Rule from their separate mandates, as at every tier. |
+| **Speaker** | Reconciles. Records the dissent. May reason, may not win on reasoning alone. |
+| **Comptroller** | Audits the verdict. Tests anything the Speaker originated. Names what nobody answered. |
+
+The names are borrowed from parliamentary practice, where a rapporteur is one member appointed to investigate and report to a committee and a shadow rapporteur is appointed to scrutinise that report from an opposing position.
+
+**The Auditor covers both papers, and this is not optional.** Tested 17 August 2026: an early build audited only the Rapporteur. The Shadow then introduced genuinely new material (fundraising, exit costs, TUPE, outcome evidence, a threshold argument that overturned the report's headline legal claim), none of it verified by anybody, and the Speaker's single largest edit came from that unaudited half. The Comptroller's ruling was that the tier ships only with the Auditor extended to the Shadow. One run produced one audited half and one unaudited half, which is worse than no shadow at all, because the unaudited half arrives wearing the authority of a checking layer.
+
+**What this tier gives up.** Cross-checking between departments, because there is only one report, so the shadow absorbs that job. Breadth: one investigator covers less ground than three, and on a question spanning genuinely separate domains, Quick or Standard will cover more. The output must say which tier ran.
+
+**What it does not give up.** Every checking layer, the adversary, the separated branch mandates, and both audits.
 
 ### Checking versus judging, the rule that sets the tier sizes
 
@@ -149,6 +173,12 @@ Quorum Progress, FULL (38 agents):
 
 **E. Ask for what only the user knows.** Some facts cannot be researched: hours genuinely free per week, income and outgoings, why a date matters, what was already tried. Name the two or three this question turns on and ask for them here. Twelve researchers working around a hole is the most expensive way to discover it. If the user declines or does not know, note it and proceed, but the departments must then mark those gaps rather than guess past them.
 
+**E2. Classify the question before spending anything.** One line, asked and answered before any agent runs. Does this question, or the context you gathered at step A, contain anything that should not leave this machine? Personal financial detail, health information, someone else's data, commercial confidence, credentials.
+
+If it does, say so now and agree what happens to the output: which parts get written to disk, whether the report is safe to share, and whether the run should proceed at all. **Classification is cheap before the run and expensive afterwards.** Testing on 17 August 2026 produced a report that had to be withheld from publication entirely because nobody asked this question first, and a second one that took an hour of manual redaction.
+
+Note also that everything you pass to a sub-agent is written to the session transcript in plain text on local disk, whatever you later strip from the report.
+
 **F. Ask which tier to run.** Use `AskUserQuestion` with three options, Quick (10 agents), Standard (22), Full (38). Describe each by its coverage, not by a different purpose: all three do the same jobs, and going down a tier buys fewer departments and fewer checkers, not a different kind of answer. Recommend one with a one-line reason based on how hard the question actually looks, and put it first. **Do not choose for them.** Cost is the user's decision, not Claude's, and that is the entire point of having tiers.
 
 Propose three departments for Quick and Standard, six for Full.
@@ -224,7 +254,11 @@ Spawn all three in parallel. Each receives the six audited reports, the six cros
 
 Each writes its position **from its own mandate only**. The Judiciary may not propose a plan, it tests the reasoning of the others and rules on whether it holds. That constraint is deliberate; a Judiciary that starts proposing is just a third Executive.
 
-**Then write the record to disk before Stage 8 begins.** Save the six audited departmental positions, the cross-review findings, any unresolved audit objections and the three branch positions to `quorum-record-<short-topic>.md` alongside where the report will go.
+**Then write the record to disk before Stage 8 begins.** Save the audited departmental positions, the cross-review findings, any unresolved audit objections and the three branch positions to a record file alongside where the report will go.
+
+**Sanitise the filename. The topic is user input and it is going into a path.** Take the short topic, lowercase it, and strip everything that is not a letter, a digit or a hyphen. Collapse runs of hyphens, trim them from both ends, and cut it to about forty characters. Then build the name as `quorum-record-<sanitised>.md`. A topic containing `../`, a drive letter, a leading slash or a null byte must not be able to steer where the file lands. The same rule applies to the report filename at Stage 10.
+
+This was a real defect introduced on 17 August 2026 while fixing a different bug, and found in a security review the same day. Adding a file write is adding an attack surface, every time.
 
 This is not housekeeping. Automatic context compaction fires on a threshold and cannot be disabled. If it fires between here and the Speaker, the Speaker reconciles from a *summary* of the audited reports rather than from the reports, and it does so silently: no error, plausible output, wrong provenance. At Stage 8 that would quietly corrupt the work of every agent in the run. Writing the record out costs nothing and removes the failure entirely.
 
@@ -308,6 +342,28 @@ Read before trusting anything this produces.
 **Instruction injection is refused in practice but not by design.** Tested twice on 17 August 2026: a retrieved page carrying hidden instructions to classify itself as primary and skip verification, and a local context file ordering a department to support a predetermined conclusion. Both were refused and both were reported, the second unprompted and before anything else. No worker prompt contains any injection defence, so this is model behaviour rather than an implemented control, and it should not be relied on as one.
 
 **The FAIL path is now proven, against planted faults only.** The full loop (FAIL, send-back with objection, rewrite, re-audit at source) executed end to end on 17 August 2026, and the rewrite honestly changed its conclusion rather than defending the old one. No organic report has ever failed; treat that as calibrated leniency until one does.
+
+## The controls, in the language of the field
+
+Quorum implements several standard assurance controls. They were built by reasoning about failure rather than by reading a framework, so this section names them properly. Where a control is partial or unenforced, that is stated.
+
+| Control | How Quorum implements it | Status |
+|---|---|---|
+| **Separation of duties** | Three branches with mandates that may not overlap. The Judiciary is barred from proposing any answer, so the body that rules on soundness cannot author what it rules on. | Enforced by prompt. Held across every run to date. |
+| **Three lines of defence** | First line: departments and workers do the work. Second line: the Audit Office verifies their claims. Third line: the Comptroller audits the verdict and reports independently of everything above it. | Implemented. The third line has caught the second line's misses in testing. |
+| **Independent assurance** | The Audit Office reports to none of the three branches, has no vote, and is barred from holding an opinion on the decision. | Implemented. |
+| **Adversarial review** | A Scrutineer or Shadow whose only job is to attack the position their own side produced. | Implemented. |
+| **Evidence provenance** | Every claim carries a source, a date and a rank. Every worker publishes what it used and what it rejected. Citations must record how they were obtained, read directly or reported by someone who did. | Implemented. |
+| **Documented residual risk** | The Limits section, carried into the published report, stating what is unverified, unmeasured and untested. | Implemented. |
+| **Data classification at intake** | Stage 0 step E2 asks what sensitivity the question carries before any spend. | Implemented after a real failure. |
+| **Change control** | Every defect, its cause, the fix and the date, in `NOTES.md`. Nothing is fixed silently. | Implemented. |
+| **Segregation of duty on approval** | The user approves the run at Stage 0 and the tier and cost are stated before spend. | Implemented. |
+| **Input validation** | Filenames sanitised before path construction. Retrieved text escaped before entering the report. Retrieved text treated as data, never instruction. | Implemented in the specification. **Not enforced by code**, because there is no code: an orchestrator that ignores the rule is not stopped by anything. |
+| **Tamper-evident audit log** | None. Session transcripts are the only record and they are mutable local files. | **Absent.** |
+| **Abort** | None. A run cannot be halted mid-flight; agents fire until the sequence ends. | **Absent.** |
+| **Least privilege** | `allowed-tools` limits the toolset, and `disable-model-invocation` prevents the skill firing without an explicit human request. | Partial. Sub-agents are not sandboxed from each other. |
+
+The honest summary: the assurance controls are real and tested. The technical controls are conventions the orchestrator observes rather than mechanisms that enforce anything, and two controls a reviewer would expect are simply missing.
 
 ## Threat model
 

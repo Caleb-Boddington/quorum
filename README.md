@@ -70,6 +70,26 @@ All three do the same six jobs. Going down a tier buys less coverage, never a mi
 
 **These are agent counts, not costs.** No run has ever been instrumented. Treat the table as a rough ordering, not a price list.
 
+## The controls it implements
+
+Quorum was built by reasoning about how a deliberation fails, not by working through a framework. Several of the results turn out to be standard assurance controls, so they are named here properly. Where something is partial or missing, it says so.
+
+| Control | How | Status |
+|---|---|---|
+| **Separation of duties** | Three branches whose mandates may not overlap. The Judiciary is barred from proposing any answer, so the body ruling on soundness cannot author what it rules on. | Held across every run |
+| **Three lines of defence** | Departments do the work. The Audit Office verifies their claims. The Comptroller audits the verdict, independently of everything above it. | The third line has caught the second line's misses in testing |
+| **Independent assurance** | The Audit Office reports to none of the branches, has no vote, and may not hold an opinion on the decision | Implemented |
+| **Adversarial review** | A Scrutineer or Shadow whose only job is attacking the position its own side produced | Implemented |
+| **Evidence provenance** | Every claim carries a source, a date and a rank. Citations record how they were obtained: read directly, or reported by someone who did | Implemented |
+| **Documented residual risk** | The Limits section, carried into every published report | Implemented |
+| **Data classification at intake** | Stage 0 asks what sensitivity the question carries, before any spend | Added after a real failure |
+| **Change control** | Every defect, its cause, its fix and its date in `NOTES.md`. Nothing is fixed silently | Implemented |
+| **Input validation** | Filenames sanitised before path construction. Retrieved text escaped before entering the report, and treated as data rather than instruction | In the specification, **not enforced by code** |
+| **Tamper-evident audit log** | None. Transcripts are the only record and they are mutable local files | **Absent** |
+| **Abort** | None. A run cannot be halted once started | **Absent** |
+
+The assurance controls are real and tested. The technical controls are conventions an orchestrator observes rather than mechanisms that enforce anything, and two a reviewer would expect are simply missing. [`SECURITY.md`](SECURITY.md) has the threat model, what was tested against it, and what is undefended.
+
 ## What it is not
 
 Read [`spec/SKILL.md`](spec/SKILL.md) for the full limits section. The short version:

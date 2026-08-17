@@ -59,6 +59,20 @@ Avoid words chosen for flourish over meaning: delve, underscore, showcase, pivot
 
 **No invented content.** Everything comes from the run. Do not add a summary the Speaker did not write, and do not soften the dissent to make the ruling look stronger.
 
+**Escape every string that came from outside the run. This is a security requirement, not a formatting one.**
+
+The report quotes text that agents retrieved from the open web. If a page contained `<script>`, an `onerror=` attribute, or an unclosed tag, and that text is written into the HTML unescaped, it executes when somebody opens the report. That is stored cross-site scripting in a file the user shares with other people.
+
+Before any retrieved or quoted external content goes into the page, replace `&` with `&amp;`, then `<` with `&lt;`, `>` with `&gt;`, `"` with `&quot;` and `'` with `&#39;`. In that order, ampersand first, or the replacements corrupt each other.
+
+Three further rules:
+
+- **Quoted external text goes in `<blockquote>` or `<td>` as escaped text.** Never build markup out of it, never interpolate it into an attribute, and never put it inside a `<script>` or `<style>` block.
+- **Never write a retrieved URL into `href` without checking its scheme.** Allow `http:` and `https:` only. A `javascript:` URL in an `href` is the same vulnerability wearing a different hat.
+- **The page loads nothing.** No external scripts, no remote fonts, no fetch. That is already required for offline rendering, and it doubles as the control that stops an injected reference reaching the network.
+
+Source names, claim text, quoted passages and reject explanations are all external content. Treat the whole evidence table as untrusted input.
+
 ## What goes in it
 
 | Section | Source |
