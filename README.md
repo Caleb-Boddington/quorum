@@ -2,7 +2,7 @@
 
 A deliberation skill for Claude Code. Puts a hard question to a small government instead of a single assistant, and verifies its own answers.
 
-![version](https://img.shields.io/badge/version-1.7.1-blueviolet)
+![version](https://img.shields.io/badge/version-1.7.2-blueviolet)
 ![licence](https://img.shields.io/badge/licence-MIT-blue)
 ![agents](https://img.shields.io/badge/agents-10%E2%80%9340%20per%20run-orange)
 ![runs](https://img.shields.io/badge/documented%20runs-3-green)

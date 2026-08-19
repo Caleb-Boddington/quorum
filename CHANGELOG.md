@@ -10,6 +10,15 @@ adding anything.
 
 ---
 
+## v1.7.2
+
+**Fixed**
+
+- The prose rules in the report specification governed only the HTML report, so the verdict
+  presented in chat, the text most readers actually act on, was written under no prose rules
+  at all. Stage 10 now applies "How the prose must read" to everything a reader gets, the
+  chat verdict included.
+
 ## v1.7.1
 
 **Fixed**

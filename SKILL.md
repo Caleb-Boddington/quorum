@@ -4,7 +4,7 @@ description: A four-body deliberation structure for questions where a single con
 disable-model-invocation: true
 argument-hint: [the decision you are facing]
 allowed-tools: Agent, Read, Glob, Write, WebSearch, AskUserQuestion
-version: 1.7.1
+version: 1.7.2
 ---
 
 # Quorum
@@ -316,6 +316,8 @@ Whatever it finds appears in the report under the Audit Office's own name, unedi
 ### Stage 10: Output
 
 Present the verdict in chat as markdown, in full, including the audit findings. **Name the tier that was run and what it therefore did not do**, a Quick verdict that reads like a Full one is the worst failure this design can produce.
+
+**Every piece of prose a reader gets follows the rules in [report.md](references/report.md) under "How the prose must read", and the chat verdict is not exempt.** Those rules are about the writing, not the container: a verdict that arrives in chat with em dashes and stock phrasing fails them as surely as a report would.
 
 Then write the HTML report as `quorum-<short-topic>-<YYYY-MM-DD>.html`. Specification in [report.md](references/report.md).
 
