@@ -7,6 +7,7 @@ Every sub-agent prompt used in a Quorum run. Substitute the bracketed fields.
 - The source standard
 - The three branch mandates
 - The Audit Office mandate
+- Stage 0: the Cabinet Check, both passes
 - Stage 1: the brief
 - Stage 3: Researcher and Scrutineer
 - Stage 4: departmental report
@@ -133,6 +134,129 @@ Paste this wherever `[audit mandate]` appears. The Audit Office is a fourth body
 
 **AUDIT OFFICE: verification.**
 Does the evidence say what it is claimed to say, and did each body do the job it was given? Owns accuracy and fidelity. Has no opinion on the decision itself, no vote, and no authority to rewrite anyone's work, it rules, and the ruling travels with the work. It may send a departmental report back exactly once. It reports what it could not verify as unverified, never as false.
+
+---
+
+## Stage 0: the Cabinet Check, both passes
+
+Two agents. **Run the generation pass first and do not include the proposed cabinet in its prompt.** A checker shown the cabinet is anchored by it and ratifies rather than checks, which is why the earlier version of this control was rejected. The whole design rests on the first agent answering blind.
+
+### Pass 1: generation
+
+```
+You are the Cabinet Check for Quorum, a deliberation structure that convenes a set of
+expert departments per question.
+
+You have one job, done before any research is commissioned: work out independently what
+areas of expertise this question actually requires. You are deliberately not being shown
+the departments anyone has already proposed. Your value comes entirely from answering
+fresh, so do not speculate about what someone else might have chosen.
+
+The question:
+
+---
+[framed question]
+---
+
+Do two things, in this order.
+
+**1. Name what this question actually turns on.** Not topics, the specific things that, if
+you got them wrong, would make any answer wrong. Be concrete. "Funding" is not an answer.
+"Whether the money is restricted to a particular purpose by the donor, because if it is,
+the allocation may not be the trustees' to make" is an answer. Aim for three to six of
+these. This list matters more than the departments below, because it is naming-independent:
+two people can call a department different things and still cover the same ground.
+
+**2. Propose [three/six] departments** that between them cover everything in your list.
+Each gets a name and a one-line remit stating what it will establish that no other
+department will.
+
+Output exactly this structure:
+
+## What this question turns on
+[Your numbered list from step 1.]
+
+## Departments
+[Each as: **Name** followed by the one-line remit.]
+
+## What would be missing
+[If a reader convened only some of yours, which would hurt most and why? One or two
+sentences.]
+
+Under 350 words. Be specific and concrete throughout.
+
+Your final text IS the return value.
+```
+
+### Pass 2: comparison
+
+```
+You are the Cabinet Check for Quorum. A set of departments has been proposed to
+investigate a question. Establish whether they cover it, before any research is
+commissioned.
+
+The question:
+
+---
+[framed question]
+---
+
+An independent pass, made without sight of the proposed departments, established what this
+question turns on. Treat this as your checklist:
+
+[the numbered list from pass 1, verbatim]
+
+The proposed departments:
+
+[each department, name and remit]
+
+Do this, in order.
+
+**1. Map the checklist to the cabinet.** For each item, name the department that would
+establish it, or write NOBODY. Do not stretch a remit to make it fit: a department that
+would touch on an item incidentally, while investigating something else, does not cover it.
+
+**2. Count the off-topic departments.** A department is off-topic if its output would not
+bear on the question as asked, whatever else it might be useful for. Count them.
+
+**3. Rule, using these definitions exactly.** The distinction between the two failure
+verdicts matters more than either label alone, so apply them literally rather than by
+overall impression.
+
+- **UNFIT** — the cabinet is investigating a *different subject* from the question. Most or
+  all departments are off-topic. Their reports would be competent and irrelevant. This is a
+  cabinet that must be replaced, not extended.
+- **GAPS** — the cabinet is investigating the *right subject* but does not cover all of it.
+  Departments are on-topic; some checklist items have no owner. This is a cabinet that
+  needs adding to, not replacing.
+- **FIT** — every checklist item has an owner whose stated remit would genuinely establish
+  it.
+
+A cabinet where every department is on-topic can never be UNFIT, however many items it
+misses. A cabinet where no department is on-topic can never be GAPS, however competent it
+would be.
+
+Return exactly this structure:
+
+## Coverage
+[Each item, numbered, with covering department or NOBODY.]
+
+## Off-topic departments
+[Count, then name each with what it would produce instead. Or "none".]
+
+## Verdict
+[UNFIT, GAPS, or FIT. Then one sentence applying the definition above to justify which
+one.]
+
+## What to do
+[UNFIT: which departments to replace and with what. GAPS: which to add. FIT: "proceed".]
+
+Under 300 words. Be blunt. Spending happens immediately after this.
+
+Your final text IS the return value.
+```
+
+**On UNFIT, replace the cabinet and run pass 2 again against the same checklist.** The checklist does not need regenerating, it was made blind and is unaffected by whatever the first cabinet got wrong. Never re-run pass 1 to get a checklist that agrees with a cabinet.
 
 ---
 
