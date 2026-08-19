@@ -4,16 +4,25 @@ Version history, patch-notes style. Full reasoning for every entry lives in its 
 under [`docs/adr/`](docs/adr/) or [`docs/postmortems/`](docs/postmortems/), linked below
 each one.
 
-## Known issues, still open as of v1.2.0
+## Known issues, still open
 
-- **A run convened with the wrong departments passes every check.** Found 17 August 2026 by
-  a deliberate sabotage test. Every department in a mis-convened run can still produce a
-  competent, well-sourced report, and neither the auditor nor the cross-checker catches
-  that the whole cabinet was wrong for the question, only the branches do, after every
-  agent has already run. No fix exists yet.
+- **A run convened with the wrong departments passes every check.** Found by a deliberate
+  sabotage test. Every department in a mis-convened run can still produce a competent,
+  well-sourced report, and neither the auditor nor the cross-checker catches that the whole
+  cabinet was wrong for the question. Only the branches do, after every agent has already
+  run. No fix exists yet.
   [Postmortem](docs/postmortems/2026-08-17-stage-0-unguarded.md)
 
-## v1.2.0, 19 August 2026
+---
+
+## v1.2.0
+
+Sharpening what a department actually produces, and who can read it.
+
+Departments were already researching and sourcing well, but nothing made them ground a
+position in how their own field reasons, and the finished reports were dense enough that
+their intended reader was bouncing off them. Both addressed here. A third idea was tested
+in the same pass and cut.
 
 **Added**
 - Every department now names and cites the actual professional standard for its field
@@ -25,10 +34,18 @@ each one.
 
 **Tried, not shipped**
 - An experimental "Clerk" role meant to polish verdict prose between two existing checking
-  stages. Tested head to head, didn't earn its cost, cut before release.
-  [ADR-0014](docs/adr/0014-reject-the-clerk-role.md)
+  stages. Tested head to head against a run without it, didn't earn its cost, cut before
+  release. [ADR-0014](docs/adr/0014-reject-the-clerk-role.md)
 
-## v1.1.0, 17 August 2026
+---
+
+## v1.1.0
+
+Making it affordable, making it safe to publish, and fixing what the stress testing found.
+
+The founding build worked but only at full size, and putting it under real scrutiny turned
+up a cluster of problems: a cheaper tier that actually held up, questions about what a run
+is even safe to publish, and four genuine defects including two security holes.
 
 **Added**
 - The Rapporteur tier, a leaner cheap-tier build that replaces Quick as the recommended
@@ -67,9 +84,16 @@ each one.
   every evidence-gathering prompt actually gets.
   [Postmortem](docs/postmortems/2026-08-17-injection-defence-not-in-prompts.md)
 
-## v1.0.0, 16 August 2026
+---
 
-First working build.
+## v1.0.0
+
+The founding build: a deliberation structure that verifies its own claims.
+
+The starting point was an existing idea, a panel of models peer-reviewing each other, with
+one gap: nobody ever checks whether the underlying claims are true. Everything in this
+version follows from closing that gap, then working out what the bodies around it have to
+be for the checking to mean anything.
 
 **Added**
 - An independent Audit Office that verifies claims before they reach a verdict.
@@ -90,5 +114,5 @@ First working build.
 **Fixed**
 - A verdict sent the reader at the worst option on the board because it optimised for the
   nearest deadline instead of quality. Departments must now name individual items rather
-  than summarise them as a range, and urgency is no longer allowed to stand in for
-  quality. [Postmortem](docs/postmortems/2026-08-16-speaker-urgency-as-quality.md)
+  than summarise them as a range, and urgency is no longer allowed to stand in for quality.
+  [Postmortem](docs/postmortems/2026-08-16-speaker-urgency-as-quality.md)
