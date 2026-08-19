@@ -16,11 +16,11 @@ Written after the verdict has been given in chat. It is a record, not the delive
 
 ## The look: a public inquiry paper
 
-**The report is a formal record of a deliberation, so it should look like one.** Not a dashboard, not a landing page, not a blog post. A select committee report, a public inquiry paper, a royal commission finding.
+**The report is a formal record of a deliberation, so it should look like one.** A select committee paper rather than a dashboard.
 
-That means: **serif body type**, ranged left, generous measure. **Numbered paragraphs** in the findings. **Hairline rules** dividing sections rather than boxes around them. Small caps or letterspaced capitals for section labels. Marginal notes where something needs flagging. Typographic hierarchy doing the work that colour usually does.
+That means **serif body type** on a generous measure. **Numbered paragraphs** in the findings. **Hairline rules** between sections instead of boxes around them, with letterspaced capitals for the section labels. Marginal notes where something needs flagging. Typographic hierarchy does the work colour usually does.
 
-It also means avoiding the things that make a page look machine-made. The tells are specific and worth naming, because every one of them is a default that has to be actively refused:
+It also means refusing the defaults that make a page look machine-made. Each one below is worth naming, because none of them will go away on its own:
 
 | Tell | Instead |
 |---|---|

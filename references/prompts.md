@@ -139,7 +139,7 @@ Does the evidence say what it is claimed to say, and did each body do the job it
 
 ## Stage 0: the Cabinet Check, both passes
 
-Two agents. **Run the generation pass first and do not include the proposed cabinet in its prompt.** A checker shown the cabinet is anchored by it and ratifies rather than checks, which is why the earlier version of this control was rejected. The whole design rests on the first agent answering blind.
+Two agents. **Run the generation pass first and do not include the proposed cabinet in its prompt.** A checker shown the cabinet is anchored by it and ratifies rather than checks. The whole design rests on the first agent answering blind.
 
 ### Pass 1: generation
 
@@ -223,13 +223,13 @@ bear on the question as asked, whatever else it might be useful for. Count them.
 verdicts matters more than either label alone, so apply them literally rather than by
 overall impression.
 
-- **UNFIT** — the cabinet is investigating a *different subject* from the question. Most or
+- **UNFIT**, the cabinet is investigating a *different subject* from the question. Most or
   all departments are off-topic. Their reports would be competent and irrelevant. This is a
   cabinet that must be replaced, not extended.
-- **GAPS** — the cabinet is investigating the *right subject* but does not cover all of it.
+- **GAPS**, the cabinet is investigating the *right subject* but does not cover all of it.
   Departments are on-topic; some checklist items have no owner. This is a cabinet that
   needs adding to, not replacing.
-- **FIT** — every checklist item has an owner whose stated remit would genuinely establish
+- **FIT**, every checklist item has an owner whose stated remit would genuinely establish
   it.
 
 A cabinet where every department is on-topic can never be UNFIT, however many items it

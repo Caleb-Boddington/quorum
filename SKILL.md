@@ -194,7 +194,9 @@ A cabinet where every department is on-topic can never be UNFIT however many ite
 
 **Show the verdict to the user at step G, in full, whatever it says.** This check informs the human gate, it does not replace it. Both prompts are in [prompts.md](references/prompts.md).
 
-Measured against the original sabotage setup: the mis-convened cabinet returned UNFIT with zero of six items owned and all three departments off-topic, and the fit cabinet returned GAPS with none off-topic. An earlier draft returned UNFIT for both, which is a check nobody would keep reading. The verdict definitions above are the fix for that, and they were calibrated after it failed.
+Measured: against a deliberately mis-convened cabinet this returns UNFIT, zero of six items owned and all three departments off-topic. Against a fit cabinet on the same question it returns GAPS, none off-topic.
+
+**Apply the two failure definitions literally, and do not soften them.** A rubric that lets UNFIT and GAPS blur together returns UNFIT for a sound cabinet as readily as a sabotaged one, and a check that flags everything is a check nobody reads twice. The only way to know whether a rubric has that fault is to run a sound cabinet through it alongside a bad one, so run both.
 
 **E. Ask for what only the user knows.** Some facts cannot be researched: hours genuinely free per week, income and outgoings, why a date matters, what was already tried. Name the two or three this question turns on and ask for them here. Twelve researchers working around a hole is the most expensive way to discover it. If the user declines or does not know, note it and proceed, but the departments must then mark those gaps rather than guess past them.
 
@@ -368,7 +370,9 @@ Read before trusting anything this produces.
 
 The Cabinet Check at Stage 0 D2 is that structural check, and it now catches the case that produced this finding: run against the original sabotage cabinet it returned UNFIT, zero of six items owned, all three departments off-topic, before any research was commissioned. The fit cabinet returned GAPS in the same test, so it discriminates rather than flagging everything.
 
-**Three honest caveats.** It has been tested on one question, with one sabotage cabinet and one control, which is a demonstration rather than a result. It is the same model checking the same model, so the convergence weakness above applies to it as much as anything else, and the design leans on that deliberately: the generation pass answers blind, so if a same-model agent reliably converges then divergence between its checklist and the proposed cabinet is a real signal. And an earlier draft of the verdict rubric returned UNFIT for both the sabotage cabinet and the control, which would have made it useless within a week. That was caught only because a control was run at all. Run one.
+**Two honest caveats.** It has been tested on one question, with one sabotage cabinet and one control, which is a demonstration rather than a result. And it is the same model checking the same model, so the convergence weakness above applies to it as much as anything else. The design leans on that deliberately: the generation pass answers blind, so if a same-model agent reliably converges then divergence between its checklist and the proposed cabinet is a real signal.
+
+**Any change to the verdict definitions must be re-tested against a sound cabinet as well as a bad one.** A rubric that flags everything is indistinguishable from one that works until a control is run through it, and a check that fires on every cabinet stops being read.
 
 **Instruction injection is refused in practice but not by design.** Tested twice on 17 August 2026: a retrieved page carrying hidden instructions to classify itself as primary and skip verification, and a local context file ordering a department to support a predetermined conclusion. Both were refused and both were reported, the second unprompted and before anything else. No worker prompt contains any injection defence, so this is model behaviour rather than an implemented control, and it should not be relied on as one.
 

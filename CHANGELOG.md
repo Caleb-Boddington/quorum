@@ -8,11 +8,6 @@ they relate, the kind of change where you would have to relearn the tool. Minor 
 capability, removes one, or adds a stage. Patch fixes a defect or corrects behaviour without
 adding anything.
 
-*Numbering note.* An earlier draft of this file compressed the whole history into three
-releases, which undercounted it badly and hid four patch-level fixes, two of them security
-holes. The versions below are the corrected history. Nothing was ever published under the
-old numbering except briefly on the day it was written.
-
 ---
 
 ## v1.7.0
@@ -36,9 +31,8 @@ Closing the one structural hole the project had been carrying openly.
 
   *Why the two failure verdicts are separate.* UNFIT means the cabinet is investigating a
   different subject and must be replaced. GAPS means it is investigating the right subject
-  incompletely and should be extended. An early draft collapsed these and returned UNFIT for
-  a deliberately sabotaged cabinet and a sound one alike, which is a check nobody would read
-  twice. That was caught only because a control was run alongside the sabotage case.
+  incompletely and should be extended. Blur the two and the check returns UNFIT for a sound
+  cabinet as readily as a sabotaged one, at which point nobody reads it twice.
 
   *What it costs.* Two agents on every tier, and they are the cheapest in the design because
   they run before the spend rather than after it. A bad cabinet caught here costs two agents.
