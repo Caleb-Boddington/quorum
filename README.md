@@ -2,7 +2,7 @@
 
 A deliberation skill for Claude Code. Puts a hard question to a small government instead of a single assistant, and verifies its own answers.
 
-![version](https://img.shields.io/badge/version-1.3.0-blueviolet)
+![version](https://img.shields.io/badge/version-1.7.0-blueviolet)
 ![licence](https://img.shields.io/badge/licence-MIT-blue)
 ![agents](https://img.shields.io/badge/agents-10%E2%80%9340%20per%20run-orange)
 ![runs](https://img.shields.io/badge/documented%20runs-3-green)
@@ -106,7 +106,7 @@ Built by reasoning about failure, not from a framework, but several of the resul
 | Adversarial review | Implemented |
 | Evidence provenance | Source, date and rank on every claim |
 | Data classification at intake | Added after a real failure |
-| Check on the frame, not just the work | Added in v1.3.0, tested on one question |
+| Check on the frame, not just the work | Added in v1.7.0, tested on one question |
 | Change control | Every defect and fix in [CHANGELOG.md](CHANGELOG.md) |
 | Input validation | In the spec, not enforced by code |
 | Tamper-evident audit log | Absent |
