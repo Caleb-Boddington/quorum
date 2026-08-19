@@ -2,7 +2,6 @@
 
 - **Status:** Accepted
 - **Date:** 2026-08-16
-- **Decided by:** Caleb Boddington, overruling Claude
 
 ## Context
 
@@ -12,13 +11,13 @@ Two ways to build tiers were on the table.
 
 **Different jobs per tier.** Each tier built to do a smaller job properly. Quick answers "what am I missing", Full answers "I cannot afford to be wrong".
 
-Claude costed both and recommended different-jobs, on the grounds that a uniformly shrunk process is cheaper at the low end and avoids stages that quietly stop working below a minimum size.
+The different-jobs option was costed out and recommended first, on the grounds that a uniformly shrunk process is cheaper at the low end and avoids stages that quietly stop working below a minimum size.
 
 ## Decision
 
-Caleb rejected the recommendation. Every tier does the same jobs. Going down a tier costs coverage and tokens, never a kind of check.
+The recommendation above was rejected. Every tier does the same jobs. Going down a tier costs coverage and tokens, never a kind of check.
 
-His reasoning, recorded because it is the better argument: **a tier that drops a whole job is a different tool wearing the same name.** A user who runs Quick and reads a verdict has no way of knowing that a class of check simply did not happen, and the format carries authority the process did not earn.
+The reasoning, recorded because it is the better argument: **a tier that drops a whole job is a different tool wearing the same name.** A user who runs Quick and reads a verdict has no way of knowing that a class of check simply did not happen, and the format carries authority the process did not earn.
 
 ## Alternatives considered
 
@@ -33,4 +32,4 @@ His reasoning, recorded because it is the better argument: **a tier that drops a
 
 ## Note
 
-This is the first of two decisions where the recommendation was rejected and the rejection was correct. See also ADR-0006.
+This is the first of two decisions where the first recommendation was overridden, and the override was correct. See also ADR-0006.

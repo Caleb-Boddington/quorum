@@ -2,7 +2,7 @@
 
 - **Status:** Accepted
 - **Date:** 2026-08-17
-- **Decided by:** Claude proposed from measured evidence; Caleb Boddington approved the build; the Comptroller set the shipping condition
+- **Note:** Proposed from measured evidence, approved to build, and the Comptroller set the shipping condition below.
 - **Evidence:** [Baseline test](../testing.md#baseline)
 
 ## Context

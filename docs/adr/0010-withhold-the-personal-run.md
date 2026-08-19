@@ -2,11 +2,11 @@
 
 - **Status:** Accepted
 - **Date:** 2026-08-17
-- **Decided by:** Caleb Boddington, overruling ADR-0009
+- **Note:** Overrules ADR-0009.
 
 ## Context
 
-ADR-0009, decided by Quorum itself, instructed that all three run transcripts become the repository's primary content.
+ADR-0009, reached by Quorum itself, instructed that all three run transcripts become the repository's primary content.
 
 The first run Quorum ever performed was on a personal decision. Its report contained the author's income, course payment schedule, an estimate of his rent, and a health condition. It was also the strongest single piece of evidence in the project: the run where the Audit Office caught a department inventing a fact about a real person, and where the Comptroller caught a recommended option being in a different city from the one the whole run had assumed.
 

@@ -2,7 +2,6 @@
 
 - **Status:** Accepted
 - **Date:** 2026-08-16
-- **Decided by:** Caleb Boddington
 
 ## Context
 
@@ -15,7 +14,7 @@ Quorum must be usable by people who are not on a large plan. This is a design co
 ## Alternatives considered
 
 - **One size, documented as expensive.** Rejected on the grounds that a tool only its author can afford to run is not a tool.
-- **Claude picks the tier based on question difficulty.** Rejected by Caleb: the person paying decides what to spend. Claude recommends, the user chooses.
+- **The tool picks the tier based on question difficulty.** Rejected: the person paying decides what to spend. The tool recommends, the user chooses.
 
 ## Consequences
 

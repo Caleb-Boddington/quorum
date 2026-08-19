@@ -2,7 +2,6 @@
 
 - **Status:** Accepted
 - **Date:** 2026-08-16
-- **Decided by:** Claude, accepted by Caleb Boddington
 
 ## Context
 

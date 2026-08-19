@@ -2,13 +2,13 @@
 
 - **Status:** Accepted
 - **Date:** 2026-08-16
-- **Decided by:** Caleb Boddington, overruling Claude. Vindicated on first run.
+- **Note:** An earlier recommendation against this was overridden. Vindicated on first run.
 
 ## Context
 
-An earlier draft of the cheap tier had no cross-review at all. Claude's reasoning: anonymous review needs around six reports to mean anything. With three, reviewers can identify each other's papers, anonymity is fiction, and there is no pattern across the set to find. It costs agents and returns theatre.
+An earlier draft of the cheap tier had no cross-review at all. The reasoning against it: anonymous review needs around six reports to mean anything. With three, reviewers can identify each other's papers, anonymity is fiction, and there is no pattern across the set to find. It costs agents and returns theatre.
 
-Caleb rejected this. His objection: something has to read the departments against each other, or nothing ever will.
+That reasoning was rejected. The objection: something has to read the departments against each other, or nothing ever will.
 
 ## Decision
 

@@ -69,4 +69,4 @@ Whether a dedicated presentation pass measurably improves readability without th
 Comptroller catching a fidelity drift. If the Comptroller catches nothing on Q6, that is
 weak evidence for the idea on one data point, not proof. If it catches a drift, that is a
 real finding about where an unaudited-sounding step actually needs checking, which was the
-whole design question when Caleb proposed it.
+whole design question the proposal was meant to answer.

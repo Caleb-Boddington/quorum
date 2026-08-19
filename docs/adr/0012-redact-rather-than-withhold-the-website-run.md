@@ -2,12 +2,11 @@
 
 - **Status:** Accepted
 - **Date:** 2026-08-17
-- **Decided by:** Caleb Boddington
 - **Prompted by:** ADR-0010, and the run on claude4beginners.co.uk
 
 ## Context
 
-Quorum's third published run audited the author's own website at Full tier. Unlike the personal run withheld under ADR-0010, almost all of its content is technical review of a public artefact, and it carries the project's strongest evidence to date: a Comptroller that returned NOT SOUND on the verdict and corrected an error introduced during the run itself.
+Quorum's third published run audited a website belonging to the same author at Full tier. Unlike the personal run withheld under ADR-0010, almost all of its content is technical review of a public artefact, and it carries the project's strongest evidence to date: a Comptroller that returned NOT SOUND on the verdict and corrected an error introduced during the run itself.
 
 Two passages could not be published as they stood.
 

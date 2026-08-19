@@ -2,7 +2,7 @@
 
 - **Date:** 2026-08-17
 - **Severity:** High. Arbitrary file write.
-- **Found by:** Claude, during a security review prompted by Caleb Boddington asking what a security professional would find that nobody here had
+- **Found how:** During a security review, prompted by asking what a security professional would find that nobody here had
 - **Time from introduction to discovery:** a few hours
 - **Status:** Fixed
 

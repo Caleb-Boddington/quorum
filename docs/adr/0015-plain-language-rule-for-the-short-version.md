@@ -2,16 +2,17 @@
 
 - **Status:** Accepted
 - **Date:** 2026-08-19
-- **Decided by:** Caleb Boddington, from direct feedback mid-trial
+- **Note:** Reached from direct feedback mid-trial, not an A/B test.
 
 ## Context
 
 The report specification already had a "short version" section, six or fewer plain-language
 bullets, but no concrete rule for what "plain-language" meant, and in practice tonight's
-runs weren't producing it that way. Caleb read the raw verdicts as they came out of Run A,
-B and C and said plainly: "felt half the stuff I read I didn't get any of it." That's a
-comprehension failure, not a formatting one, terms like qualifying disclosure test,
-materiality, PIDA, load-bearing claim, were landing on the page unglossed.
+runs weren't producing it that way. Reading the raw verdicts as they came out of Run A, B
+and C surfaced a direct comprehension complaint: large parts of the text weren't landing for
+the reader they were written for. That's a comprehension failure, not a formatting one,
+terms like qualifying disclosure test, materiality, PIDA, load-bearing claim, were landing on
+the page unglossed.
 
 Unlike ADR-0013 and ADR-0014, this wasn't run as an A/B. The evidence is one direct report
 from the run's actual reader, which is a different and in some ways stronger kind of
@@ -40,7 +41,7 @@ decision and its reasoning are worth keeping regardless of whether the next run 
 ## Note
 
 This sits next to, not instead of, a separate obligation: when Claude reports Quorum results
-to Caleb in chat, his own standing instructions already require a `## In plain English`
+in chat, the reader's own standing instructions already require a `## In plain English`
 section under a hard word limit, no jargon, an analogy where it helps. That rule governs the
 conversation. This ADR governs the file. Both were being missed for the same reason tonight,
 and both needed fixing, but they are enforced by different things: one by Claude's own

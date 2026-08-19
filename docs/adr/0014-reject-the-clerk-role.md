@@ -2,11 +2,11 @@
 
 - **Status:** Rejected
 - **Date:** 2026-08-19
-- **Decided by:** Caleb Boddington, after a trial run on Sonnet
+- **Note:** Reached after a trial run on Sonnet.
 
 ## Context
 
-Caleb proposed a role sitting between the Speaker and the Comptroller: an independent
+A role was proposed sitting between the Speaker and the Comptroller: an independent
 writer, styled after a parliamentary Clerk, that would take the Speaker's verdict and
 present it in a neater, more structured format without adding or changing content. The
 worry going in was placement, a rewrite step after the Comptroller would be unaudited, and a

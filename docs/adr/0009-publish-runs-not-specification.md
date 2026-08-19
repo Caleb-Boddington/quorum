@@ -2,7 +2,7 @@
 
 - **Status:** Accepted
 - **Date:** 2026-08-17
-- **Decided by:** Quorum, examining itself at Full tier. Approved by Caleb Boddington.
+- **Note:** Reached by Quorum examining itself at Full tier, then approved.
 
 ## Context
 
@@ -26,5 +26,5 @@ The framing critic added the sharper version: the question "why 38 agents?" has 
 ## Consequences
 
 - The repository leads with two run reports and a development history rather than with documentation.
-- A third run was withheld. It was on a personal decision containing private financial information, and Caleb overruled the run's own instruction to publish all three. See ADR-0010.
+- A third run was withheld. It was on a personal decision containing private financial information, and the run's own instruction to publish all three was overruled. See ADR-0010.
 - Publishing the runs makes the injection surface public and reproducible. Accepted cost, recorded in `SECURITY.md`.

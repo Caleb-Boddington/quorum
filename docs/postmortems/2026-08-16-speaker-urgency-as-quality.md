@@ -2,7 +2,7 @@
 
 - **Date:** 2026-08-16
 - **Severity:** High. The verdict sent the user at the worst available option.
-- **Found by:** Caleb Boddington, after the run closed, by asking for the underlying list the department had summarised
+- **Found how:** After the run closed, by asking for the underlying list the department had summarised
 - **Status:** Fixed
 
 ## What happened

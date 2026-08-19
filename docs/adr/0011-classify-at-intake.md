@@ -2,8 +2,7 @@
 
 - **Status:** Accepted
 - **Date:** 2026-08-17
-- **Decided by:** Claude, prompted by Caleb Boddington's instruction to remove personal data from the repository
-- **Prompted by:** ADR-0010
+- **Prompted by:** ADR-0010, and the instruction to remove personal data from the repository
 
 ## Context
 

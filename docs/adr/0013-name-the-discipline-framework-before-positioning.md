@@ -2,7 +2,7 @@
 
 - **Status:** Accepted
 - **Date:** 2026-08-19
-- **Decided by:** Caleb Boddington, after a trial run on Sonnet
+- **Note:** Reached after a trial run on Sonnet.
 
 ## Context
 
@@ -12,7 +12,7 @@ prompt asked a department to ground itself in how its own discipline actually re
 touching the professional literature workplace ethicists actually use to think about a case
 like this.
 
-Caleb's original framing was broader: have each department research how to be the best
+The original framing was broader: have each department research how to be the best
 practitioner in its field before starting. Rejected in discussion before the trial ran,
 because that is generic self-improvement content, context rather than evidence, and it
 directly contradicts what `docs/testing.md`'s Baseline test already found: the research

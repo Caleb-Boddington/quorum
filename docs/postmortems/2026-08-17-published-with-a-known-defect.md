@@ -2,7 +2,7 @@
 
 - **Date:** 2026-08-17
 - **Severity:** Medium as a bug. High as a process failure.
-- **Found by:** Caleb Boddington, by asking "is this now fully functioning and working?"
+- **Found how:** By asking "is this now fully functioning and working?"
 - **Status:** Fixed
 
 ## What happened

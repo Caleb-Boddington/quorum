@@ -2,7 +2,6 @@
 
 - **Status:** Accepted
 - **Date:** 2026-08-17
-- **Decided by:** Caleb Boddington, choosing between options put by Claude
 - **Prompted by:** [Speaker originated its own winning argument](../postmortems/2026-08-17-speaker-originated-winning-argument.md)
 
 ## Context
