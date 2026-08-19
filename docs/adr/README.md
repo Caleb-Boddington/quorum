@@ -18,3 +18,6 @@ The **decided by** field is the point of keeping these. Several of the decisions
 | [0010](0010-withhold-the-personal-run.md) | Withhold the personal run | Caleb, **overruling ADR-0009** |
 | [0011](0011-classify-at-intake.md) | Classify the question before spending | Claude, prompted by 0010 |
 | [0012](0012-redact-rather-than-withhold-the-website-run.md) | Redact the website run rather than withhold it | Caleb, applying 0010's test the other way |
+| [0013](0013-name-the-discipline-framework-before-positioning.md) | Name the discipline's own framework before a department positions | Caleb Boddington, after a trial run |
+| [0014](0014-reject-the-clerk-role.md) | Reject the Clerk role | Caleb Boddington, after a trial run |
+| [0015](0015-plain-language-rule-for-the-short-version.md) | A plain-language rule for the short version | Caleb Boddington, from direct feedback mid-trial |

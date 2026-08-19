@@ -4,6 +4,8 @@ Quorum was built and stress-tested over 16 and 17 August 2026. Two days, eleven 
 
 The velocity is the point rather than something to apologise for: everything below is documented because it was documented as it happened, not reconstructed afterwards. Three of the seven incidents were found by a human asking a question nobody had asked, and two of the eleven decisions were made by rejecting a recommendation, in both cases correctly.
 
+**Extended 19 August 2026** with a trial session on Sonnet, the first time this skill had been run on that model. Two candidate additions were tested, one accepted (ADR-0013), one rejected (ADR-0014). Full trial records in `runs/trial-2026-08-18-sonnet-overnight/`.
+
 ## Decisions
 
 Architecture decision records, one file per decision, in [`docs/adr/`](docs/adr/). Each records the context, what was decided, what was rejected and what followed.
@@ -21,6 +23,10 @@ Architecture decision records, one file per decision, in [`docs/adr/`](docs/adr/
 | [0009](docs/adr/0009-publish-runs-not-specification.md) | Publish the runs, not the specification | Quorum itself |
 | [0010](docs/adr/0010-withhold-the-personal-run.md) | Withhold the personal run | Caleb, **overruling ADR-0009** |
 | [0011](docs/adr/0011-classify-at-intake.md) | Classify the question before spending | Claude, prompted by 0010 |
+| [0012](docs/adr/0012-redact-rather-than-withhold-the-website-run.md) | Redact the website run rather than withhold it | Caleb, applying 0010's test the other way |
+| [0013](docs/adr/0013-name-the-discipline-framework-before-positioning.md) | Name the discipline's own framework before a department positions | Caleb, after a trial run |
+| [0014](docs/adr/0014-reject-the-clerk-role.md) | Reject the Clerk role | Caleb, after a trial run |
+| [0015](docs/adr/0015-plain-language-rule-for-the-short-version.md) | A plain-language rule for the short version | Caleb, from direct feedback mid-trial |
 
 ## Incidents
 
@@ -43,6 +49,8 @@ The last is unfixed. No fix currently exists.
 Results in [`docs/testing.md`](docs/testing.md): convergence, baseline, fault injection, the rewrite loop, injection, Stage 0 sabotage and instrumentation. Listed whether they passed, failed, or passed for the wrong reason.
 
 Three of them changed the design. The baseline produced ADR-0008, the convergence result closed off the obvious fix for the independence problem, and the sabotage test produced the project's most serious open finding.
+
+**A fourth test, 19 August 2026**, on Sonnet: two Quick-tier runs on the same question, one with two candidate additions (the discipline-framework line and an experimental Clerk role), one without. Produced ADR-0013 (accepted) and ADR-0014 (rejected). See "Department framework priming and the Clerk role" in [`docs/testing.md`](docs/testing.md).
 
 ## Earlier defects, fixed without a postmortem
 

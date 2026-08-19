@@ -8,6 +8,7 @@ Written after the verdict has been given in chat. It is a record, not the delive
 - How the prose must read
 - Hard requirements
 - What goes in it
+- The short version, and the plain-language rule behind it
 - The evidence section
 - Visuals
 - Structure
@@ -78,7 +79,7 @@ Source names, claim text, quoted passages and reject explanations are all extern
 | Section | Source |
 |---|---|
 | Tier notice | Which tier ran and what it therefore did not check. Never omitted |
-| The short version | Six or fewer plain-language bullets. What a reader gets if they read nothing else |
+| The short version | Six or fewer bullets, to the rules below. What a reader gets if they read nothing else |
 | The question | Stage 0 framed question, verbatim |
 | The ruling | Speaker, verbatim, in numbered paragraphs |
 | Structure diagram | The bodies that actually sat this run |
@@ -94,6 +95,37 @@ Source names, claim text, quoted passages and reject explanations are all extern
 Collapse the departmental and branch detail behind `<details>`. The verdict is what gets read; the working is what gets checked when somebody doubts the verdict.
 
 **The audit record is never collapsed and never edited.** It is reproduced exactly as the Comptroller wrote it, including a NOT SOUND verdict on the ruling sitting directly above it. A report that hides its own audit finding is worse than one with no audit at all, because it looks rigorous while being less honest.
+
+## The short version, and the plain-language rule behind it
+
+Trialled 19 August 2026, added because a run's actual reader, on this project, kept saying
+the same thing: could follow half of what was on the page. Not a formatting complaint, a
+comprehension one. Full detail can stay dense further down the page, the short version is
+the one section that may not be.
+
+**Zero jargon in the short version, not jargon defined in brackets, the everyday word
+instead.** A legal test name, an audit status, an acronym, a framework's proper name, none of
+these belong here even glossed. If the finding is "the ruling rests on PIDA's qualifying
+disclosure test", the short version says "the legal protection for reporting this kind of
+thing probably doesn't cover an amount this small" and leaves the citation to the section
+below where the reader who wants it can find it.
+
+**One finding per bullet, one idea per sentence.** If a bullet needs "and" to hold two
+findings, it is two bullets.
+
+**Say what it means for the reader, not what the process found.** "The audit caught a source
+that didn't actually say what it was cited for" beats "load-bearing claim failed
+verification." Report the consequence in the language of the decision, not the language of
+the run that produced it.
+
+**An analogy is allowed here and nowhere else in the report.** The rest of the document is a
+formal record and stays formal. The short version exists specifically so a reader who will
+never open the working can still leave understanding the ruling, and a good analogy earns
+its place if a plain restatement alone won't land it.
+
+**Six or fewer bullets, hard cap.** If the ruling needs a seventh to be honest, something in
+the first six is carrying two ideas and should split, or something belongs in the fuller
+sections instead.
 
 ## The evidence section
 

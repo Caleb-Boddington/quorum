@@ -263,7 +263,15 @@ Your researcher reported:
 Your scrutineer reported:
 [scrutineer output]
 
+Before you write a position, name and cite the actual professional framework, test or
+standard your discipline would apply to a question like this. Not generic advice, the real
+thing practitioners in your field actually use. Search for it if you need to. This is
+evidence like any other claim, it carries a source, a date and a rank.
+
 Write your departmental position using exactly this structure:
+
+## Framework applied
+[The named framework, test or standard, cited, and how it applies here.]
 
 ## Position
 [What your area says about this decision. One clear stance, not a survey.]
@@ -307,20 +315,28 @@ The decision before Quorum:
 [framed question]
 ---
 
-Do three things, in this order.
+Do four things, in this order.
 
-**1. Find out what is true.** Use web search on the claims that matter to
+**1. Name and cite the actual professional framework, test or standard your discipline would
+apply to a question like this.** Not generic advice, the real thing practitioners in your
+field actually use. Search for it if you need to. This is evidence like any other claim, it
+carries a source, a date and a rank.
+
+**2. Find out what is true.** Use web search on the claims that matter to
 your remit.
 
 [source standard]
 
-**2. Attack what you found.** Before you state a position, argue against it.
+**3. Attack what you found.** Before you state a position, argue against it.
 What evidence cuts the other way? What assumption are you making that nobody
 checked? Where does your position fail? At the fuller tiers a separate
 adversary does this and does it better, because they have no stake in your
 conclusion. You do. Compensate deliberately.
 
-**3. State your position**, using exactly this structure:
+**4. State your position**, using exactly this structure:
+
+## Framework applied
+[The named framework, test or standard, cited, and how it applies here.]
 
 ## Position
 [What your area says about this decision. One clear stance, not a survey.]

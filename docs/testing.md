@@ -102,3 +102,43 @@ The mechanism works. **It has still never fired on an organic report.** Treat au
 **Over 99% of both runs is cache**, meaning context re-read rather than reasoning. Actual input plus output on the Full run was 201,350 tokens, roughly half a percent of the total.
 
 **Cost tracks how much context each agent carries, not how many agents run.** The tier table's agent counts are a poor proxy for cost, and the cheapest available optimisation is trimming what each agent reads rather than spawning fewer of them.
+
+## Department framework priming and the Clerk role
+
+Run on 2026-08-19, on Sonnet, the first time this skill had been run on that model family.
+
+**Question:** do two candidate additions, a free prompt instruction and a paid extra agent
+stage, earn their cost?
+
+**Method:** two Quick-tier runs, same question (a workplace ethics scenario with a genuine
+three-way department split), same three departments. Run A carried both candidates: a
+discipline-framework line requiring each department to name and cite the actual professional
+framework it applies before positioning, and an experimental Clerk role between the Speaker
+and Comptroller, rewriting the verdict for readability only. Run B carried neither. Full
+records in `runs/trial-2026-08-18-sonnet-overnight/`.
+
+**Result, framework line:** changed the Ethics department's output. Given the line, it named
+Mary Gentile's *Giving Voice to Values*, the standard teaching framework for this kind of
+case, and reached a different, better-grounded conclusion than the same department run
+without it. It did not improve audit cleanliness elsewhere, Run A actually carried one more
+Audit Office qualification than Run B. **Kept anyway**, ADR-0013, because it costs nothing,
+zero new agents, and the one win it produced was real.
+
+**Result, Clerk role:** the rewrite matched the Speaker's original almost exactly in
+substance, but silently stripped bold emphasis from the verdict's single most load-bearing
+sentence, something outside its brief. The Comptroller's own ruling: it did not earn its
+cost. **Rejected**, ADR-0014.
+
+**Bonus finding, orchestrator error rather than skill defect:** the first Comptroller pass in
+Run A was handed a written summary of the Clerk's rewrite rather than the rewrite itself, by
+a mistake in how the run record was assembled, and correctly refused to certify that summary
+as verified fidelity. It scored the claim unverifiable instead of waving it through. The
+second pass, given the actual text, then caught the stripped-emphasis fault the first pass
+could not have found. Read together: the Comptroller behaved correctly at every step even
+though the run feeding it was flawed, which is closer to the design's intent than either
+individual pass looks alone.
+
+**Consequence:** [ADR-0013](adr/0013-name-the-discipline-framework-before-positioning.md),
+[ADR-0014](adr/0014-reject-the-clerk-role.md). Consistent with the Baseline test above: cheap
+additions to the checking or framing layers can earn their keep even on a mixed result;
+expensive additions need to show unambiguous value, and this one didn't.
