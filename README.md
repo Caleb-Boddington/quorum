@@ -24,8 +24,8 @@ Windows:
 git clone https://github.com/Caleb-Boddington/quorum.git $env:USERPROFILE\.claude\skills\quorum
 ```
 
-Then restart Claude Code. `SKILL.md` sits at the root of the repo, with `prompts.md` and
-`report.md` alongside it.
+Then restart Claude Code. `SKILL.md` sits at the root, and reads `references/prompts.md`
+and `references/report.md` as it runs.
 
 ## Usage
 

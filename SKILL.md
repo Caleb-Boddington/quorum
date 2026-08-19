@@ -113,8 +113,8 @@ That covers more than decisions. Decisions are its home ground, but contested fa
 
 R = Researcher (gathers). S = Scrutineer (attacks what the Researcher found).
 
-Full mandates and every prompt template: [prompts.md](prompts.md).
-HTML report specification: [report.md](report.md).
+Full mandates and every prompt template: [prompts.md](references/prompts.md).
+HTML report specification: [report.md](references/report.md).
 
 ## The run
 
@@ -202,7 +202,7 @@ Do this yourself. No agents. For each department write two worker tasks from the
 
 Spawn all of them in parallel. Researchers gather; Scrutineers attack. Each returns under 250 words plus a sources list.
 
-**Every prompt that gathers evidence carries the source standard** in [prompts.md](prompts.md). Its central rule is not "use reputable sites", it is **trace the claim to its origin before citing it**. A respectable newspaper carrying a statistic invented by a marketing department is a bad source for that statistic and a fine source for everything else. Testing found exactly that: a widely-repeated industry figure whose only identifiable origin was a condiment brand's advertising campaign, and callback statistics published by companies selling the service the statistics recommend.
+**Every prompt that gathers evidence carries the source standard** in [prompts.md](references/prompts.md). Its central rule is not "use reputable sites", it is **trace the claim to its origin before citing it**. A respectable newspaper carrying a statistic invented by a marketing department is a bad source for that statistic and a fine source for everything else. Testing found exactly that: a widely-repeated industry figure whose only identifiable origin was a condiment brand's advertising campaign, and callback statistics published by companies selling the service the statistics recommend.
 
 Every claim carries a date and a rank, primary, named dataset, interested party, or journalism. Every worker ends with a sources list naming what it used, what it rejected and why. That list is published in the final report, so it is written for a reader who will check it.
 
@@ -210,7 +210,7 @@ Every claim carries a date and a rank, primary, named dataset, interested party,
 
 Spawn one per department, in parallel. Each receives its own two worker outputs and nothing else, and writes a position: what its area says about the decision, what it is confident about, and **what would change its mind**.
 
-*At Quick there are no workers.* Each department researches and writes its own position in a single agent, using WebSearch directly. Use the Quick department prompt in [prompts.md](prompts.md), it carries the Scrutineer's job as a required section, so the department must attack its own position before stating it. That is weaker than a separate adversary and the output must say so.
+*At Quick there are no workers.* Each department researches and writes its own position in a single agent, using WebSearch directly. Use the Quick department prompt in [prompts.md](references/prompts.md), it carries the Scrutineer's job as a required section, so the department must attack its own position before stating it. That is weaker than a separate adversary and the output must say so.
 
 That last field is not decoration. It is what makes the verdict testable in six months instead of merely agreeable today.
 
@@ -229,13 +229,13 @@ Each returns **PASS**, **PASS WITH QUALIFICATION**, or **FAIL**, naming the spec
 
 **On FAIL:** send the report back to that department once, with the auditor's objection attached, and have it rewrite. That costs one extra agent per failure. If the rewrite fails again, the report proceeds **with the objection attached and travelling with it** to every later stage, and the objection appears in the final report. Never send a report back twice, an auditor that cannot be satisfied would burn agents indefinitely.
 
-**The Audit Office rules on accuracy and fidelity only.** It has no opinion on the decision, does not rewrite anyone's work, and does not get a vote. Independence is the whole reason it exists, see the mandate in [prompts.md](prompts.md).
+**The Audit Office rules on accuracy and fidelity only.** It has no opinion on the decision, does not rewrite anyone's work, and does not get a vote. Independence is the whole reason it exists, see the mandate in [prompts.md](references/prompts.md).
 
 ### Stage 6: Cross-check
 
 Somebody has to read the departments *against each other*. A department that has staked out a position has an interest in it surviving, so no department will report that it contradicts its neighbour. This stage is the only place that gets caught.
 
-*At Quick, one cross-checker.* It sees all three reports, named rather than anonymised, with three papers, anonymity is fiction and pretending otherwise wastes the effort. It answers only the two questions that have right answers: **where do these reports contradict each other**, and **what did all three miss**. It does not rank them. Prompt in [prompts.md](prompts.md).
+*At Quick, one cross-checker.* It sees all three reports, named rather than anonymised, with three papers, anonymity is fiction and pretending otherwise wastes the effort. It answers only the two questions that have right answers: **where do these reports contradict each other**, and **what did all three miss**. It does not rank them. Prompt in [prompts.md](references/prompts.md).
 
 *At Standard, two reviewers, anonymised.* Same two questions, plus the blind-spot question, each reviewer under a different lens.
 
@@ -291,7 +291,7 @@ Whatever it finds appears in the report under the Audit Office's own name, unedi
 
 Present the verdict in chat as markdown, in full, including the audit findings. **Name the tier that was run and what it therefore did not do**, a Quick verdict that reads like a Full one is the worst failure this design can produce.
 
-Then write the HTML report as `quorum-<short-topic>-<YYYY-MM-DD>.html`. Specification in [report.md](report.md).
+Then write the HTML report as `quorum-<short-topic>-<YYYY-MM-DD>.html`. Specification in [report.md](references/report.md).
 
 **Ask where to save it** rather than assuming a folder exists. If any `CLAUDE.md` or `AGENTS.md` found at Stage 0 states a filing convention, follow it and say which rule you followed. Otherwise ask the user once, offer the current working directory as the default, and remember the answer for the rest of the session. Give the full path in your reply.
 
@@ -306,7 +306,7 @@ Then write the HTML report as `quorum-<short-topic>-<YYYY-MM-DD>.html`. Specific
 - **No verdict without a dissent recorded.** If every branch agreed on everything, either the question was not hard enough for Quorum or something failed upstream. Say which.
 - **Say which tier ran, in the output.** Quick did not attack its own departments and did not cross-review them. Standard did not cross-review. A reader who cannot tell which checks happened will assume they all did.
 - **Assume nothing about the filesystem.** Quorum runs on other people's machines. Glob for what exists; ask where to save; never hardcode a path.
-- **Every load-bearing claim reaches the report with its source, date and audit status.** A verdict the reader cannot check is an opinion with a nice layout. The evidence table in [report.md](report.md) is not optional.
+- **Every load-bearing claim reaches the report with its source, date and audit status.** A verdict the reader cannot check is an opinion with a nice layout. The evidence table in [report.md](references/report.md) is not optional.
 - **Unverifiable is not false.** Plenty of true things cannot be checked online, and a great deal of a good decision is judgement rather than fact. The Audit Office flags what it could not verify; it does not treat that as an error. Getting this wrong turns every verdict into a wall of caveats, which is its own failure.
 
 ## Common failures
