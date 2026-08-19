@@ -15,16 +15,17 @@ Most multi-agent setups ask several models the same question and synthesise the 
 ## Install
 
 ```bash
-git clone https://github.com/Caleb-Boddington/quorum.git
-cp -r quorum/spec ~/.claude/skills/quorum
+git clone https://github.com/Caleb-Boddington/quorum.git ~/.claude/skills/quorum
 ```
 
 Windows:
 
 ```powershell
-git clone https://github.com/Caleb-Boddington/quorum.git
-Copy-Item -Recurse quorum\spec $env:USERPROFILE\.claude\skills\quorum
+git clone https://github.com/Caleb-Boddington/quorum.git $env:USERPROFILE\.claude\skills\quorum
 ```
+
+Then restart Claude Code. `SKILL.md` sits at the root of the repo, with `prompts.md` and
+`report.md` alongside it.
 
 ## Usage
 
