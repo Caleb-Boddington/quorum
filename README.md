@@ -2,10 +2,13 @@
 
 A deliberation skill for Claude Code. Puts a hard question to a small government instead of a single assistant, and verifies its own answers.
 
+![version](https://img.shields.io/badge/version-1.2.0-blueviolet)
 ![licence](https://img.shields.io/badge/licence-MIT-blue)
 ![agents](https://img.shields.io/badge/agents-8%E2%80%9338%20per%20run-orange)
 ![runs](https://img.shields.io/badge/documented%20runs-4-green)
 ![status](https://img.shields.io/badge/status-experimental-yellow)
+
+See [CHANGELOG.md](CHANGELOG.md) for what's new in each version.
 
 Most multi-agent setups ask several models the same question and synthesise the answers. Quorum adds an Audit Office that checks whether any of it is true, including a final audit of the verdict itself.
 

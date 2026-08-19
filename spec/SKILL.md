@@ -4,6 +4,7 @@ description: A four-body deliberation structure for questions where a single con
 disable-model-invocation: true
 argument-hint: [the decision you are facing]
 allowed-tools: Agent, Read, Glob, Write, WebSearch, AskUserQuestion
+version: 1.2.0
 ---
 
 # Quorum

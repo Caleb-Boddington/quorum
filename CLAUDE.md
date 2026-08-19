@@ -40,6 +40,23 @@ redact in place, or publish as-is, argued case by case, not a fixed rule).
 Trial and test runs (like `runs/trial-2026-08-18-sonnet-overnight/`) get the same treatment
 as real ones before anything is pushed, even when the questions are synthetic.
 
+## Versioning
+
+Follows major.minor.patch (Apple's convention: no 0.x, a real product starts at 1.0.0).
+Major: a structural change to the tiers or the bodies that run at every tier. Minor: a new
+capability, or a capability removed, that changes what a run actually does. Patch: a
+wording or bug fix that doesn't change behaviour.
+
+Every version bump touches three places together, never just one:
+
+- `spec/SKILL.md`'s `version:` frontmatter field, synced to `skills/research/quorum/SKILL.md`
+- `CHANGELOG.md`, patch-notes style, one entry per version, linking to the ADR behind each line
+- `README.md`'s version badge
+
+An idea that's trialled and rejected before shipping doesn't get a version bump, it goes in
+the changelog's "Tried, not shipped" list under whichever version it was tested against, see
+`docs/adr/0014-reject-the-clerk-role.md` for the pattern.
+
 ## Git
 
 Remote is `origin`, `https://github.com/Caleb-Boddington/quorum.git`, branch `main`. Commit
