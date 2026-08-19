@@ -10,6 +10,17 @@ adding anything.
 
 ---
 
+## v1.7.1
+
+**Fixed**
+
+- Prose faults against the project's own stated rules: the report specification opened with
+  three tricolons in four sentences while its own table bans rule-of-three, and the Cabinet
+  Check prompt used em dashes, which are banned outright and were inconsistent with the
+  identical definitions in `SKILL.md`.
+
+---
+
 ## v1.7.0
 
 Closing the one structural hole the project had been carrying openly.
