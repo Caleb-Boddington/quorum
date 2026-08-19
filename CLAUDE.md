@@ -1,12 +1,9 @@
 # Quorum
 
-Read this before touching anything in this project. `MEMORY.md` next to this file has the
-current state, this file has the rules that don't change often.
+Read this before touching anything in this project.
 
-**`MEMORY.md` is gitignored and stays that way.** It is session-continuity notes for Claude,
-not a deliverable, and nobody cloning this repo needs it. It was committed to the public
-repo by mistake once, on 19 August 2026, and untracked the same day. Never `git add -A`
-in this repo without reading what it staged.
+Stage files by name. Never `git add -A` here: this repo has local-only working files
+sitting next to published ones, and a broad add sweeps them in.
 
 ## What this is
 
