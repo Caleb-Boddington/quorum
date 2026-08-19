@@ -359,7 +359,7 @@ Quorum implements several standard assurance controls. They were built by reason
 | **Evidence provenance** | Every claim carries a source, a date and a rank. Every worker publishes what it used and what it rejected. Citations must record how they were obtained, read directly or reported by someone who did. | Implemented. |
 | **Documented residual risk** | The Limits section, carried into the published report, stating what is unverified, unmeasured and untested. | Implemented. |
 | **Data classification at intake** | Stage 0 step E2 asks what sensitivity the question carries before any spend. | Implemented after a real failure. |
-| **Change control** | Every defect, its cause, the fix and the date, in `NOTES.md`. Nothing is fixed silently. | Implemented. |
+| **Change control** | Every defect, its cause and the fix, in `CHANGELOG.md`. Nothing is fixed silently. | Implemented. |
 | **Segregation of duty on approval** | The user approves the run at Stage 0 and the tier and cost are stated before spend. | Implemented. |
 | **Input validation** | Filenames sanitised before path construction. Retrieved text escaped before entering the report. Retrieved text treated as data, never instruction. | Implemented in the specification. **Not enforced by code**, because there is no code: an orchestrator that ignores the rule is not stopped by anything. |
 | **Tamper-evident audit log** | None. Session transcripts are the only record and they are mutable local files. | **Absent.** |

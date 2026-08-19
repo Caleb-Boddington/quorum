@@ -86,7 +86,7 @@ Built by reasoning about failure, not from a framework, but several of the resul
 | Adversarial review | Implemented |
 | Evidence provenance | Source, date and rank on every claim |
 | Data classification at intake | Added after a real failure |
-| Change control | Every defect and fix in `NOTES.md` |
+| Change control | Every defect and fix in [CHANGELOG.md](CHANGELOG.md) |
 | Input validation | In the spec, not enforced by code |
 | Tamper-evident audit log | Absent |
 | Abort mid-run | Absent |
@@ -107,10 +107,10 @@ See [SECURITY.md](SECURITY.md).
 The runs are the primary content. A specification decays; recorded runs age into evidence.
 
 - [Quorum on Quorum](runs/2026-08-17-quorum-on-quorum.html), Full tier, 43 agents. Found four factual errors in its own spec, established that three of its claimed original ideas already exist in the literature under other names, and its Audit Office falsified an argument the Speaker invented at the final stage.
-- [claude4beginners.co.uk](runs/2026-08-17-claude4beginners-audit.html), Full tier, 38 agents. An audit of a real, live site the author wrote. Its Comptroller returned **NOT SOUND** on the verdict and corrected an error introduced during the run itself, including catching the ruling quietly dropping a dissent it claimed to have kept. Three statements on the audited site turned out to be wrong rather than stale. Published with two marked redactions, see [ADR-0012](docs/adr/0012-redact-rather-than-withhold-the-website-run.md). Raw stage records: [part 1](runs/quorum-record-claude4beginners-audit.md), [part 2](runs/quorum-record-claude4beginners-audit-part2.md).
+- [claude4beginners.co.uk](runs/2026-08-17-claude4beginners-audit.html), Full tier, 38 agents. An audit of a real, live site the author wrote. Its Comptroller returned **NOT SOUND** on the verdict and corrected an error introduced during the run itself, including catching the ruling quietly dropping a dissent it claimed to have kept. Three statements on the audited site turned out to be wrong rather than stale. Published with two marked redactions.
 - [Britain's best dish](runs/2026-08-16-fish-and-chips.html), Quick tier, 10 agents. A trivial subject run to exercise the machinery. One department killed its own best argument after tracing a widely-repeated industry statistic to a condiment brand's ad campaign.
 
-A fourth run is withheld entirely. It was on a personal decision and contains private financial information. Its findings about the tool are in `NOTES.md`; only the subject is omitted. The two decisions sit side by side deliberately: [ADR-0010](docs/adr/0010-withhold-the-personal-run.md) withholds, [ADR-0012](docs/adr/0012-redact-rather-than-withhold-the-website-run.md) redacts, and the difference between them is whether the sensitive material is the subject or two passages within it.
+A fourth run is withheld entirely: it was on a personal decision containing private financial information. Where a run's sensitive material is two passages, it is redacted in place and marked. Where the subject itself is the sensitive part, the run is not published at all.
 
 ## Background
 

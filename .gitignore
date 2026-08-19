@@ -1,1 +1,6 @@
 MEMORY.md
+CLAUDE.md
+NOTES.md
+docs/
+runs/*.md
+runs/trial-*/
